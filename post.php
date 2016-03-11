@@ -40,7 +40,7 @@ if(!isset($_SESSION['login_user']))
 			<div class="col-xs-3"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br></br>
-					<a class="buttons" href="wall.php">View Wall</a>
+					<a class="buttons" href="wall.php">View Posts</a>
 					<p class="blankButton">New Post</p>
 					<a class="buttons" href="search.php">Search</a>
 					<a class="buttons" href="logout.php">Logout</a>
@@ -57,13 +57,11 @@ if(!isset($_SESSION['login_user']))
 			<div class="col-xs-9"> <!-- Content column !-->
 				<form action="posted.php" method="POST" enctype="multipart/form-data" id="postForm">
 					<fieldset class="largeColorsec">
-						<legend>New Wall Post</legend>
+						<legend>New Anonymous Post</legend>
 
-						Picture (optional): <input type="file" name="wallPic"></input>
-						<br></br>
-						Link (optional): <input type="text" name="urlInput"></input>
+						Picture (optional): <input type="file" name="postPic"></input>
 						<span class="errorMsg" id="errorUrl"></span><br></br>
-						Comments: <br></br><textarea name="comments" rows="7" cols="100"></textarea>
+						Post: <br></br><textarea name="post1" rows="7" cols="100"></textarea>
 						<br></br><span class="errorMsg" id="errorComments"></span>
 
 						   <p>

@@ -19,7 +19,7 @@ session_start();
 $uploaded = false;
 
 //error check image upload
-$target_file = "uploads/" . basename($_FILES["wallPic"]["name"]);
+$target_file = "uploads/" . basename($_FILES["postPic"]["name"]);
 
 if($target_file == "uploads/")// if user did not upload file
 {
@@ -27,18 +27,18 @@ if($target_file == "uploads/")// if user did not upload file
 }elseif(!preg_match("/(\.jpg|gif|png|jpeg)/",$target_file)){ // if file extension is bad
 	echo "Image must be png, gif, jpg or jpeg format.</br>Redirecting..."; // output error message
 	//redirect
-	 header( "refresh:2;url=post.php");
+echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=post.php"> ';
 	exit();
 }elseif(file_exists($target_file)){
 	// if image already exists.
 	echo "Image already exists in database.</br>Redirecting...";
 		//redirect
-	 header( "refresh:2;url=post.php");
+echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=post.php"> ';
 	exit();
 	
 }else{
-	 if (move_uploaded_file($_FILES["wallPic"]["tmp_name"], $target_file)) {
-        echo basename( $_FILES["wallPic"]["name"]). " has been uploaded.";
+	 if (move_uploaded_file($_FILES["postPic"]["tmp_name"], $target_file)) {
+        echo basename( $_FILES["postPic"]["name"]). " has been uploaded.";
 		$uploaded = true;
     } else {
         echo "Error uploading image to database.";
@@ -46,23 +46,17 @@ if($target_file == "uploads/")// if user did not upload file
 }
 
 // Open database connection
-$conn = mysqli_connect("localhost", "mantta2t", "winter15", "mantta2t");
+$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 
  // if user uploaded image and link
-if($uploaded && $_POST['urlInput'] != "")
-{
-	$sql = "INSERT INTO posts (UserEmail,comments,ImageLocation,Link) VALUES ('".$_SESSION['login_user']."','".$_POST['comments']."','".$target_file."','".$_POST['urlInput']."'); ";
-}elseif(!$uploaded && $_POST['urlInput'] != ""){
-	// user uploaded link but no image
-	$sql = "INSERT INTO posts (UserEmail,comments,Link) VALUES ('".$_SESSION['login_user']."','".$_POST['comments']."','".$_POST['urlInput']."'); ";
-}elseif($uploaded && $_POST['urlInput'] == ""){
-	//user uploaded image but no link
-	$sql = "INSERT INTO posts (UserEmail,comments,ImageLocation) VALUES ('".$_SESSION['login_user']."','".$_POST['comments']."','".$target_file."'); ";
-}else{// user has not uploaded image or link
-	$sql = "INSERT INTO posts (UserEmail,comments) VALUES ('".$_SESSION['login_user']."','".$_POST['comments']."'); ";
+if($uploaded){
+	//user uploaded image
+	$sql = "INSERT INTO Post (creatorId,text,uploadedFile) VALUES ('".$_SESSION['login_user']."','".$_POST['post1']."','".$target_file."'); ";
+}else{// user has not uploaded image 
+	$sql = "INSERT INTO Post (creatorId,text) VALUES ('".$_SESSION['login_user']."','".$_POST['post1']."'); ";
 }
 
 
@@ -78,7 +72,7 @@ if (mysqli_query($conn, $sql)) {
 mysqli_close($conn);
 
 //redirect
- header( "refresh:2;url=wall.php");
+echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=wall.php"> ';
  exit();
 
 

@@ -31,13 +31,16 @@ echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
 
 
 }else{
+	// Store Session Data
+	$row = mysqli_fetch_assoc($result);
+$_SESSION['login_user']= $row['userId'];
+
 	// close database connection
 	mysqli_free_result($result);
 mysqli_close($conn);
 
 
-// Store Session Data
-$_SESSION['login_user']= $_POST['uName'];
+
 
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
