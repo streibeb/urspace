@@ -11,11 +11,11 @@
 
 <?php
 // Open database connection
-$conn = mysqli_connect("localhost", "mantta2t", "winter15", "mantta2t");
+$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
-$sql = "INSERT INTO users (Email,FirstName,LastName,Birthday,Password) VALUES ('".$_POST['eMail']
+$sql = "INSERT INTO Users (email,firstName,lastName,dateOfBirth,password) VALUES ('".$_POST['eMail']
 ."','".$_POST['fName']."','".$_POST['lName']."','".$_POST['bDay']."','".$_POST['pWord1']."');";
 
 //attempt to create new record
@@ -23,14 +23,14 @@ if (mysqli_query($conn, $sql)) {
    echo "Sign-up successful. Welcome to FakeBook!<br/>Redirecting...";
    // close database connection
 mysqli_close($conn);
- header( "refresh:3;url=index.html");
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
    
 } else { // if failed to add a new record: 
     echo "User email already exists.<br/>Redirecting...";
 	// close database connection
 mysqli_close($conn);
 
- header( "refresh:3;url=signup.html" );
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=signup.html"> ';
 
 }
 
