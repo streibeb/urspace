@@ -327,6 +327,9 @@ var latestPost = 0;
 var refreshIntervalId;
 
 
+
+
+
 //likeFunction 
 //uses ajax to update database with LIKE VOTE
 function likeFunction(event){
@@ -397,9 +400,6 @@ function dislikeFunction(event){
 }
 
 
-
-
-
 //rePostFunction function event
 //uses ajax to update database with reposts
 function rePostFunction(event){
@@ -425,7 +425,6 @@ function rePostFunction(event){
 	globalArr = [];
 	loadWall();
 }
-
 
 
 //checkBox function event
@@ -468,6 +467,8 @@ function loadWall(){
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 		
 		// combine new posts object with global posts object
+			
+		
 			var myString = xmlhttp.responseText;	
 			var myArr = JSON.parse(myString);
 			globalArr = myArr.concat(globalArr);
@@ -477,7 +478,7 @@ function loadWall(){
 			var wallPosts = "";
 			
 			//set the latest post number variable
-			latestPost = parseInt(globalArr[0]['PostNum']);
+			latestPost = parseInt(globalArr[0]['postId']);
 		
 		// determine current page to print data
 		if(getUrlVars()["page"] == undefined){
@@ -504,26 +505,24 @@ function loadWall(){
 			for(var i = (page-1) * 10; i < countTo; i++)
 			{
 				wallPosts += '<div class="wallPost">';
-				if(globalArr[i]['ImageLocation'] != null)
-				wallPosts += '<div><img src="'+globalArr[i]['ImageLocation']+'" class="wallImg" alt="img"></img></div>';
-				wallPosts += '<h2>'+globalArr[i]['FirstName']+' '+globalArr[i]['LastName']+'</h2>';
-				wallPosts += '<p class="wallText">'+globalArr[i]['Comments'];
-				if(globalArr[i]['Link'] != null)
-				wallPosts += '<br/> <a href="'+globalArr[i]['Link']+'">'+globalArr[i]['Link']+'</a>';
-				wallPosts += '</p>';
-				if(globalArr[i]['Reposts'] == -1)
-					wallPosts += '<p class="p3"> Reposted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['Reposter'];
-				else{
-					wallPosts += '<p class="p3"> Posted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['FirstName'];
-					wallPosts += ' - <button type="button" class="repostLink" id="repost'+globalArr[i]['PostNum']+'" value = "'+globalArr[i]['PostNum']+'">Repost</button> Reposted:<span id="postCounter'+globalArr[i]['PostNum']+'">'+globalArr[i]['Reposts']+'</span>';
+				if(globalArr[i]['uploadedFile'] != null)
+				wallPosts += '<div><img src="'+globalArr[i]['uploadedFile']+'" class="wallImg" alt="img"></img></div>';
+				wallPosts += '<p class="wallText">'+globalArr[i]['text'];
+                
 				
-				wallPosts += ' <button type="button" class="likeButton" value = "'+globalArr[i]['PostNum']+'"><span id="like'+globalArr[i]['PostNum']+'">Like</span></button>';
-				wallPosts += '<button type="button" class="dislikeButton" value = "'+globalArr[i]['PostNum']+'"><span id="dislike'+globalArr[i]['PostNum']+'">Dislike</span></button>';
-				wallPosts += ' Total Votes: <span id="voteCounter'+globalArr[i]['PostNum']+'">';
-				if(globalArr[i]['VoteCounter'] > 0)
-					wallPosts += '+';
-				wallPosts += globalArr[i]['VoteCounter']+'</span>';
-				}
+				// slated to remove-----------change this into comments!?////////////////////////////////
+				
+				//if(globalArr[i]['Reposts'] == -1)
+				//	wallPosts += '<p class="p3"> Reposted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['Reposter'];
+				//else{
+				//	wallPosts += '<p class="p3"> Posted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['FirstName'];
+				//	wallPosts += ' - <button type="button" class="repostLink" id="repost'+globalArr[i]['PostNum']+'" value = "'+globalArr[i]['PostNum']+'">Repost</button> Reposted:<span id="postCounter'+globalArr[i]['PostNum']+'">'+globalArr[i]['Reposts']+'</span>';
+				//wallPosts += ' <button type="button" class="likeButton" value = "'+globalArr[i]['PostNum']+'"><span id="like'+globalArr[i]['PostNum']+'">Like</span></button>';
+				//wallPosts += '<button type="button" class="dislikeButton" value = "'+globalArr[i]['PostNum']+'"><span id="dislike'+globalArr[i]['PostNum']+'">Dislike</span></button>';
+				//wallPosts += ' Total Votes: <span id="voteCounter'+globalArr[i]['PostNum']+'">';
+				////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
 				wallPosts += '</p>';
 				wallPosts += '</div>';
 			}
@@ -559,6 +558,7 @@ function loadWall(){
 			
 		}
 	}
+	
 	
 	xmlhttp.open("GET","wallupdate.php?latestPost="+latestPost,true);
 	xmlhttp.send();

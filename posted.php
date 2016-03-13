@@ -25,13 +25,13 @@ if (!$conn) {
 $uniqueId = uniqid();
 $uploaded = false;
 
-//error check image upload
+
 $tempFile = "uploads/" . basename($_FILES["postPic"]["name"]);
 $ext = pathinfo($tempFile, PATHINFO_EXTENSION);
 $target_file = "uploads/" . $uniqueId . "." . $ext;
 
-
-if($target_file == "uploads/")// if user did not upload file
+//error check image upload
+if($tempFile == "uploads/")// if user did not upload file
 {
 	// do nothing
 }elseif(!preg_match("/(\.jpg|gif|png|jpeg)/",$target_file)){ // if file extension is bad
@@ -39,13 +39,6 @@ if($target_file == "uploads/")// if user did not upload file
 	//redirect
 echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=post.php"> ';
 	exit();
-}elseif(file_exists($target_file)){
-	// if image already exists.
-	echo "Image already exists in database.</br>Redirecting...";
-		//redirect
-echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=post.php"> ';
-	exit();
-	
 }else{
 	 if (move_uploaded_file($_FILES["postPic"]["tmp_name"], $target_file)) {
         echo basename( $_FILES["postPic"]["name"]). " has been uploaded.";

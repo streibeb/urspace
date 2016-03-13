@@ -12,45 +12,39 @@ $sResp = array();
 
 
 // Open database connection
-$conn = mysqli_connect("localhost", "mantta2t", "winter15", "mantta2t");
+$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 
-//cleanup database of null entries
-$result = mysqli_query($conn, "DELETE FROM posts WHERE UserEmail='';");
+
 
 
 // perform database query
-$result = mysqli_query($conn, "SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
- posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum, posts.Reposts, posts.Reposter, posts.VoteCounter FROM users, posts
- WHERE (users.Email = posts.UserEmail) AND (PostNum > ".$_GET['latestPost'].") ORDER BY PostNum DESC;");
+$result = mysqli_query($conn, "SELECT Post.text, Post.uploadedFile, Post.postId FROM Post
+ WHERE Post.postId > ".$_GET['latestPost']." ORDER BY postId DESC;");
 
 
  
+ if($result !=  FALSE){
 // loop through converting data into json object
 while($row = mysqli_fetch_assoc($result)){
 			
 
-			
-			$sRow["FirstName"]= htmlspecialchars($row['FirstName']);
-			$sRow["LastName"]= htmlspecialchars($row['LastName']);
-			$sRow["Comments"]=bonusMarks(htmlspecialchars($row['Comments']));
-			$sRow["ImageLocation"]=$row["ImageLocation"];
-			$sRow["Link"]=$row['Link'];
-		    $sRow["CurrTime"]= $row['CurrTime'];
-			$sRow["PostNum"]= $row['PostNum'];
-			$sRow["Reposts"]= $row['Reposts'];
-			$sRow["Reposter"]= $row['Reposter'];
-			$sRow["VoteCounter"]= $row['VoteCounter'];
+			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
+			$sRow["uploadedFile"]=$row["uploadedFile"];
+			$sRow["postId"]=$row["postId"];
 			$sResp[] = $sRow;
 	
 }
 //send json object to javascript for print
+ }
 echo json_encode($sResp);
 
 	// close database connection
+	 if($result !=  FALSE)
 	mysqli_free_result($result);
+
 mysqli_close($conn);
 ?>
 
