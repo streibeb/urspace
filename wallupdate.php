@@ -21,7 +21,7 @@ if (!$conn) {
 
 
 // perform database query
-$result = mysqli_query($conn, "SELECT Post.text, Post.uploadedFile, Post.postId FROM Post
+$result = mysqli_query($conn, "SELECT Post.text, Post.uploadedFile, Post.postId, Post.timestamp FROM Post
  WHERE Post.postId > ".$_GET['latestPost']." ORDER BY postId DESC;");
 
 
@@ -34,6 +34,7 @@ while($row = mysqli_fetch_assoc($result)){
 			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
+			$sRow["timestamp"]=$row["timestamp"];
 			$sResp[] = $sRow;
 	
 }

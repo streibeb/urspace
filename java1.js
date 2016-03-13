@@ -507,7 +507,7 @@ function loadWall(){
 				wallPosts += '<div class="wallPost">';
 				if(globalArr[i]['uploadedFile'] != null)
 				wallPosts += '<div><img src="'+globalArr[i]['uploadedFile']+'" class="wallImg" alt="img"></img></div>';
-				wallPosts += '<p class="wallText">'+globalArr[i]['text'];
+				wallPosts += '<p class="wallText">'+globalArr[i]['text'] + '</p>';
                 
 				
 				// slated to remove-----------change this into comments!?////////////////////////////////
@@ -515,7 +515,7 @@ function loadWall(){
 				//if(globalArr[i]['Reposts'] == -1)
 				//	wallPosts += '<p class="p3"> Reposted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['Reposter'];
 				//else{
-				//	wallPosts += '<p class="p3"> Posted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['FirstName'];
+				wallPosts += '<p class="p3"> Posted Anonymously at '+globalArr[i]['timestamp'];
 				//	wallPosts += ' - <button type="button" class="repostLink" id="repost'+globalArr[i]['PostNum']+'" value = "'+globalArr[i]['PostNum']+'">Repost</button> Reposted:<span id="postCounter'+globalArr[i]['PostNum']+'">'+globalArr[i]['Reposts']+'</span>';
 				//wallPosts += ' <button type="button" class="likeButton" value = "'+globalArr[i]['PostNum']+'"><span id="like'+globalArr[i]['PostNum']+'">Like</span></button>';
 				//wallPosts += '<button type="button" class="dislikeButton" value = "'+globalArr[i]['PostNum']+'"><span id="dislike'+globalArr[i]['PostNum']+'">Dislike</span></button>';

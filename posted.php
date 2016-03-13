@@ -48,14 +48,15 @@ echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=post.php"> ';
     }
 }
 
+$date = date('Y/m/d H:i:s', time());
 
 
  // if user uploaded image and link
 if($uploaded){
 	//user uploaded image
-	$sql = "INSERT INTO Post (creatorId,text,uploadedFile) VALUES ('".$_SESSION['login_user']."','".$_POST['post1']."','".$target_file."'); ";
+	$sql = "INSERT INTO Post (creatorId,text,uploadedFile,timestamp) VALUES ('".$_SESSION['login_user']."','".$_POST['post1']."','".$target_file."','".$date."'); ";
 }else{// user has not uploaded image 
-	$sql = "INSERT INTO Post (creatorId,text) VALUES ('".$_SESSION['login_user']."','".$_POST['post1']."'); ";
+	$sql = "INSERT INTO Post (creatorId,text,timestamp) VALUES ('".$_SESSION['login_user']."','".$_POST['post1']."','".$date."'); ";
 }
 
 
