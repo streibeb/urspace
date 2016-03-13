@@ -108,9 +108,9 @@ function chkDate(event){
 	var errors = document.getElementById(event.currentTarget.id + "error");
 	var str = event.currentTarget.value;
 	
-	if(!/\b[0-1][0-9]-[0-3][0-9]-[1-2][0-9][0-9][0-9]\b/.test(str))
+	if(!/\b[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]\b/.test(str))
 	{
-		errors.innerHTML = "Incorrect birthdate. Please use MM-DD-YYYY format.";
+		errors.innerHTML = "Incorrect birthdate. Please use YYYY-MM-DD format.";
 	}else{
 		errors.innerHTML = "";
 	}
@@ -613,7 +613,7 @@ function chkSubmit(event){
 			errorStr += "Please enter a valid last name \n"
 			errors = true;
 		}
-		if(!/\b[0-1][0-9]-[0-3][0-9]-[1-2][0-9][0-9][0-9]\b/.test(bday))
+		if(!/\b[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]\b/.test(bday))
 		{
 			errorStr += "Please enter a valid birthday \n"
 			errors = true;

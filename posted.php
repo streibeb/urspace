@@ -16,10 +16,20 @@ session_start();
 <body class="infoPage">
 
 <?php
+// Open database connection
+$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
+
+$uniqueId = uniqid();
 $uploaded = false;
 
 //error check image upload
-$target_file = "uploads/" . basename($_FILES["postPic"]["name"]);
+$tempFile = "uploads/" . basename($_FILES["postPic"]["name"]);
+$ext = pathinfo($tempFile, PATHINFO_EXTENSION);
+$target_file = "uploads/" . $uniqueId . "." . $ext;
+
 
 if($target_file == "uploads/")// if user did not upload file
 {
@@ -45,11 +55,7 @@ echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=post.php"> ';
     }
 }
 
-// Open database connection
-$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
-if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-}
+
 
  // if user uploaded image and link
 if($uploaded){
@@ -62,14 +68,21 @@ if($uploaded){
 
 //upload post to database
 if (mysqli_query($conn, $sql)) {
+	
    echo "<br/>Post successful!<br/>Redirecting...";
 
 } else { // if failed to add a new record: 
     echo "<br/>Post failed<br/>Redirecting...";
 }
 
+
+
+
+
 	// close database connection
 mysqli_close($conn);
+
+
 
 //redirect
 echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=wall.php"> ';

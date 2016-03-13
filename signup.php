@@ -15,8 +15,10 @@ $conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
+
+
 $sql = "INSERT INTO Users (email,firstName,lastName,dateOfBirth,password) VALUES ('".$_POST['eMail']
-."','".$_POST['fName']."','".$_POST['lName']."','".$_POST['bDay']."','".$_POST['pWord1']."');";
+."','".$_POST['fName']."','".$_POST['lName']."','".$_POST['bDay']." 00:00:01','".$_POST['pWord1']."');";
 
 //attempt to create new record
 if (mysqli_query($conn, $sql)) {
