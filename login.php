@@ -1,7 +1,9 @@
 <?php
 session_start();
+include_once("config.php");
+
 // Open database connection
-$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
@@ -15,7 +17,7 @@ if (mysqli_num_rows($result)<=0)
 {
 	//display error and close database
 echo	'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet" type="text/css" href="mystyle.css"></link>
@@ -43,7 +45,7 @@ mysqli_close($conn);
 
 
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet" type="text/css" href="mystyle.css"></link>
@@ -59,6 +61,3 @@ echo '   <META HTTP-EQUIV="Refresh" Content="3; URL=wall.php"> ';
 exit();
 }
 ?>
-
-
-
