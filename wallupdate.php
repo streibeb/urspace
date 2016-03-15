@@ -21,9 +21,13 @@ if (!$conn) {
 
 
 // perform database query
-$result = mysqli_query($conn, "SELECT Post.text, Post.uploadedFile, Post.postId, Post.timestamp FROM Post
- WHERE Post.postId > ".$_GET['latestPost']." ORDER BY postId DESC;");
-
+$result = mysqli_query($conn, "SELECT Post.*,
+  (SELECT COUNT(commentID)
+  FROM Comment
+  WHERE parentPostId = postId) as 'numOfComments'
+FROM Post
+WHERE Post.postId > ".$_GET['latestPost']."
+ORDER BY postId DESC;");
 
 
  if($result !=  FALSE){
@@ -35,6 +39,7 @@ while($row = mysqli_fetch_assoc($result)){
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
 			$sRow["timestamp"]=$row["timestamp"];
+			$sRow["numOfComments"]=$row["numOfComments"];
 			$sResp[] = $sRow;
 
 }

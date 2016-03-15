@@ -329,80 +329,11 @@ var refreshIntervalId;
 
 
 
-
-//likeFunction 
-//uses ajax to update database with LIKE VOTE
-function likeFunction(event){
+//commentFunction function event
+function commentFunction(event){
 	
-	var postNum = event.currentTarget.value
-	
-		if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){	
-
-			
-			var myJson = JSON.parse(xmlhttp.responseText);
-			
-			document.getElementById("like"+postNum).innerHTML = myJson;
-			
-		}
-	}
-	xmlhttp.open("GET","vote.php?postNum="+postNum+"&vote=Like",true);
-	xmlhttp.send();
 
 	
-	//reset wall update values so new vote values can be updated even on autoupdate disable
-	setTimeout(function(){
-  	latestPost = 0;
-	globalArr = [];
-	loadWall();
-}, 2000); 
-
-}
-
-//dislikeFunction 
-//uses ajax to update database with DISLIKE VOTE
-function dislikeFunction(event){
-	
-		var postNum = event.currentTarget.value
-	
-		if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){	
-						var myJson = JSON.parse(xmlhttp.responseText);
-			
-			            document.getElementById("dislike"+postNum).innerHTML = myJson;
-		}
-	}
-	xmlhttp.open("GET","vote.php?postNum="+postNum+"&vote=Dislike",true);
-	xmlhttp.send();
-	
-	
-	//reset wall update values so new vote values can be updated even on autoupdate disable
-	setTimeout(function(){
-  	latestPost = 0;
-	globalArr = [];
-	loadWall();
-}, 2000); 
-
-}
-
-
-//rePostFunction function event
-//uses ajax to update database with reposts
-function rePostFunction(event){
 	var postNum = event.currentTarget.value
 	
 		if (window.XMLHttpRequest) {
@@ -417,7 +348,7 @@ function rePostFunction(event){
 			
 		}
 	}
-	xmlhttp.open("GET","repost.php?PostNum="+postNum,true);
+	xmlhttp.open("GET","comment.php?PostNum="+postNum,true);
 	xmlhttp.send();
 	
 	//reset wall update values so new repost values can be updated even on autoupdate disable
@@ -516,7 +447,10 @@ function loadWall(){
 				//	wallPosts += '<p class="p3"> Reposted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['Reposter'];
 				//else{
 				wallPosts += '<p class="p3"> Posted Anonymously at '+globalArr[i]['timestamp'];
-				//	wallPosts += ' - <button type="button" class="repostLink" id="repost'+globalArr[i]['PostNum']+'" value = "'+globalArr[i]['PostNum']+'">Repost</button> Reposted:<span id="postCounter'+globalArr[i]['PostNum']+'">'+globalArr[i]['Reposts']+'</span>';
+				wallPosts += ' - <a href="comment.php?id='+globalArr[i]['postId']+'"><span id="commentCounter'+globalArr[i]['postId']+'">'+globalArr[i]['numOfComments']+'</span> Comment';
+				if(globalArr[i]['numOfComments'] != 1)
+					wallPosts += 's';
+				wallPosts += '</a>';
 				//wallPosts += ' <button type="button" class="likeButton" value = "'+globalArr[i]['PostNum']+'"><span id="like'+globalArr[i]['PostNum']+'">Like</span></button>';
 				//wallPosts += '<button type="button" class="dislikeButton" value = "'+globalArr[i]['PostNum']+'"><span id="dislike'+globalArr[i]['PostNum']+'">Dislike</span></button>';
 				//wallPosts += ' Total Votes: <span id="voteCounter'+globalArr[i]['PostNum']+'">';
@@ -541,20 +475,8 @@ function loadWall(){
 			//print page links
 			document.getElementById("linksArea").innerHTML = links;
 			
-			//set event listeners
-			var rePosts = document.querySelectorAll('button.repostLink'); 
-			for (var j = 0; j < rePosts.length; j++) {
-			rePosts[j].addEventListener('click', rePostFunction , false); 
-			}
-			var likeButtons = document.querySelectorAll('button.likeButton'); 
-			for (var j = 0; j < likeButtons.length; j++) {
-			likeButtons[j].addEventListener('click', likeFunction , false); 
-			}
-			var dislikeButtons = document.querySelectorAll('button.dislikeButton'); 
-			for (var j = 0; j < dislikeButtons.length; j++) {
-			dislikeButtons[j].addEventListener('click', dislikeFunction , false); 
-			}
-			
+		
+	
 			
 		}
 	}
