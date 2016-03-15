@@ -1,6 +1,6 @@
 
 <?php
-
+include_once("config.php");
 // include function to add hashtags
 include 'bonus.php';
 include_once("config.php");
@@ -25,18 +25,18 @@ $result = mysqli_query($conn, "SELECT Post.text, Post.uploadedFile, Post.postId,
  WHERE Post.postId > ".$_GET['latestPost']." ORDER BY postId DESC;");
 
 
- 
+
  if($result !=  FALSE){
 // loop through converting data into json object
 while($row = mysqli_fetch_assoc($result)){
-			
+
 
 			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
 			$sRow["timestamp"]=$row["timestamp"];
 			$sResp[] = $sRow;
-	
+
 }
 //send json object to javascript for print
  }
@@ -48,5 +48,3 @@ echo json_encode($sResp);
 
 mysqli_close($conn);
 ?>
-
-

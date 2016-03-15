@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 
 <head>
@@ -27,8 +27,8 @@ if (mysqli_query($conn, $sql)) {
    // close database connection
 mysqli_close($conn);
 echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
-   
-} else { // if failed to add a new record: 
+
+} else { // if failed to add a new record:
     echo "User email already exists.<br/>Redirecting...";
 	// close database connection
 mysqli_close($conn);

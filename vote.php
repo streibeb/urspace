@@ -1,11 +1,12 @@
 <?php
 //start session
 session_start();
+include_once("config.php");
 
 $sResp = array();
 
 // Open database connection
-$conn = mysqli_connect("localhost", "mantta2t", "winter15", "mantta2t");
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
@@ -23,10 +24,10 @@ $row = mysqli_fetch_assoc($result);
 //if user has not previously voted
 if(mysqli_num_rows($result) == 0)
 {
-	// add database entry for his vote 
+	// add database entry for his vote
 	mysqli_query($conn, "INSERT INTO votes VALUES (".$_GET['postNum'].",'".$_SESSION['login_user']."','".$_GET['vote']."');");
 
-	
+
 	// change total votes
 	if($_GET['vote'] == "Like"){
 	$totalVotes++;
@@ -35,10 +36,10 @@ if(mysqli_num_rows($result) == 0)
 	$totalVotes--;
 	$sResp = "Disliked!";
 	}
-	
-	
+
+
 	mysqli_query($conn, "UPDATE posts SET VoteCounter = ".$totalVotes." WHERE PostNum = ".$_GET['postNum'].";");
-	
+
 }elseif($row['Vote'] == "Like" && $_GET['vote'] == "Like") // user is pressing like again
 {
 	//delete vote in votes database
@@ -82,4 +83,3 @@ mysqli_close($conn);
 
 
 ?>
-
