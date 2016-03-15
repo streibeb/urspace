@@ -3,7 +3,7 @@
 
 // include function to add hashtags
 include 'bonus.php';
-
+include_once("config.php");
 
 
 //create json variable
@@ -12,7 +12,7 @@ $sResp = array();
 
 
 // Open database connection
-$conn = mysqli_connect("localhost", "streibeb_cs372rw", "urspace1", "streibeb_cs372");
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
