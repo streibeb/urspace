@@ -447,7 +447,7 @@ function loadWall(){
 				//	wallPosts += '<p class="p3"> Reposted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['Reposter'];
 				//else{
 				wallPosts += '<p class="p3"> Posted Anonymously at '+globalArr[i]['timestamp'];
-				wallPosts += ' - <a href="comment.php?id='+globalArr[i]['postId']+'"><span id="commentCounter'+globalArr[i]['postId']+'">'+globalArr[i]['numOfComments']+'</span> Comment';
+				wallPosts += ' - <a href="comment.php?a='+globalArr[i]['postId']+'"><span id="commentCounter'+globalArr[i]['postId']+'">'+globalArr[i]['numOfComments']+'</span> Comment';
 				if(globalArr[i]['numOfComments'] != 1)
 					wallPosts += 's';
 				wallPosts += '</a>';

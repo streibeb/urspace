@@ -23,7 +23,7 @@ include 'bonus.php';
 <link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 <script type = "text/javascript"  src = "java1.js" >
 </script>
-<title>Search</title>
+<title>Comment</title>
 </head>
 
 
@@ -51,22 +51,50 @@ include 'bonus.php';
 
 </div>
 
+<div class="largeSec">
+<?php
+// Open database connection
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
 
-<form action="search.php" method="GET" id="userSearchForm">
-<fieldset class="largeColorsec">
-<legend>User Name Search</legend>
-<input type="text" name="search1" id="search1"></input>
-<span class="errorMsg" id="search1error"></span>
-<p>
-<input type="submit" value="Submit"/>
-<input type="reset" value="Reset"/>
-</p>
-</fieldset>
-</form>
+$query = 'SELECT Post.* FROM Post WHERE Post.postId ='.$_GET["a"].';';
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
 
+
+
+echo '<button onclick="history.go(-1);">Go Back </button>';
+echo '<br></br>';
+
+echo '<div class="wallPost">';
+if($row['uploadedFile'] != null){
+	echo'<div><img src="';
+	echo $row['uploadedFile'];
+	echo '" class="wallImg" alt="img"></img></div>';
+}
+echo '<p class="wallText">';
+echo $row['text'];
+echo '<p class="p3"> Posted Anonymously at ';
+echo $row['timestamp'];
+echo '</p>';
+echo '</div>';
+
+
+
+	// close database connection
+	mysqli_free_result($result);
+mysqli_close($conn);
+
+
+
+
+
+?>
 <form action="search.php" method="GET" id="textSearchForm">
 <fieldset class="largeColorsec">
-<legend>Text Search</legend>
+<legend>Post a comment</legend>
 <textarea name="search2" id="search2" rows="3" cols="50"></textarea><br></br>
 <span class="errorMsg" id="search2error"></span>
 <p>
@@ -75,117 +103,6 @@ include 'bonus.php';
 </p>
 </fieldset>
 </form>
-<div class="largeSec">
-<?php
-
-// if user has inputted any search
-if(isset($_GET['search1']) || isset($_GET['search2']))
-{
-// determine current page to print data
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
-$start_from = ($page-1) * 10;
-
-
-// Open database connection
-$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
-if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-}
-
-//cleanup database of null entries
-$result = mysqli_query($conn, "DELETE FROM posts WHERE UserEmail='';");
-
-if(isset($_GET['search1'])){ // if user has inputted user search
-// perform database query
-$result = mysqli_query($conn, "SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum, posts.Reposts, posts.Reposter, posts.VoteCounter FROM users, posts
-WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE
-'%".$_GET['search1']."%' OR users.LastName LIKE '%".$_GET['search1']."%') ORDER BY PostNum DESC LIMIT ".$start_from.",10;");
-
-// get total number of posts in database
-$rs_result = mysqli_query($conn,"SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum FROM users, posts
-WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE
-'%".$_GET['search1']."%' OR users.LastName LIKE '%".$_GET['search1']."%') ORDER BY PostNum DESC;");
-$num_rows = mysqli_num_rows($rs_result);
-$total_pages = ceil($num_rows / 10);
-
-}elseif(isset($_GET['search2'])){ // if user has inputted text search
-// perform database query
-$result = mysqli_query($conn, "SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum, posts.Reposts, posts.Reposter, posts.VoteCounter FROM users, posts
-WHERE users.Email = posts.UserEmail AND (Comments LIKE '%".$_GET['search2']."%') ORDER BY PostNum DESC LIMIT ".$start_from.",10;");
-
-// get total number of posts in database
-$rs_result = mysqli_query($conn,"SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum FROM users, posts
-WHERE users.Email = posts.UserEmail AND (Comments LIKE '%".$_GET['search2']."%') ORDER BY PostNum DESC;");
-$num_rows = mysqli_num_rows($rs_result);
-$total_pages = ceil($num_rows / 10);
-}
-}
-
-
-
-if(isset($result))
-{
-// loop through printing out the full posts
-while($row = mysqli_fetch_assoc($result)){
-
-	if($row['Reposts'] != -1){ // only display original content, not reposts
-echo '<div class="wallPost">';
-if($row['ImageLocation'] != NULL)
-echo '<div><img src="'.$row['ImageLocation'].'" class="wallImg" alt="img"></img></div>';
-echo '<h2>'.$row['FirstName'].' '.htmlspecialchars($row['LastName']).'</h2>';
-echo '<p class="wallText">'.bonusMarks(htmlspecialchars($row['Comments']));
-if($row['Link'] != NULL)
-echo '<br/> <a href="'.$row['Link'].'">'.htmlspecialchars($row['Link']).'</a>';
-echo '</p>';
-echo '<p class="p3"> Posted '.$row['CurrTime'].' by '.htmlspecialchars($row['FirstName']);
-echo ' - <button type="button" class="repostLink" id="repost'.$row['PostNum'].'" value = "'.$row['PostNum'].'">Repost</button> Reposted:<span id="postCounter'.$row['PostNum'].'">'.$row['Reposts'].'</span>';
-echo ' <button type="button" class="likeButton" value = "'.$row['PostNum'].'"><span id="like'.$row['PostNum'].'">Like</span></button>';
-echo '<button type="button" class="dislikeButton" value = "'.$row['PostNum'].'"><span id="dislike'.$row['PostNum'].'">Dislike</span></button>';
-echo ' Total Votes: <span id="voteCounter'.$row['PostNum'].'">';
-				if($row['VoteCounter'] > 0)
-					echo '+';
-echo $row['VoteCounter'].'</span>';
-echo '</p>';
-echo '</div>';
-	}
-}
-
-// CALL JS FUNCTION TO ADD EVENT LISTENTERS TO NEWLY CREATED POSTS
-echo '<script type="text/javascript">searchEventListeners(); </script>';
-
-
-
-echo "<p> Jump to page: ";
-// create links to pages of posts if user is on search1
-if(isset($_GET['search1']))
-{
-for ($i=1; $i<=$total_pages; $i++) {
-	echo "<a href='search.php?page=".$i."&search1=".$_GET['search1']."'>".$i."</a> ";
-}
-}
-
-// create links to pages of posts if user is on search2
-if(isset($_GET['search2']))
-{
-for ($i=1; $i<=$total_pages; $i++) {
-	echo "<a href='search.php?page=".$i."&search2=".$_GET['search2']."'>".$i."</a> ";
-}
-}
-echo "</p>";
-
-	// close database connection
-	mysqli_free_result($result);
-mysqli_close($conn);
-
-
-
-}
-
-?>
 </div>
 <div class="footer">
 <p class="p2">2015 Department of Computer Science CS 215</p>
