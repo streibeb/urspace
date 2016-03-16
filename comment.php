@@ -83,6 +83,23 @@ echo '</div>';
 
 
 
+$query = 'SELECT Comment.* FROM Comment WHERE Comment.parentPostId ='.$_GET["a"].';';
+$result = mysqli_query($conn, $query);
+while($row = mysqli_fetch_assoc($result))
+{
+	echo '<div class="postComment">';
+	echo '<p class="wallText">';
+	echo $row['text'];
+	echo '<p class="p3"> Posted Anonymously at ';
+	echo $row['timestamp'];
+	echo '</p>';
+	echo '</div>';
+	
+}
+
+
+
+
 	// close database connection
 	mysqli_free_result($result);
 mysqli_close($conn);
@@ -92,12 +109,17 @@ mysqli_close($conn);
 
 
 ?>
-<form action="search.php" method="GET" id="commentForm">
+<form action="commented.php" method="POST" id="commentForm">
 <fieldset class="largeColorsec">
 <legend>Post a comment</legend>
 <textarea name="comment1" id="comment1" rows="3" cols="50"></textarea><br></br>
 <span class="errorMsg" id="comment1Error"></span>
 <p>
+<?php
+echo '<input type="hidden" name="thePostId" value="';
+echo $_GET["a"];
+echo '">';
+?>
 <input type="submit" value="Submit"/>
 <input type="reset" value="Reset"/>
 </p>
