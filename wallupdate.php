@@ -17,7 +17,8 @@ if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 
-
+//cleanup database of null entries
+$result = mysqli_query($conn, "DELETE FROM Post WHERE text='' AND uploadedFile='';");
 
 
 // perform database query

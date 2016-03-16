@@ -12,7 +12,6 @@ function getUrlVars() {
 
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //index page
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -139,6 +138,30 @@ function chkPass2(event){
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//comment page
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//chkComment function event
+//called on change event, updates html depending
+// if user inputted valid comment or not
+function chkComment(event){
+	
+	
+	var errors = document.getElementById(event.currentTarget.id + "error");
+	var str = event.currentTarget.value;
+	
+	if(str.length > 500 || str == "")
+	{
+		
+		comment1Error.innerHTML = "Invalid comment. Please input text (maximum 500 characters).";
+	}else{
+		
+		comment1Error.innerHTML = "";
+	}
+	
+	
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //search page
@@ -164,95 +187,6 @@ function searchEventListeners(){
 	}
 
 	
-	//searchlikeFunction 
-//uses ajax to update database with LIKE VOTE
-function searchlikeFunction(event){
-	
-	var postNum = event.currentTarget.value
-	
-		if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){	
-			var myJson = JSON.parse(xmlhttp.responseText);
-			
-			document.getElementById("like"+postNum).innerHTML = myJson;
-		}
-	}
-	xmlhttp.open("GET","vote.php?postNum="+postNum+"&vote=Like",true);
-	xmlhttp.send();
-
-	
-	//reset wall update values so new vote values can be updated even on autoupdate disable
-	setTimeout(function(){
-  	location.reload(); 
-}, 2000); 
-
-}
-
-//searchdislikeFunction 
-//uses ajax to update database with DISLIKE VOTE
-function searchdislikeFunction(event){
-	
-		var postNum = event.currentTarget.value
-	
-		if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){	
-			var myJson = JSON.parse(xmlhttp.responseText);
-			
-			document.getElementById("dislike"+postNum).innerHTML = myJson;
-		}
-	}
-	xmlhttp.open("GET","vote.php?postNum="+postNum+"&vote=Dislike",true);
-	xmlhttp.send();
-	
-	
-	//reset wall update values so new vote values can be updated even on autoupdate disable
-	setTimeout(function(){
-location.reload(); 
-}, 2000); 
-
-}
-	
-	//rePostSearch function event
-//called on when user clicks reposts button on search page
-// similar to wall page and calls the same PHP
-function rePostSearch(event){
-	
-		var postNum = event.currentTarget.value
-	
-		if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){	
-			innerHTML = xmlhttp.responseText;
-			
-						var myJson = JSON.parse(xmlhttp.responseText);
-			
-			document.getElementById("postCounter"+postNum).innerHTML = myJson;
-		}
-	}
-	xmlhttp.open("GET","repost.php?PostNum="+postNum,true);
-	xmlhttp.send();
-}
-
 	
 //chkSearch function event
 //called on change event, updates html depending
@@ -277,38 +211,18 @@ function chkSearch(event){
 //post page
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//chkUrl function event
-//called on change event, updates html depending
-// if user inputted valid optional url or not
-function chkUrl(event){
-	
-	var errorUrl = document.getElementById("errorUrl");
-	var urlstr = urlNode.value;
-	
-	if(!/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(urlstr) && urlstr != "")
-	{
-		
-		errorUrl.innerHTML = "Invalid URL format (http://www.example.com)";
-	}else{
-		
-		errorUrl.innerHTML = "";
-	}
-}
-
-
 //chkComments function event
 //called on change event, updates html depending
 // if user inputted valid comments or not
-function chkComments(event){
-	
+function chkPost(event){
+
 	var errorComments = document.getElementById("errorComments");
 	var commentstr = commentsNode.value;
 	
 	if(commentstr.length > 500 || commentstr == "")
 	{
 		
-		errorComments.innerHTML = "Invalid comments. Please input text (maximum 500 characters).";
+		errorComments.innerHTML = "Invalid post. Please input text (maximum 500 characters).";
 	}else{
 		
 		errorComments.innerHTML = "";
@@ -496,6 +410,7 @@ function loadWall(){
 function chkSubmit(event){
 	var errorStr = ""
 	var errors = false;
+	
 
 	// index page submit actions
 	if(event.currentTarget.id == "indexForm")
@@ -560,17 +475,24 @@ function chkSubmit(event){
 	//post form submit actions
 	if(event.currentTarget.id == "postForm")
 	{
-		var urlstr = urlNode.value;
+		
 		var commentstr = commentsNode.value;
 
-		if(!/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(urlstr) && urlstr != "")
-		{
-			errorStr += "Please enter a valid URL \n"
-			errors = true;
-		}
+		
 		if(commentstr.length > 500 || commentstr == "")
 		{
-			errorStr += "Please enter valid comments \n"
+			errorStr += "Please enter a valid post \n"
+			errors = true;
+		}
+	}
+		//comment form submit actions
+	if(event.currentTarget.id == "commentForm")
+	{
+		var commentstr = textComment.value;
+
+		if(commentstr.length > 500 || commentstr == "")
+		{
+			errorStr += "Please enter a valid comment \n"
 			errors = true;
 		}
 	}

@@ -92,11 +92,11 @@ mysqli_close($conn);
 
 
 ?>
-<form action="search.php" method="GET" id="textSearchForm">
+<form action="search.php" method="GET" id="commentForm">
 <fieldset class="largeColorsec">
 <legend>Post a comment</legend>
-<textarea name="search2" id="search2" rows="3" cols="50"></textarea><br></br>
-<span class="errorMsg" id="search2error"></span>
+<textarea name="comment1" id="comment1" rows="3" cols="50"></textarea><br></br>
+<span class="errorMsg" id="comment1Error"></span>
 <p>
 <input type="submit" value="Submit"/>
 <input type="reset" value="Reset"/>
@@ -108,7 +108,8 @@ mysqli_close($conn);
 <p class="p2">2015 Department of Computer Science CS 215</p>
 </div>
 
-<script type = "text/javascript"  src = "search1.js" >
-	</script>
+
 </body>
+<script type = "text/javascript"  src = "comment.js" >
+	</script>
 </html>
