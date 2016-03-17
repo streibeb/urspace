@@ -39,7 +39,7 @@ if(!isset($_SESSION['login_user']))
 		</div>
 
 		<div class="row"> <!-- Content row!-->
-			<div class="col-xs-3"> <!--Sidebar column !-->
+			<div class="col-xs-2"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br></br>
 					<p class="blankButton">View Posts</p>
@@ -56,13 +56,14 @@ if(!isset($_SESSION['login_user']))
 				</div>
 			</div>
 
-			<div class="col-xs-9"> <!-- content column !-->
+			<div class="col-xs-10"> <!-- content column !-->
 				<div class="largeSec">
 					<div class="wallOptions">
 						Disable automatic updating: 	<input type="checkbox" id="dynamicUpdate"></input>
 					</div>
-				<div id="wallArea"></div>
-				<div id="linksArea"></div>
+					<div id="wallArea"></div>
+					<div id="linksArea" class="pageSelect"></div>
+				</div>
 			</div>
 		</div>
 
