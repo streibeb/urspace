@@ -11,6 +11,7 @@ padding-top: 13px;
 margin-bottom: -15px;
 color:#3b5998;
 }
+
 .header{
 background-color: 	#3b5998;
 margin-top: -20px;
@@ -57,12 +58,7 @@ display: block;
 
 
 .standardSec{
-padding: 20px;
-
 	background-color:#dfe3ee;
-	margin-left: 30%;
-	margin-top: 5%;
-	margin-right:20%;
 }
 .largeSec{
 	margin-left: 15%;
@@ -123,18 +119,13 @@ color:white;
 }
 
 .sideBar{
-
-margin-top: -2.7%;
-width:12.5%;
-	float:left;
-	height:1100px;
-background-color:#8b9dc3;
+	background-color:#8b9dc3;
 }
 
 .ad{
 vertical-align:
 middle;
-width:120px;
+width: 80%;
 height:140px;
 padding-left: 14px;
 padding-top: 14px;
@@ -238,14 +229,6 @@ margin-top:-20px;
 padding-bottom:10px;
 }
 
-.reportButton {
-
-}
-
-.reportButtonPressed {
-
-}
-
 /* removes the default margins with the h1 element. */
 .header2 h1 {
 	margin-top: 0px;
@@ -260,4 +243,21 @@ NOTE: keep these colors the same as the color of the box*/
 	padding-left: 25px;
 	background-color: #dfe3ee;
 	border: 1px solid #dfe3ee;
+}
+
+/*removing the default margins with the h1 element. */
+.header h1 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/*form legend has weird formating that causes margin issues. this is the cleanest
+method of cleaning this up so that things don't extend out of the box.
+
+NOTE: keep these colors the same as the color of the box*/
+.signupSection {
+	background-color: #dfe3ee;
+	border: 1px solid #dfe3ee;
+	margin-top: 51px;
+	padding-left: 10px;
 }
