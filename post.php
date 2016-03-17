@@ -37,7 +37,7 @@ if(!isset($_SESSION['login_user']))
 		</div>
 
 		<div class="row"> <!-- Content row!-->
-			<div class="col-xs-3"> <!--Sidebar column !-->
+			<div class="col-xs-2"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br></br>
 					<a class="buttons" href="wall.php">View Posts</a>
@@ -54,22 +54,24 @@ if(!isset($_SESSION['login_user']))
 				</div>
 			</div>
 
-			<div class="col-xs-9"> <!-- Content column !-->
-				<form action="posted.php" method="POST" enctype="multipart/form-data" id="postForm">
-					<fieldset class="largeColorsec">
-						<legend>New Anonymous Post</legend>
+			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
+				<div class="signupSection">
+					<form action="posted.php" method="POST" enctype="multipart/form-data" id="postForm">
+						<fieldset class="largeColorsec">
+							<legend>New Anonymous Post</legend>
 
-						Picture (optional): <input type="file" name="postPic"></input>
-						<span class="errorMsg" id="errorUrl"></span><br></br>
-						Post: <br></br><textarea name="post1" rows="7" cols="100"></textarea>
-						<br></br><span class="errorMsg" id="errorComments"></span>
+							Picture (optional): <input type="file" name="postPic"></input>
+							<span class="errorMsg" id="errorUrl"></span><br></br>
+							Post: <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+							<br></br><span class="errorMsg" id="errorComments"></span>
 
-						   <p>
-						  <input type="submit" value="Submit"/>
-						  <input type="reset" value="Reset"/>
-						  </p>
-					</fieldset>
-				</form>
+							   <p>
+							  <input type="submit" value="Submit"/>
+							  <input type="reset" value="Reset"/>
+							  </p>
+						</fieldset>
+					</form>
+				</div>
 			</div>
 		</div>
 
