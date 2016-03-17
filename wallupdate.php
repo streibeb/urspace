@@ -1,6 +1,5 @@
 
 <?php
-include_once("config.php");
 // include function to add hashtags
 include 'bonus.php';
 include_once("config.php");
