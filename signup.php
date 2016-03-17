@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 
 <head>
@@ -10,27 +10,30 @@
 <body class="infoPage">
 
 <?php
+include_once("config.php");
 // Open database connection
-$conn = mysqli_connect("localhost", "mantta2t", "winter15", "mantta2t");
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
-$sql = "INSERT INTO users (Email,FirstName,LastName,Birthday,Password) VALUES ('".$_POST['eMail']
-."','".$_POST['fName']."','".$_POST['lName']."','".$_POST['bDay']."','".$_POST['pWord1']."');";
+
+
+$sql = "INSERT INTO Users (email,firstName,lastName,dateOfBirth,password) VALUES ('".$_POST['eMail']
+."','".$_POST['fName']."','".$_POST['lName']."','".$_POST['bDay']." 00:00:01','".$_POST['pWord1']."');";
 
 //attempt to create new record
 if (mysqli_query($conn, $sql)) {
-   echo "Sign-up successful. Welcome to FakeBook!<br/>Redirecting...";
+   echo "Sign-up successful. Welcome to URspace!<br/>Redirecting...";
    // close database connection
 mysqli_close($conn);
- header( "refresh:3;url=index.html");
-   
-} else { // if failed to add a new record: 
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
+
+} else { // if failed to add a new record:
     echo "User email already exists.<br/>Redirecting...";
 	// close database connection
 mysqli_close($conn);
 
- header( "refresh:3;url=signup.html" );
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=signup.html"> ';
 
 }
 

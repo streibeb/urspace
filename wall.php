@@ -42,7 +42,7 @@ if(!isset($_SESSION['login_user']))
 			<div class="col-xs-3"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br></br>
-					<p class="blankButton">View Wall</p>
+					<p class="blankButton">View Posts</p>
 					<a class="buttons" href="post.php">New Post</a>
 					<a class="buttons" href="search.php">Search</a>
 					<a class="buttons" href="logout.php">Logout</a>

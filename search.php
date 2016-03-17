@@ -1,11 +1,12 @@
 <?php
+include_once("config.php");
 //start session
 session_start();
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
 	header('Location: index.html');
-	
+
 }
 // include function to add hashtags
 include 'bonus.php';
@@ -14,7 +15,7 @@ include 'bonus.php';
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 
 <head>
@@ -65,9 +66,9 @@ include 'bonus.php';
 
 <form action="search.php" method="GET" id="textSearchForm">
 <fieldset class="largeColorsec">
-<legend>Text Search</legend> 
+<legend>Text Search</legend>
 <textarea name="search2" id="search2" rows="3" cols="50"></textarea><br></br>
-<span class="errorMsg" id="search2error"></span> 
+<span class="errorMsg" id="search2error"></span>
 <p>
 <input type="submit" value="Submit"/>
 <input type="reset" value="Reset"/>
@@ -81,12 +82,12 @@ include 'bonus.php';
 if(isset($_GET['search1']) || isset($_GET['search2']))
 {
 // determine current page to print data
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
-$start_from = ($page-1) * 10; 
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
+$start_from = ($page-1) * 10;
 
 
 // Open database connection
-$conn = mysqli_connect("localhost", "mantta2t", "winter15", "mantta2t");
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
@@ -98,16 +99,16 @@ if(isset($_GET['search1'])){ // if user has inputted user search
 // perform database query
 $result = mysqli_query($conn, "SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
 posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum, posts.Reposts, posts.Reposter, posts.VoteCounter FROM users, posts
-WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE 
+WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE
 '%".$_GET['search1']."%' OR users.LastName LIKE '%".$_GET['search1']."%') ORDER BY PostNum DESC LIMIT ".$start_from.",10;");
 
 // get total number of posts in database
 $rs_result = mysqli_query($conn,"SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
 posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum FROM users, posts
-WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE 
+WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE
 '%".$_GET['search1']."%' OR users.LastName LIKE '%".$_GET['search1']."%') ORDER BY PostNum DESC;");
 $num_rows = mysqli_num_rows($rs_result);
-$total_pages = ceil($num_rows / 10); 
+$total_pages = ceil($num_rows / 10);
 
 }elseif(isset($_GET['search2'])){ // if user has inputted text search
 // perform database query
@@ -120,7 +121,7 @@ $rs_result = mysqli_query($conn,"SELECT users.FirstName, users.LastName,users.Em
 posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum FROM users, posts
 WHERE users.Email = posts.UserEmail AND (Comments LIKE '%".$_GET['search2']."%') ORDER BY PostNum DESC;");
 $num_rows = mysqli_num_rows($rs_result);
-$total_pages = ceil($num_rows / 10); 
+$total_pages = ceil($num_rows / 10);
 }
 }
 
@@ -130,7 +131,7 @@ if(isset($result))
 {
 // loop through printing out the full posts
 while($row = mysqli_fetch_assoc($result)){
-	
+
 	if($row['Reposts'] != -1){ // only display original content, not reposts
 echo '<div class="wallPost">';
 if($row['ImageLocation'] != NULL)
@@ -163,7 +164,7 @@ echo "<p> Jump to page: ";
 if(isset($_GET['search1']))
 {
 for ($i=1; $i<=$total_pages; $i++) {
-	echo "<a href='search.php?page=".$i."&search1=".$_GET['search1']."'>".$i."</a> "; 
+	echo "<a href='search.php?page=".$i."&search1=".$_GET['search1']."'>".$i."</a> ";
 }
 }
 
@@ -171,7 +172,7 @@ for ($i=1; $i<=$total_pages; $i++) {
 if(isset($_GET['search2']))
 {
 for ($i=1; $i<=$total_pages; $i++) {
-	echo "<a href='search.php?page=".$i."&search2=".$_GET['search2']."'>".$i."</a> "; 
+	echo "<a href='search.php?page=".$i."&search2=".$_GET['search2']."'>".$i."</a> ";
 }
 }
 echo "</p>";

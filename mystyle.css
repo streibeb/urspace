@@ -14,7 +14,7 @@ color:#3b5998;
 .header{
 background-color: 	#3b5998;
 margin-top: -20px;
-  
+
 }
 .header2{
 background-color: 	#3b5998;
@@ -95,14 +95,21 @@ padding:15px;
 margin-bottom:10px;
 }
 
+.postComment{
+background-color:#dfe3ee;
+padding:15px;
+margin-bottom:10px;
+margin-left:150px;
+}
+
 .placeHolder{
-vertical-align: 
+vertical-align:
 middle;
 width:100px;
 height:100px;
 	margin:10px;
 	margin-left:25px;
-	
+
 
 }
 
@@ -133,7 +140,7 @@ width: 1200px ;
 }
 
 .ad{
-vertical-align: 
+vertical-align:
 middle;
 width:120px;
 height:140px;
@@ -152,7 +159,7 @@ border-color: #3b5998;
 text-align:center;
 margin:10px;
 display: block;
-  
+
 }
 
 .buttons:visited{
@@ -165,7 +172,7 @@ border-color: #3b5998;
 text-align:center;
 margin:10px;
 display: block;
-  
+
 }
 
 .buttons:hover{
@@ -174,11 +181,11 @@ color:white;
 background-color:#3b5998;
 border-style:solid;
 border-width:2px;
-border-color: white; 
+border-color: white;
 text-align:center;
 margin:10px;
 display: block;
-  
+
 }
 
 
@@ -190,7 +197,7 @@ background-color:#3b5998;
 text-align:center;
 margin:10px;
 display: block;
-  
+
 }
 
 .frontSection{
@@ -202,7 +209,7 @@ color:red;
 size: 75%;
 }
 
-.repostLink{
+.commentLink{
 font-size:80%;
 background-color:#3b5998;
 color:white;
@@ -245,4 +252,13 @@ text-decoration:none;
 .wallOptions{
 margin-top:-20px;
 padding-bottom:10px;
+}
+
+
+.reportButton {
+
+}
+
+.reportButtonPressed {
+
 }
