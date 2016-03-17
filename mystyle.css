@@ -62,10 +62,6 @@ text-decoration:none;
 
 .largeColorsec{
 	background-color:#dfe3ee;
-	margin-left: 15%;
-	margin-top: 1%;
-	margin-right:2%;
-	padding-top:20px;
 }
 
 .searchResults{
@@ -250,4 +246,9 @@ NOTE: keep these colors the same as the color of the box*/
 	border: 1px solid #dfe3ee;
 	margin-top: 51px;
 	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.textBox {
+	width: 100%;
 }
