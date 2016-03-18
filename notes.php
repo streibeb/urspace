@@ -4,7 +4,7 @@ session_start();
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
-	header('Location: index.html');
+	header('Location: login.html');
 
 }
 // include function to add hashtags
@@ -29,7 +29,7 @@ include 'bonus.php';
 <body class="allPages">
 	<div class="header">
 		<h1>
-			<a href="index.html" class="homeLink">
+			<a href="index.php" class="homeLink">
 				<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
 			</a>
 		</h1>
@@ -37,7 +37,7 @@ include 'bonus.php';
 
 	<div class="sideBar">
 		<br></br>
-		<a class="buttons" href="wall.php">View Wall</a>
+		<a class="buttons" href="index.php">View Posts</a>
 		<a class="buttons" href="post.php">New Post</a>
 		<p class="blankButton">Search</p>
 		<a class="buttons" href="logout.php">Logout</a>

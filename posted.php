@@ -80,7 +80,7 @@ mysqli_close($conn);
 
 
 //redirect
-echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=wall.php"> ';
+echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=index.php"> ';
  exit();
 
 

@@ -28,7 +28,7 @@ Invalid username and/or password.<br/>Redirecting...
 </body>
 </html>';
 mysqli_close($conn);
-echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=login.html"> ';
 
 
 }else{
@@ -56,7 +56,7 @@ Login Successful.<br/>Redirecting...
 </body>
 </html>';
 // redirect
-echo '   <META HTTP-EQUIV="Refresh" Content="3; URL=wall.php"> ';
+echo '   <META HTTP-EQUIV="Refresh" Content="3; URL=index.php"> ';
 exit();
 }
 ?>

@@ -26,7 +26,7 @@ if (mysqli_query($conn, $sql)) {
    echo "Sign-up successful. Welcome to URspace!<br/>Redirecting...";
    // close database connection
 mysqli_close($conn);
-echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=login.html"> ';
 
 } else { // if failed to add a new record:
     echo "User email already exists.<br/>Redirecting...";

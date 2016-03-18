@@ -4,7 +4,7 @@ session_start();
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
-	header('Location: index.html');
+	header('Location: login.html');
 	
 }
 
@@ -28,7 +28,7 @@ if(!isset($_SESSION['login_user']))
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.html" class="homeLink">
+						<a href="index.php" class="homeLink">
 							<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
 						</a>
 					</h1>

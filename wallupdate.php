@@ -2,8 +2,7 @@
 <?php
 include_once("config.php");
 // include function to add hashtags
-include 'bonus.php';
-include_once("config.php");
+
 
 
 //create json variable
@@ -36,7 +35,7 @@ ORDER BY postId DESC;");
 while($row = mysqli_fetch_assoc($result)){
 
 
-			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
+			$sRow["text"]=htmlspecialchars($row['text']);
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
 			$sRow["timestamp"]=$row["timestamp"];
