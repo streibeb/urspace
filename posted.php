@@ -25,12 +25,12 @@ session_start();
 
 	$uniqueId = uniqid();
 	$uploaded = false;
-	$tempFile = USER_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
+	$tempFile = USER_IMAGE_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
 	$ext = pathinfo($tempFile, PATHINFO_EXTENSION);
-	$target_file = USER_UPLOAD_DIRECTORY . $uniqueId . "." . $ext;
+	$target_file = USER_IMAGE_UPLOAD_DIRECTORY . $uniqueId . "." . $ext;
 
 	//error check image upload
-	if($tempFile == USER_UPLOAD_DIRECTORY)// if user did not upload file
+	if($tempFile == USER_IMAGE_UPLOAD_DIRECTORY)// if user did not upload file
 	{
 		// do nothing
 	}elseif(!preg_match("/(\.jpg|gif|png|jpeg)/",$target_file)){ // if file extension is bad
