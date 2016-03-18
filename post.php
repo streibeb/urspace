@@ -5,13 +5,13 @@ session_start();
 if(!isset($_SESSION['login_user']))
 {
 	header('Location: index.html');
-	
+
 }
 
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 
 <head>
@@ -64,10 +64,10 @@ if(!isset($_SESSION['login_user']))
 						Post: <br></br><textarea name="post1" rows="7" cols="100"></textarea>
 						<br></br><span class="errorMsg" id="errorComments"></span>
 
-						   <p>
-						  <input type="submit" value="Submit"/>
-						  <input type="reset" value="Reset"/>
-						  </p>
+						<p>
+							<input type="submit" value="Submit"/>
+							<input type="reset" value="Reset"/>
+						</p>
 					</fieldset>
 				</form>
 			</div>
