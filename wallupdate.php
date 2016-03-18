@@ -1,6 +1,5 @@
 
 <?php
-include_once("config.php");
 // include function to add hashtags
 
 
@@ -22,34 +21,35 @@ $result = mysqli_query($conn, "DELETE FROM Post WHERE text='' AND uploadedFile='
 
 // perform database query
 $result = mysqli_query($conn, "SELECT Post.*,
-  (SELECT COUNT(commentID)
-  FROM Comment
-  WHERE parentPostId = postId) as 'numOfComments'
-FROM Post
-WHERE Post.postId > ".$_GET['latestPost']."
-ORDER BY postId DESC;");
+	(SELECT COUNT(commentID)
+	FROM Comment
+	WHERE parentPostId = postId) as 'numOfComments'
+	FROM Post
+	WHERE Post.postId > ".$_GET['latestPost']."
+	ORDER BY postId DESC;");
 
 
- if($result !=  FALSE){
-// loop through converting data into json object
-while($row = mysqli_fetch_assoc($result)){
-
-
+<<<<<<< HEAD
 			$sRow["text"]=htmlspecialchars($row['text']);
+=======
+	if($result !=  FALSE){
+		// loop through converting data into json object
+		while($row = mysqli_fetch_assoc($result)){
+			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
+>>>>>>> origin/master
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
 			$sRow["timestamp"]=$row["timestamp"];
 			$sRow["numOfComments"]=$row["numOfComments"];
 			$sResp[] = $sRow;
-
-}
-//send json object to javascript for print
- }
-echo json_encode($sResp);
+		}
+		//send json object to javascript for print
+	}
+	echo json_encode($sResp);
 
 	// close database connection
-	 if($result !=  FALSE)
+	if($result !=  FALSE)
 	mysqli_free_result($result);
 
-mysqli_close($conn);
-?>
+	mysqli_close($conn);
+	?>

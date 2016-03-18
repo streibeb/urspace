@@ -2,234 +2,234 @@
 
 h1{
 
-font-size:300%;
+  font-size:300%;
 }
 
 h2{
-font-size:120%;
-padding-top: 13px;
-margin-bottom: -15px;
-color:#3b5998;
+  font-size:120%;
+  padding-top: 13px;
+  margin-bottom: -15px;
+  color:#3b5998;
 }
 .header{
-background-color: 	#3b5998;
-margin-top: -20px;
-  
+  background-color: 	#3b5998;
+  margin-top: -20px;
+
 }
 .header2{
-background-color: 	#3b5998;
-margin-top: -20px;
+  background-color: 	#3b5998;
+  margin-top: -20px;
   margin-bottom:-4%;
 }
 
 .footer{
- clear: both;
- background-color: 	#3b5998;
-text-align:center;
+  clear: both;
+  background-color: 	#3b5998;
+  text-align:center;
 }
 
 .p2{
-font-size:60%;
-color:white;
+  font-size:60%;
+  color:white;
 
 }
 .p3{
-font-size:80%;
+  font-size:80%;
 }
 .wallText{
-font-size: 110%;
+  font-size: 110%;
 }
 
 
 .smallLink:visited{
-font-size:80%;
-color:#3b5998;
-text-decoration:none;
+  font-size:80%;
+  color:#3b5998;
+  text-decoration:none;
 }
 
 .wallImg{
 
-height:350px;
-display: block;
-    margin-left: auto;
-    margin-right: auto;
-	padding-top:5px;
+  height:350px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top:5px;
 }
 
 
 
 .standardSec{
-padding: 20px;
+  padding: 20px;
 
-	background-color:#dfe3ee;
-	margin-left: 30%;
-	margin-top: 5%;
-	margin-right:20%;
+  background-color:#dfe3ee;
+  margin-left: 30%;
+  margin-top: 5%;
+  margin-right:20%;
 }
 .largeSec{
-	margin-left: 15%;
-	margin-top: 1%;
-	margin-right:2%;
+  margin-left: 15%;
+  margin-top: 1%;
+  margin-right:2%;
 }
 .largeColorsec{
-	background-color:#dfe3ee;
-	margin-left: 15%;
-	margin-top: 1%;
-	margin-right:2%;
-	padding-top:20px;
+  background-color:#dfe3ee;
+  margin-left: 15%;
+  margin-top: 1%;
+  margin-right:2%;
+  padding-top:20px;
 }
 
 .searchResults{
-text-align:center;
+  text-align:center;
 }
 
 .largeSec2{
-background-color:#dfe3ee;
-	margin-left: 15%;
-	margin-top: 1%;
-	margin-right:2%;
+  background-color:#dfe3ee;
+  margin-left: 15%;
+  margin-top: 1%;
+  margin-right:2%;
 }
 .wallPost{
-background-color:#dfe3ee;
-padding:15px;
-margin-bottom:10px;
+  background-color:#dfe3ee;
+  padding:15px;
+  margin-bottom:10px;
 }
 
 .postComment{
-background-color:#dfe3ee;
-padding:15px;
-margin-bottom:10px;
-margin-left:150px;
+  background-color:#dfe3ee;
+  padding:15px;
+  margin-bottom:10px;
+  margin-left:150px;
 }
 
 .placeHolder{
-vertical-align: 
-middle;
-width:100px;
-height:100px;
-	margin:10px;
-	margin-left:25px;
-	
+  vertical-align:
+  middle;
+  width:100px;
+  height:100px;
+  margin:10px;
+  margin-left:25px;
+
 
 }
 
 .homeLink{
-text-decoration:none;
-color:white;
+  text-decoration:none;
+  color:white;
 
 }
 .homeLink:visited{
-text-decoration:none;
-color:white;
+  text-decoration:none;
+  color:white;
 
 }
 
 .sideBar{
 
-margin-top: -2.7%;
-width:12.5%;
-	float:left;
-	height:1100px;
-background-color:#8b9dc3;
+  margin-top: -2.7%;
+  width:12.5%;
+  float:left;
+  height:1100px;
+  background-color:#8b9dc3;
 }
 
 .allPages{
-width: 1200px ;
+  width: 1200px ;
   margin-right: auto ;
 
 }
 
 .ad{
-vertical-align: 
-middle;
-width:120px;
-height:140px;
-padding-left: 14px;
-padding-top: 14px;
+  vertical-align:
+  middle;
+  width:120px;
+  height:140px;
+  padding-left: 14px;
+  padding-top: 14px;
 
 }
 
 .buttons{
-text-decoration:none;
-color:#3b5998;
-background-color:#dfe3ee;
-border-style:solid;
-border-width:2px;
-border-color: #3b5998;
-text-align:center;
-margin:10px;
-display: block;
-  
+  text-decoration:none;
+  color:#3b5998;
+  background-color:#dfe3ee;
+  border-style:solid;
+  border-width:2px;
+  border-color: #3b5998;
+  text-align:center;
+  margin:10px;
+  display: block;
+
 }
 
 .buttons:visited{
-text-decoration:none;
-color:#3b5998;
-background-color:#dfe3ee;
-border-style:solid;
-border-width:2px;
-border-color: #3b5998;
-text-align:center;
-margin:10px;
-display: block;
-  
+  text-decoration:none;
+  color:#3b5998;
+  background-color:#dfe3ee;
+  border-style:solid;
+  border-width:2px;
+  border-color: #3b5998;
+  text-align:center;
+  margin:10px;
+  display: block;
+
 }
 
 .buttons:hover{
-text-decoration:none;
-color:white;
-background-color:#3b5998;
-border-style:solid;
-border-width:2px;
-border-color: white; 
-text-align:center;
-margin:10px;
-display: block;
-  
+  text-decoration:none;
+  color:white;
+  background-color:#3b5998;
+  border-style:solid;
+  border-width:2px;
+  border-color: white;
+  text-align:center;
+  margin:10px;
+  display: block;
+
 }
 
 
 .blankButton{
-text-decoration:none;
-color:white;
-background-color:#3b5998;
+  text-decoration:none;
+  color:white;
+  background-color:#3b5998;
 
-text-align:center;
-margin:10px;
-display: block;
-  
+  text-align:center;
+  margin:10px;
+  display: block;
+
 }
 
 .frontSection{
-	background-color:#dfe3ee;
+  background-color:#dfe3ee;
 }
 
 .errorMsg{
-color:red;
-size: 75%;
+  color:red;
+  size: 75%;
 }
 
 .commentLink{
-font-size:80%;
-background-color:#3b5998;
-color:white;
-text-decoration:none;
+  font-size:80%;
+  background-color:#3b5998;
+  color:white;
+  text-decoration:none;
 
 }
 
 .likeButton{
-font-size:80%;
-background-color:#3b5998;
-color:white;
-text-decoration:none;
+  font-size:80%;
+  background-color:#3b5998;
+  color:white;
+  text-decoration:none;
 
 }
 
 .dislikeButton{
-font-size:80%;
-background-color:#3b5998;
-color:white;
-text-decoration:none;
+  font-size:80%;
+  background-color:#3b5998;
+  color:white;
+  text-decoration:none;
 
 }
 
@@ -250,6 +250,15 @@ text-decoration:none;
 }
 
 .wallOptions{
-margin-top:-20px;
-padding-bottom:10px;
+  margin-top:-20px;
+  padding-bottom:10px;
+}
+
+
+.reportButton {
+
+}
+
+.reportButtonPressed {
+
 }
