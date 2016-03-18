@@ -64,10 +64,10 @@ if(!isset($_SESSION['login_user']))
 						Post: <br></br><textarea name="post1" rows="7" cols="100"></textarea>
 						<br></br><span class="errorMsg" id="errorComments"></span>
 
-						<p>
-							<input type="submit" value="Submit"/>
-							<input type="reset" value="Reset"/>
-						</p>
+						   <p>
+						  <input type="submit" value="Submit"/>
+						  <input type="reset" value="Reset"/>
+						  </p>
 					</fieldset>
 				</form>
 			</div>
