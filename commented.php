@@ -10,57 +10,65 @@ session_start();
 
 <head>
 
-	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
-	<title>Commented</title>
+<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
+<title>Commented</title>
 </head>
 <body class="infoPage">
 
-	<?php
-	// This script will submit a comment to the database and redirect back to the post.
+<?php
+// This script will submit a comment to the database and redirect back to the post.
 
 
-	//Variables passed into this script that need to be used
-	//$_POST["comment1"]
-	//$_POST["thePostId"]
-	//$_SESSION['login_user']
+//Variables passed into this script that need to be used
+//$_POST["comment1"]
+//$_POST["thePostId"]
+//$_SESSION['login_user']
 
 
 
 
 
-	include_once("config.php");
-	// Open database connection
-	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
+include_once("config.php");
+// Open database connection
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
 
-	$pid = $_POST["thePostId"];
-	$uid = $_SESSION['login_user'];
-	$date = date('Y/m/d H:i:s', time());
-	$content = htmlspecialchars(addslashes(trim($_POST["comment1"])));
 
-	$sql = "INSERT INTO Comment (parentPostId, timestamp, creatorId, text)
-	VALUES ('$pid','$date','$uid,'$content');";
+$date = date('Y/m/d H:i:s', time());
 
-	//upload comment to database
-	if (mysqli_query($conn, $sql)) {
-		echo "<br/>Comment successful!<br/>Redirecting...";
-	} else { // if failed to add a new record:
-		echo "<br/>Comment failed<br/>Redirecting...";
-	}
+
+
+$sql = "INSERT INTO Comment (parentPostId,timestamp,creatorId,text) VALUES ('".$_POST["thePostId"]."','".$date."','".$_SESSION['login_user']."','".$_POST["comment1"]."');";
+
+
+
+//upload comment to database
+if (mysqli_query($conn, $sql)) {
+
+   echo "<br/>Comment successful!<br/>Redirecting...";
+
+} else { // if failed to add a new record:
+    echo "<br/>Comment failed<br/>Redirecting...";
+}
 
 	// close database connection
-	mysqli_close($conn);
+mysqli_close($conn);
 
 
-	//redirect
-	echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=comment.php?a=';
-	echo $pid;
-	echo '">';
+//redirect
+echo ' <META HTTP-EQUIV="Refresh" Content="2; URL=comment.php?a=';
+echo $_POST["thePostId"];
+echo '">';
 
 
-	exit();
-	?>
+ exit();
+
+
+?>
+
+
+
 </body>
 </html>
