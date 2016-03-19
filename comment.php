@@ -23,13 +23,13 @@ if (isset($_GET["a"])) {
 	$query = "SELECT Post.*,
 	(SELECT 1 FROM ReportedPosts
 		WHERE ReportedPosts.userId = '$uid' AND Post.postId = ReportedPosts.postId) AS 'userReported'
-	FROM Post
+	FROM Posts
 	WHERE Post.postId = '$pid';";
 	$posts = mysqli_query($conn, $query);
 
 // Get comments
 	$query = "SELECT Comment.*
-	FROM Comment
+	FROM Comments
 	WHERE Comment.parentPostId = '$pid';";
 	$comments = mysqli_query($conn, $query);
 

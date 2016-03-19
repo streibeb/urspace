@@ -355,7 +355,7 @@ function loadWall(){
 				wallPosts += '<p class="wallText">'+globalArr[i]['text'] + '</p>';
 
 
-				// slated to remove-----------change this into comments!?////////////////////////////////
+				// slated to remove-----------change this into comment!?////////////////////////////////
 
 				//if(globalArr[i]['Reposts'] == -1)
 				//	wallPosts += '<p class="p3"> Reposted '+globalArr[i]['CurrTime']+' by '+globalArr[i]['Reposter'];

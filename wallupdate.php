@@ -17,15 +17,15 @@ if (!$conn) {
 }
 
 //cleanup database of null entries
-$result = mysqli_query($conn, "DELETE FROM Post WHERE text='' AND uploadedFile='';");
+$result = mysqli_query($conn, "DELETE FROM Posts WHERE text='' AND uploadedFile='';");
 
 
 // perform database query
 $result = mysqli_query($conn, "SELECT Post.*,
   (SELECT COUNT(commentID)
-  FROM Comment
+  FROM Comments
   WHERE parentPostId = postId) as 'numOfComments'
-FROM Post
+FROM Posts
 WHERE Post.postId > ".$_GET['latestPost']."
 ORDER BY postId DESC;");
 

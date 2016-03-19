@@ -11,7 +11,7 @@ if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 // get the total votes
-$result = mysqli_query($conn, "SELECT VoteCounter FROM posts WHERE PostNum =".$_GET['postNum'].";");
+$result = mysqli_query($conn, "SELECT VoteCounter FROM Postss WHERE PostNum =".$_GET['postNum'].";");
 $row = mysqli_fetch_assoc($result);
 $totalVotes = $row['VoteCounter'];
 

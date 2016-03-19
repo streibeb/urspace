@@ -112,7 +112,7 @@ include 'bonus.php';
 			}
 
 //cleanup database of null entries
-			$result = mysqli_query($conn, "DELETE FROM posts WHERE UserEmail='';");
+			$result = mysqli_query($conn, "DELETE FROM Postss WHERE UserEmail='';");
 
 if(isset($_GET['search1'])){ // if user has inputted user search
 // perform database query

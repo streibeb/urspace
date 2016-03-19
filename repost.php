@@ -18,13 +18,13 @@ $row = mysqli_fetch_assoc($result);
 $reposterName = $row['FirstName']." ".$row['LastName'];
 
 //get SQL data from original post that is being reposted
-$result = mysqli_query($conn, "SELECT * from posts WHERE PostNum =".$_GET['PostNum'].";");
+$result = mysqli_query($conn, "SELECT * FROM Postss WHERE PostNum =".$_GET['PostNum'].";");
 $row = mysqli_fetch_assoc($result);
 
 
 
 //check to make sure this user has not already reposted this
-$result2 = mysqli_query($conn, "SELECT Reposter, OriginPost FROM posts;");
+$result2 = mysqli_query($conn, "SELECT Reposter, OriginPost FROM Postss;");
 $continue = true;
 while($row2 = mysqli_fetch_assoc($result2))
 {
@@ -44,13 +44,13 @@ if($row['UserEmail'] != $_SESSION['login_user']){
 
 //copy relevent data into new post string setting reposts value to -1
 if(isset($row['ImageLocation']) && isset($row['Link']))
-$sql = "INSERT INTO posts (UserEmail,comments,ImageLocation,Link,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."','".$row['ImageLocation']."','".$row['Link']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
+$sql = "INSERT INTO Postss (UserEmail,comments,ImageLocation,Link,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."','".$row['ImageLocation']."','".$row['Link']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
 elseif(isset($row['ImageLocation']) && !isset($row['Link']))
-$sql = "INSERT INTO posts (UserEmail,comments,ImageLocation,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."','".$row['ImageLocation']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
+$sql = "INSERT INTO Postss (UserEmail,comments,ImageLocation,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."','".$row['ImageLocation']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
 elseif(!isset($row['ImageLocation']) && isset($row['Link']))
-$sql = "INSERT INTO posts (UserEmail,comments,Link,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."','".$row['Link']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
+$sql = "INSERT INTO Postss (UserEmail,comments,Link,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."','".$row['Link']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
 else
-$sql = "INSERT INTO posts (UserEmail,comments,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
+$sql = "INSERT INTO Postss (UserEmail,comments,Reposts,Reposter,OriginPost) VALUES ('".$row['UserEmail']."','".$row['Comments']."',-1,'".$reposterName."','".$_GET['PostNum']."'); ";
 
 //upload new repost
 mysqli_query($conn, $sql);

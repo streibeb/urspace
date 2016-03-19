@@ -40,7 +40,7 @@ $date = date('Y/m/d H:i:s', time());
 
 
 
-$sql = "INSERT INTO Comment (parentPostId,timestamp,creatorId,text) VALUES ('".$_POST["thePostId"]."','".$date."','".$_SESSION['login_user']."','".$_POST["comment1"]."');";
+$sql = "INSERT INTO Comments (parentPostId,timestamp,creatorId,text) VALUES ('".$_POST["thePostId"]."','".$date."','".$_SESSION['login_user']."','".$_POST["comment1"]."');";
 
 
 
