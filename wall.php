@@ -1,6 +1,7 @@
 <?php
 //start session
 session_start();
+
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
@@ -19,11 +20,12 @@ if(!isset($_SESSION['login_user']))
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
 	<script type = "text/javascript"  src = "java1.js" ></script>
-	<title>Wall Post</title>
+	
+<title>Public Wall</title>
 </head>
 
 <body class="allPages">
-	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->
+	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->	
 		<div class="row"> <!-- Header row !-->
 			<div class="col-xs-12">
 				<div class="header">
@@ -40,8 +42,8 @@ if(!isset($_SESSION['login_user']))
 			<div class="col-xs-2"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br></br>
-					<a class="buttons" href="wall.php">View Posts</a>
-					<p class="blankButton">New Post</p>
+					<p class="blankButton">View Posts</p>
+					<a class="buttons" href="post.php">New Post</a>
 					<a class="buttons" href="search.php">Search</a>
 					<a class="buttons" href="logout.php">Logout</a>
 					<br></br>
@@ -50,31 +52,22 @@ if(!isset($_SESSION['login_user']))
 					<img src="advertisment3.jpg" class="ad" alt="ad3"></img>
 					<img src="advertisment4.jpg" class="ad" alt="ad4"></img>
 					<img src="advertisment5.jpg" class="ad" alt="ad5"></img>
+
 				</div>
 			</div>
 
-			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
-				<div class="signupSection">
-					<form action="posted.php" method="POST" enctype="multipart/form-data" id="postForm">
-						<fieldset class="largeColorsec">
-							<legend>New Anonymous Post</legend>
-
-							Picture (optional): <input type="file" name="postPic"></input>
-							<span class="errorMsg" id="errorUrl"></span><br></br>
-							Post: <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br></br><span class="errorMsg" id="errorComments"></span>
-
-							   <p>
-							  <input type="submit" value="Submit"/>
-							  <input type="reset" value="Reset"/>
-							  </p>
-						</fieldset>
-					</form>
+			<div class="col-xs-10"> <!-- content column !-->
+				<div class="largeSec">
+					<div class="wallOptions">
+						Disable automatic updating: 	<input type="checkbox" id="dynamicUpdate"></input>
+					</div>
+					<div id="wallArea"></div>
+					<div id="linksArea" class="pageSelect"></div>
 				</div>
 			</div>
 		</div>
 
-		<div class="row"> <!-- footer row !-->
+		<div class="row">
 			<div class="col-xs-12">
 				<div class="footer">
 					<p class="p2">2015 Department of Computer Science CS 215</p>
@@ -83,6 +76,6 @@ if(!isset($_SESSION['login_user']))
 		</div>
 	</div>
 
-	<script type = "text/javascript"  src = "post1.js" ></script>
+	<script type = "text/javascript"  src = "wall1.js" ></script>
 </body>
 </html>
