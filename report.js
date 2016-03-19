@@ -1,11 +1,3 @@
-//var buttons = document.getElementsByTagName("button");
-//
-//for(var i = 0; i < buttons.length; i++) {
-//    if (buttons[i].id.substr(0, 7) == "report_") {
-//        buttons[i].addEventListener("mouseup", ReportPost, false);
-//    }
-//}
-
 function GetRequestObject() {
     var xhr = null;
 
