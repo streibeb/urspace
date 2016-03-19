@@ -4,18 +4,81 @@ session_start();
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
-	header('Location: login.html');
+	header('Location: index.html');
 
 }
 // include function to add hashtags
-include 'bonus.php';
 
 ?>
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
+<script type="text/javascript">
+	function update(toOptionSelected,fromSelector, toSelector) {
+		
+		var parent;
+
+		/*********************************************************/
+		if (fromSelector == "instructor"){
+			parent = document.getElementById("courseName");
+			while (parent.firstChild) {
+				parent.removeChild(parent.firstChild);
+			}
+			parent = document.getElementById("courseNumber");
+			while (parent.firstChild) {
+				parent.removeChild(parent.firstChild);
+			}
+		}
+
+		/*********************************************************/
+
+		parent = document.getElementById(toSelector);
+
+		while (parent.firstChild) {
+			parent.removeChild(parent.firstChild);
+		}
+
+		if (optionSelected = ""){
+			return;
+		}else{
+			
+			if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+
+
+    xmlhttp.onreadystatechange = function() {
+    	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+               //handle response here
+               var response = xmlhttp.responseText;
+               var valueMappedArray = JSON.parse(response);
+               //alert (valueMappedArray.length);
+               var i;
+               var option = document.createElement("option");
+               option.value ="";
+               option.text="";
+               parent.add(option);
+               for (i = 0; i < valueMappedArray.length; i++){
+
+               	option = document.createElement("option");
+               	option.value = valueMappedArray[i].result;
+               	option.text = valueMappedArray[i].result;
+               	parent.add(option);
+               }
+
+           }
+       }
+       xmlhttp.open("GET","populatenoteslist.php?optionSelected="+ toOptionSelected.value + "&from=" + fromSelector + "&to=" + toSelector,true);
+	   xmlhttp.send();
+}
+
+</script>
 
 <head>
 
@@ -29,7 +92,7 @@ include 'bonus.php';
 <body class="allPages">
 	<div class="header">
 		<h1>
-			<a href="index.php" class="homeLink">
+			<a href="index.html" class="homeLink">
 				<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
 			</a>
 		</h1>
@@ -37,7 +100,7 @@ include 'bonus.php';
 
 	<div class="sideBar">
 		<br></br>
-		<a class="buttons" href="index.php">View Posts</a>
+		<a class="buttons" href="wall.php">View Wall</a>
 		<a class="buttons" href="post.php">New Post</a>
 		<p class="blankButton">Search</p>
 		<a class="buttons" href="logout.php">Logout</a>
@@ -50,161 +113,93 @@ include 'bonus.php';
 
 	</div>
 
+	<?php
+	include_once("config.php");
 
-	<form action="search.php" method="GET" id="userSearchForm">
+	//Open database connection
+	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+	if (!$conn) {
+		die("Connection failed: " . mysqli_connect_error());
+	}
+
+	//search for instructor name
+	$result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Course;");
+
+	?>
+
+
+	<form action="notes.php" method="GET" id="userSearchForm">
 		<fieldset class="largeColorsec">
 			<legend>Course Notes Search</legend>
-			<class id=courseSelector>
+			<class id="courseSelector">
 
 				<div id="selectorOptions">
-					Please select a subject:
-					<select id=subjectSelection name=subjectSelection>
-						<option value="Computer Science">Computer Science</option>
-						<option value="Math">Math</option>
-						<option value="Physics">Physics</option>
-						<option value="Female Gender Studies">Female Gender Studies</option>
+					Please select an instructor name:
+					<select id="instructor" name="instructor" onchange="update(this,'instructor','courseName')">
+						<!--> populate with instructor name -->
+						<option value=""></option>
+						<?php
+						while($row = mysqli_fetch_assoc($result)){
+							echo '<option value='.$row['instructor'].'>'.$row['instructor'].'</option>';
+						}
+						?>
 					</select>
-				</div>
+				</div>				
 
 				<div id="selectorOptions">
-					Please select a course:
-					<select id=courseSelection name=courseSelection>
-						<option value="MATH110">MATH110</option>
-						<option value="CS310">CS310</option>
-						<option value="ARTS200">ARTS200</option>
-						<option value="CS110">CS110</option>
-					</select>
-				</div>
-
-				<div id="selectorOptions">
-					Please select a professor:
-					<select id=courseSelection name=courseSelection>
-						<option value="Sameria">Dr.Sameria</option>
-						<option value="Gerhard">Dr.Gerhard</option>
-						<option value="Hamilton">Dr.Hamilton</option>
-						<option value="Hilderman">Dr.Hilderman</option>
+					Please select a course name:
+					<select id="courseName" name="courseName" onchange="update(this,'courseName','courseNumber')" >
 					</select>
 				</div>
 			</div>
-			<span class="errorMsg" id="search1error"></span>
-			<p>
-				<input type="submit" value="Submit"/>
-				<input type="reset" value="Reset"/>
-			</p>
-		</fieldset>
-	</form>
 
-	<div class="largeSec">
-		<?php
-		include_once("config.php");
-// if user has inputted any search
-		if(isset($_GET['search1']) || isset($_GET['search2']))
-		{
-// determine current page to print data
-			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
-			$start_from = ($page-1) * 10;
+			<div id="selectorOptions">
+				Please select a course number:
+				<select id="courseNumber" name="courseNumber")>
 
+				</select>
+			</div>
+		</div>
 
-// Open database connection
-			$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
-			if (!$conn) {
-				die("Connection failed: " . mysqli_connect_error());
+		<span class="errorMsg" id="search1error"></span>
+		<p>
+			<input type="submit" value="Submit"/>
+			<input type="reset" value="Reset"/>
+		</p>
+	</fieldset>
+</form>
+
+<div class="largeSec">
+	<?php
+		//check if course name, instructor, course number are selected
+		$instructor = $_GET['instructor'];
+		$courseName = $_GET['courseName'];
+		$courseNumber = $_GET['courseNumber'];
+
+		if (isset($instructor) && isset($courseName) && isset($courseNumber)){
+			$result = mysqli_query($conn, "SELECT DISTINCT n.* FROM Notes n JOIN Course c ON n.parentCourseId = c.courseId WHERE 
+				c.courseName='$courseName' AND c.courseNumber = '$courseNumber' AND c.instructor='$instructor';");
 			}
+	?>
 
-//cleanup database of null entries
-			$result = mysqli_query($conn, "DELETE FROM posts WHERE UserEmail='';");
+	<?php
+	//print out each note avaible
+		while($row = mysqli_fetch_assoc($result)){
+			echo "<div class=wallPost>";
+				echo "<h2>$instructor $courseName $courseNumber</h2>";
+				echo "<p class=wallText> ".$row['text']." ";
+						echo '<br/><a href="'.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
+						echo '<p class="p3">' . $row['timestamp'];
+				echo "</p>";
+			echo "</div>";
+		}
+	?>
 
-if(isset($_GET['search1'])){ // if user has inputted user search
-// perform database query
-	$result = mysqli_query($conn, "SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-		posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum, posts.Reposts, posts.Reposter, posts.VoteCounter FROM users, posts
-		WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE
-		'%".$_GET['search1']."%' OR users.LastName LIKE '%".$_GET['search1']."%') ORDER BY PostNum DESC LIMIT ".$start_from.",10;");
+	<?php
+		mysqli_free_result($result);
+		mysqli_close($conn);
+	?>
 
-// get total number of posts in database
-	$rs_result = mysqli_query($conn,"SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-		posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum FROM users, posts
-		WHERE users.Email = posts.UserEmail AND (users.Email LIKE '%".$_GET['search1']."%' OR users.FirstName LIKE
-		'%".$_GET['search1']."%' OR users.LastName LIKE '%".$_GET['search1']."%') ORDER BY PostNum DESC;");
-	$num_rows = mysqli_num_rows($rs_result);
-	$total_pages = ceil($num_rows / 10);
-
-}elseif(isset($_GET['search2'])){ // if user has inputted text search
-// perform database query
-	$result = mysqli_query($conn, "SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-		posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum, posts.Reposts, posts.Reposter, posts.VoteCounter FROM users, posts
-		WHERE users.Email = posts.UserEmail AND (Comments LIKE '%".$_GET['search2']."%') ORDER BY PostNum DESC LIMIT ".$start_from.",10;");
-
-// get total number of posts in database
-	$rs_result = mysqli_query($conn,"SELECT users.FirstName, users.LastName,users.Email, posts.UserEmail,
-		posts.Comments, posts.ImageLocation, posts.Link, posts.CurrTime, posts.PostNum FROM users, posts
-		WHERE users.Email = posts.UserEmail AND (Comments LIKE '%".$_GET['search2']."%') ORDER BY PostNum DESC;");
-	$num_rows = mysqli_num_rows($rs_result);
-	$total_pages = ceil($num_rows / 10);
-}
-}
-
-
-
-if(isset($result))
-{
-// loop through printing out the full posts
-	while($row = mysqli_fetch_assoc($result)){
-
-	if($row['Reposts'] != -1){ // only display original content, not reposts
-		echo '<div class="wallPost">';
-		if($row['ImageLocation'] != NULL)
-			echo '<div><img src="'.$row['ImageLocation'].'" class="wallImg" alt="img"></img></div>';
-		echo '<h2>'.$row['FirstName'].' '.htmlspecialchars($row['LastName']).'</h2>';
-		echo '<p class="wallText">'.bonusMarks(htmlspecialchars($row['Comments']));
-		if($row['Link'] != NULL)
-			echo '<br/> <a href="'.$row['Link'].'">'.htmlspecialchars($row['Link']).'</a>';
-		echo '</p>';
-		echo '<p class="p3"> Posted '.$row['CurrTime'].' by '.htmlspecialchars($row['FirstName']);
-		echo ' - <button type="button" class="repostLink" id="repost'.$row['PostNum'].'" value = "'.$row['PostNum'].'">Repost</button> Reposted:<span id="postCounter'.$row['PostNum'].'">'.$row['Reposts'].'</span>';
-		echo ' <button type="button" class="likeButton" value = "'.$row['PostNum'].'"><span id="like'.$row['PostNum'].'">Like</span></button>';
-		echo '<button type="button" class="dislikeButton" value = "'.$row['PostNum'].'"><span id="dislike'.$row['PostNum'].'">Dislike</span></button>';
-		echo ' Total Votes: <span id="voteCounter'.$row['PostNum'].'">';
-		if($row['VoteCounter'] > 0)
-			echo '+';
-		echo $row['VoteCounter'].'</span>';
-		echo '</p>';
-		echo '</div>';
-	}
-}
-
-// CALL JS FUNCTION TO ADD EVENT LISTENTERS TO NEWLY CREATED POSTS
-echo '<script type="text/javascript">searchEventListeners(); </script>';
-
-
-
-echo "<p> Jump to page: ";
-// create links to pages of posts if user is on search1
-if(isset($_GET['search1']))
-{
-	for ($i=1; $i<=$total_pages; $i++) {
-		echo "<a href='search.php?page=".$i."&search1=".$_GET['search1']."'>".$i."</a> ";
-	}
-}
-
-// create links to pages of posts if user is on search2
-if(isset($_GET['search2']))
-{
-	for ($i=1; $i<=$total_pages; $i++) {
-		echo "<a href='search.php?page=".$i."&search2=".$_GET['search2']."'>".$i."</a> ";
-	}
-}
-echo "</p>";
-
-	// close database connection
-mysqli_free_result($result);
-mysqli_close($conn);
-
-
-
-}
-
-?>
 </div>
 <div class="footer">
 	<p class="p2">2015 Department of Computer Science CS 215</p>
