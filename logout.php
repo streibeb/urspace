@@ -32,7 +32,7 @@ You are not logged in.<br/>Redirecting...
 </html>';
 }
 //redirect
-echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=index.html"> ';
+echo ' <META HTTP-EQUIV="Refresh" Content="3; URL=login.html"> ';
  exit();
 
 

@@ -7,6 +7,8 @@ if (isset($_SESSION["login_user"])) {
     $pid = $_POST["pid"];
 
     if (isset($_POST["add"])) {
+      // Think of this as
+      // addReportToPost(int pid);
         $sResp = array();
         $db = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
         if (!$db) {
@@ -22,6 +24,8 @@ if (isset($_SESSION["login_user"])) {
         }
         mysqli_close($db);
     } else if (isset($_POST["remove"])) {
+      // Think of this as
+      // removeReportFromPost(int pid);
         $sResp = array();
         $db = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
         if (!$db) {
