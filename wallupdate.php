@@ -1,7 +1,5 @@
-
 <?php
 // include function to add hashtags
-include 'bonus.php';
 include_once("config.php");
 
 //create json variable
@@ -17,17 +15,17 @@ $latestPost = $_GET['latestPost'];
 
 // perform database query
 $result = mysqli_query($conn, "SELECT p.*,
-  (SELECT COUNT(commentID)
-  FROM Comments c
-  WHERE parentPostId = postId) as 'numOfComments'
-FROM Posts p
-WHERE p.postId > '$latestPost'
-ORDER BY postId DESC;");
+	(SELECT COUNT(commentID)
+	FROM Comments c
+	WHERE parentPostId = postId) as 'numOfComments'
+	FROM Posts p
+	WHERE p.postId > '$latestPost'
+	ORDER BY postId DESC;");
 
 
- if($result !=  FALSE){
-// loop through converting data into json object
-while($row = mysqli_fetch_assoc($result)){
+	if($result !=  FALSE){
+		// loop through converting data into json object
+		while($row = mysqli_fetch_assoc($result)){
 			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
@@ -35,14 +33,14 @@ while($row = mysqli_fetch_assoc($result)){
 			$sRow["numOfComments"]=$row["numOfComments"];
 			$sResp[] = $sRow;
 
-}
-//send json object to javascript for print
- }
-echo json_encode($sResp);
+		}
+		//send json object to javascript for print
+	}
+	echo json_encode($sResp);
 
 	// close database connection
-	 if($result !=  FALSE)
+	if($result !=  FALSE)
 	mysqli_free_result($result);
 
-mysqli_close($conn);
+	mysqli_close($conn);
 ?>

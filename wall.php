@@ -6,13 +6,11 @@ session_start();
 if(!isset($_SESSION['login_user']))
 {
 	header('Location: index.html');
-	
 }
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 
 <head>
@@ -20,12 +18,12 @@ if(!isset($_SESSION['login_user']))
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
 	<script type = "text/javascript"  src = "java1.js" ></script>
-	
+
 <title>Public Wall</title>
 </head>
 
 <body class="allPages">
-	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->	
+	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->
 		<div class="row"> <!-- Header row !-->
 			<div class="col-xs-12">
 				<div class="header">

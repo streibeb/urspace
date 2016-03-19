@@ -8,9 +8,6 @@ if(!isset($_SESSION['login_user']))
 	header('Location: index.html');
 
 }
-// include function to add hashtags
-include 'bonus.php';
-
 ?>
 
 

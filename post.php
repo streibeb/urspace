@@ -1,4 +1,6 @@
 <?php
+// TODO: Test that it handles errors.
+
 //start session
 session_start();
 include_once("config.php");

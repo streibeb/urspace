@@ -40,13 +40,13 @@ mysqli_close($conn);
 	</head>
 	<body class="infoPage">
 		<?php if (success) { ?>
-			Login Successful.
-			<br/>
-			Redirecting...
-			<?php } else { ?>
-				Invalid username and/or password.
-				<br/>
-				Redirecting...
-				<?php } ?>
-			</body>
-			</html>
+		Login Successful.
+		<br/>
+		Redirecting...
+		<?php } else { ?>
+		Invalid username and/or password.
+		<br/>
+		Redirecting...
+		<?php } ?>
+	</body>
+</html>
