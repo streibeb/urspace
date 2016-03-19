@@ -4,11 +4,8 @@
 include 'bonus.php';
 include_once("config.php");
 
-
 //create json variable
 $sResp = array();
-
-
 
 // Open database connection
 $conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
@@ -16,25 +13,21 @@ if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 
-//cleanup database of null entries
-$result = mysqli_query($conn, "DELETE FROM Posts WHERE text='' AND uploadedFile='';");
-
+$latestPost = $_GET['latestPost'];
 
 // perform database query
-$result = mysqli_query($conn, "SELECT Post.*,
+$result = mysqli_query($conn, "SELECT p.*,
   (SELECT COUNT(commentID)
-  FROM Comments
+  FROM Comments c
   WHERE parentPostId = postId) as 'numOfComments'
-FROM Posts
-WHERE Post.postId > ".$_GET['latestPost']."
+FROM Posts p
+WHERE p.postId > '$latestPost'
 ORDER BY postId DESC;");
 
 
  if($result !=  FALSE){
 // loop through converting data into json object
 while($row = mysqli_fetch_assoc($result)){
-
-
 			$sRow["text"]=bonusMarks(htmlspecialchars($row['text']));
 			$sRow["uploadedFile"]=$row["uploadedFile"];
 			$sRow["postId"]=$row["postId"];
