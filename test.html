@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
+	<script type = "text/javascript"  src = "java1.js" ></script>
+	<script type = "text/javascript"  src = "report.js" ></script>
+	<title>Comment</title>
+</head>
+
+<body class="allPages">
+	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->	
+		<div class="row"> <!-- Header row !-->
+			<div class="col-xs-12">
+				<div class="header">
+					<h1>
+						<a href="index.html" class="homeLink">
+							<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+						</a>
+					</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="row"> <!-- Content Row !-->
+			<div class="col-xs-2"> <!-- sidebar column !-->
+				<div class="sideBar">
+					<br/>
+					<a class="buttons" href="wall.php">View Wall</a>
+					<a class="buttons" href="post.php">New Post</a>
+					<p class="blankButton">Search</p>
+					<a class="buttons" href="logout.php">Logout</a>
+					<br/>
+					<img src="advertisment1.jpg" class="ad" alt="ad1"></img>
+					<img src="advertisment2.jpg" class="ad" alt="ad2"></img>
+					<img src="advertisment3.jpg" class="ad" alt="ad3"></img>
+					<img src="advertisment4.jpg" class="ad" alt="ad4"></img>
+					<img src="advertisment5.jpg" class="ad" alt="ad5"></img>
+				</div>
+			</div>
+
+			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- content column !-->
+				<div class="largeSec">
+					<button onclick="history.go(-1);">Go Back </button>
+					<br/>
+
+					<div class="wallPost">
+						<div>
+							<img src="" class="wallImg" alt="img"></img>
+						</div>
+			
+						<p class="wallText"></p>
+						<p class="p3"> Posted Anonymously at</p>
+						<button id="report_" class=""></button>
+					</div>
+
+					<div class="postComment">
+						<p class="wallText"></p>
+						<p class="p3"> Posted Anonymously at</p>
+					</div>
+
+					<form action="commented.php" method="POST" id="commentForm">
+						<fieldset class="largeColorsec">
+							<legend>Post a comment</legend>
+							<textarea name="comment1" id="comment1" rows="3" cols="50"></textarea><br></br>
+							<span class="errorMsg" id="comment1Error"></span>
+							<p>
+								
+								<input type="submit" value="Submit"/>
+								<input type="reset" value="Reset"/>
+							</p>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row"> <!-- Footer Row !-->
+			<div class="col-xs-12"> 
+				<div class="footer">
+					<p class="p2">2015 Department of Computer Science CS 215</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type = "text/javascript"  src = "comment.js" ></script>
+</html>
