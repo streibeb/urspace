@@ -1,9 +1,6 @@
 ///////////////////////////////////
 ///////event registration//////////
 ///////////////////////////////////
-
-
-
 var commentForm = document.getElementById("commentForm");
 var textComment = commentForm.comment1;
 
