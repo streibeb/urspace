@@ -74,7 +74,7 @@ if(!isset($_SESSION['login_user']))
 
            }
        }
-       xmlhttp.open("GET","getOptions.php?optionSelected="+ toOptionSelected.value + "&from=" + fromSelector + "&to=" + toSelector,true);
+       xmlhttp.open("GET","populatenoteslist.php?optionSelected="+ toOptionSelected.value + "&from=" + fromSelector + "&to=" + toSelector,true);
 	   xmlhttp.send();
 }
 
