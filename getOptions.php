@@ -20,8 +20,6 @@ if($result !=  FALSE){
 				$sRow["result"]=$row["".$_GET['to'].""];
 				$sResp[] = $sRow;
 	}
-}else{
-	echo "you fucked u3p";
 }
 
 echo json_encode($sResp);
