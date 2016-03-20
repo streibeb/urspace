@@ -251,6 +251,7 @@ NOTE: keep these colors the same as the color of the box*/
 	background-color: #dfe3ee;
 	border: 1px solid #dfe3ee;
 	margin-top: 25px;
+	margin-bottom: 15px;
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -261,6 +262,7 @@ NOTE: keep these colors the same as the color of the box*/
 
 .largeSec {
 	margin-top: 30px;
+	margin-bottom: 15px;
 }
 
 /* used to make all columns in a row equal height */
@@ -277,3 +279,21 @@ NOTE: keep these colors the same as the color of the box*/
 	 flex-direction: column;
 }
 
+.selectBox {
+	width: 120px;
+}
+
+.SelectOptions {
+	margin-bottom: 5px;
+}
+
+.contentButtons {
+	text-decoration:none;
+	color:#3b5998;
+	background-color:#dfe3ee;
+	border-style:solid;
+	border-width:2px;
+	border-color: #3b5998;
+	text-align:center;
+	margin-right: 10px;
+}
