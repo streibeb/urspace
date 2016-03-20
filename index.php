@@ -1,11 +1,11 @@
 <?php
-	include_once("config.php");
+include_once("config.php");
 
-	//start session
-	session_start();
+//start session
+session_start();
 
-	//If the user is already logged in, take them to the wall page.
-	if(isset($_SESSION['login_user']))
+//If the user is already logged in, take them to the wall page.
+if(isset($_SESSION['login_user']))
 {
 	header('Location: wall.php');
 }
