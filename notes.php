@@ -32,8 +32,8 @@
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.html" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+						<a href="index.php" class="homeLink">
+							<img src="logo.png" class="placeHolder" alt="img"></img> FakeBook
 						</a>
 					</h1>
 				</div>
