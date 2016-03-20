@@ -27,14 +27,14 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 <head>
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "java1.js" >
+	<script type = "text/javascript"  src = "scripts/java1.js" >
 	</script>
 	<title>Search</title>
 </head>
 
 
 <body class="allPages">
-	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->	
+	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->
 		<div class="row"> <!-- Header row !-->
 			<div class="col-xs-12">
 				<div class="header">
@@ -75,7 +75,7 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 										}
 										?>
 									</select>
-								</div>				
+								</div>
 
 								<div id="selectorOptions" class="SelectOptions">
 									Please select a course name:
@@ -105,7 +105,7 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 
 					if (isset($instructor) && isset($courseName) && isset($courseNumber)){
 
-						$result = mysqli_query($conn, "SELECT n.* FROM Notes n JOIN Courses c ON n.parentCourseId = c.courseId WHERE 
+						$result = mysqli_query($conn, "SELECT n.* FROM Notes n JOIN Courses c ON n.parentCourseId = c.courseId WHERE
 							c.courseName='$courseName' AND c.courseNumber = '$courseNumber' AND c.instructor='$instructor';");
 					}
 					//print out each note avaiable based on the options slected
@@ -123,14 +123,14 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 			</div>
 		</div>
 		<div class="row"> <!-- Footer Row !-->
-			<div class="col-xs-12"> 
+			<div class="col-xs-12">
 				<div class="footer">
 					<p class="p2">2015 Department of Computer Science CS 215</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type = "text/javascript"  src = "noteseventlisteners.js" >
+	<script type = "text/javascript"  src = "scripts/noteseventlisteners.js" >
 	</script>
 </body>
 </html>

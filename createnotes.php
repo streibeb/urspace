@@ -58,7 +58,7 @@ if (isset($_POST["submit"])) {
 
 	$uid = $_SESSION['login_user'];
 	$content = htmlspecialchars(addslashes(trim($_POST['post1'])));
-	
+
 	$instructor = htmlspecialchars(addslashes(trim($_POST['instructor'])));
 	$courseName = htmlspecialchars(addslashes(trim($_POST['courseName'])));
 	$courseNumber = htmlspecialchars(addslashes(trim($_POST['courseNumber'])));
@@ -67,9 +67,9 @@ if (isset($_POST["submit"])) {
 
 	//get courseid from course table which will be used as parentCourseId in notes table
 	if (isset($instructor) && isset($courseName) && isset($courseNumber)){
-		$sql = "SELECT courseId FROM Courses c WHERE 
+		$sql = "SELECT courseId FROM Courses c WHERE
 		c.courseName='$courseName' AND c.courseNumber='$courseNumber' AND c.instructor='$instructor';";
-		
+
 		$result = mysqli_query($conn, $sql);
 
 		//get row that matches the correct parameters
@@ -104,7 +104,7 @@ if (isset($_POST["submit"])) {
 
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "java1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/java1.js" ></script>
 	<title>Wall Post</title>
 </head>
 
@@ -158,7 +158,7 @@ if (isset($_POST["submit"])) {
 										mysqli_close($conn);
 										?>
 									</select>
-								</div>				
+								</div>
 
 								<div id="selectorOptions" class="SelectOptions">
 									Please select a course name:
@@ -194,6 +194,6 @@ if (isset($_POST["submit"])) {
 			</div>
 		</div>
 	</div>
-	<script type = "text/javascript"  src = "noteseventlisteners.js" ></script>
+	<script type = "text/javascript"  src = "scripts/noteseventlisteners.js" ></script>
 </body>
 </html>

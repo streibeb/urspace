@@ -68,8 +68,8 @@ mysqli_close($conn);
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
 	<!--<script type = "text/javascript"  src = "java1.js" ></script>-->
-	<script type = "text/javascript"  src = "report.js" ></script>
-	<script type = "text/javascript"  src = "delete.js" ></script>
+	<script type = "text/javascript"  src = "scripts/report.js" ></script>
+	<script type = "text/javascript"  src = "scripts/delete.js" ></script>
 <title>Public Wall</title>
 </head>
 <body class="allPages">
@@ -165,6 +165,6 @@ mysqli_close($conn);
 			</div>
 		</div>
 	</div>
-	<script type = "text/javascript"  src = "wall1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/wall1.js" ></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ if(!isset($_SESSION['login_user']))
 <head>
 
 <link rel="stylesheet" type="text/css" href="mystyle.css"></link>
-<script type = "text/javascript"  src = "java1.js" >
+<script type = "text/javascript"  src = "scripts/java1.js" >
 </script>
 <title>Search</title>
 </head>
@@ -188,7 +188,7 @@ mysqli_close($conn);
 <p class="p2">2015 Department of Computer Science CS 215</p>
 </div>
 
-<script type = "text/javascript"  src = "search1.js" >
+<script type = "text/javascript"  src = "scripts/search1.js" >
 	</script>
 </body>
 </html>

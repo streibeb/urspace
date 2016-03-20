@@ -76,7 +76,7 @@ if (isset($_POST["submit"])) {
 
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "java1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/java1.js" ></script>
 	<title>Wall Post</title>
 </head>
 
@@ -138,6 +138,6 @@ if (isset($_POST["submit"])) {
 		</div>
 	</div>
 
-	<script type = "text/javascript"  src = "post1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/post1.js" ></script>
 </body>
 </html>

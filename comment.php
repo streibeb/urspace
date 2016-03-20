@@ -41,13 +41,13 @@ if (isset($_GET["a"])) {
 <head>
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "java1.js" ></script>
-	<script type = "text/javascript"  src = "report.js" ></script>
-	<script type = "text/javascript"  src = "delete.js" ></script>
+	<script type = "text/javascript"  src = "scripts/java1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/report.js" ></script>
+	<script type = "text/javascript"  src = "scripts/delete.js" ></script>
 	<title>Comment</title>
 </head>
 <body class="allPages">
-	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->	
+	<div class="container-fluid"> <!-- This is the container div for the page; it is flued so it spands the viewport !-->
 		<div class="row"> <!-- Header row !-->
 			<div class="col-xs-12">
 				<div class="header">
@@ -122,7 +122,7 @@ if (isset($_GET["a"])) {
 			</div>
 		</div>
 		<div class="row"> <!-- Footer Row !-->
-			<div class="col-xs-12"> 
+			<div class="col-xs-12">
 				<div class="footer">
 					<p class="p2">2015 Department of Computer Science CS 215</p>
 				</div>
@@ -130,5 +130,5 @@ if (isset($_GET["a"])) {
 		</div>
 	</div>
 </body>
-<script type = "text/javascript"  src = "comment.js" ></script>
+<script type = "text/javascript"  src = "scripts/comment.js" ></script>
 </html>
