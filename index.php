@@ -64,7 +64,7 @@ if(isset($_SESSION['login_user']))
 			<!-- Row for signing up !-->
 			<div class="col-xs-12 col-md-8 col-md-offset-2">
 				<div class="loginSection">
-					<form action="signup.html" method="get">
+					<form action="signup.php" method="get">
 						<fieldset class="frontSection">
 							<legend>Signup</legend>
 							<p>Register now. Its free!</p>

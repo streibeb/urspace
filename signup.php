@@ -34,7 +34,7 @@ if(isset($_SESSION['login_user']))
 		</div>
 		<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- the content column !-->
 			<div class="signupSection">
-				<form action="signup.php" method="post" enctype="multipart/form-data" id="signupForm">
+				<form action="signupConfirmation.php" method="post" enctype="multipart/form-data" id="signupForm">
 					<fieldset class="standardSec">
 						<legend>Sign Up</legend>
 						First Name: <input type="text" name="fName" id ="fName"></input>
