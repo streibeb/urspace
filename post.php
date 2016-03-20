@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
 	$uploaded = false;
 
 	$tempFile = USER_IMAGE_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
-	$ext = pathinfo($tempFile, PATHINFO_EXTENSION);
+	$ext = strtolower(pathinfo($tempFile, PATHINFO_EXTENSION));
 	$target_file = USER_IMAGE_UPLOAD_DIRECTORY . $uniqueId . "." . $ext;
 	$filename = $uniqueId . "." . $ext;
 
