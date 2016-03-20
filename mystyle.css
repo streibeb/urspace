@@ -240,9 +240,13 @@ method of cleaning this up so that things don't extend out of the box.
 
 NOTE: keep these colors the same as the color of the box*/
 .loginSection {
-	padding-left: 25px; 
-	background-color: ##d8e5d9;
+	background-color: #d8e5d9;
 	border: 1px solid #d8e5d9;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding-left: 25px;
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 
 /*removing the default margins with the h1 element. */
@@ -315,4 +319,8 @@ NOTE: keep these colors the same as the color of the box*/
 	border-color: #a5811d;
 	text-align:center;
 	margin-right: 10px;
+}
+
+.contentRow {
+	min-height: 700px;
 }

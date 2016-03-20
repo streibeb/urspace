@@ -12,7 +12,7 @@ if(isset($_SESSION['login_user']))
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<META HTTP-EQUIV="Refresh" Content="3; URL=index.html">
+<META HTTP-EQUIV="Refresh" Content="3; URL=index.php">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet" type="text/css" href="mystyle.css"></link>
