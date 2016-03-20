@@ -8,7 +8,7 @@ include_once("config.php");
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
-	header('Location: index.html');
+	header('Location: index.php');
 	exit();
 }
 
@@ -94,8 +94,8 @@ if (isset($_POST["submit"])) {
 			</div>
 		</div>
 
-		<div class="row"> <!-- Content row!-->
-			<div class="col-xs-2"> <!--Sidebar column !-->
+		<div class="row row-eq-height"> <!-- Content row!-->
+			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br/>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
