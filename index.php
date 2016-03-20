@@ -47,7 +47,7 @@
 
 			<!-- Row for login !-->
 			<div class="col-xs-12 col-md-8 col-md-offset-2">
-				<div class="loginSection">
+				<div class="signup">
 					<form action="login.php" method="post" enctype="multipart/form-data" id="indexForm">
 						<fieldset class="frontSection">
 							<legend>Login</legend>

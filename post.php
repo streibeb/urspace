@@ -94,7 +94,7 @@ if (isset($_POST["submit"])) {
 			</div>
 		</div>
 
-		<div class="row row-eq-height"> <!-- Content row!-->
+		<div class="row row-eq-height contentRow"> <!-- Content row!-->
 			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br/>
@@ -102,7 +102,7 @@ if (isset($_POST["submit"])) {
 					<p class="blankButton">New Post</p>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
 					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
-					<a class="buttons" href="<?php echo WEBSITE_LOGOUT; ?>">Logout</a>
+					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
 
@@ -119,8 +119,8 @@ if (isset($_POST["submit"])) {
 							<br></br><span class="errorMsg" id="errorComments"></span>
 
 							<p>
-								<input type="submit" name="submit" value="Submit"/>
-								<input type="reset" value="Reset"/>
+								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
+								<input type="reset" class="contentButtons" value="Reset"/>
 							</p>
 						</fieldset>
 					</form>
