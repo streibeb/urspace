@@ -109,8 +109,13 @@ color:white;
 
 }
 
-.sideBar{
+.sideBarCol{
 	background-color:#8b9dc3;
+	margin-left: 15px;
+	margin-right: 15px;
+	/*used important so it overides bootstrap in this instance*/
+	padding-left: 0px !important;
+	padding-right: 0px !important;
 }
 
 .ad{
@@ -244,7 +249,7 @@ NOTE: keep these colors the same as the color of the box*/
 .signupSection {
 	background-color: #dfe3ee;
 	border: 1px solid #dfe3ee;
-	margin-top: 51px;
+	margin-top: 25px;
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -252,3 +257,22 @@ NOTE: keep these colors the same as the color of the box*/
 .textBox {
 	width: 100%;
 }
+
+.largeSec {
+	margin-top: 30px;
+}
+
+/* used to make all columns in a row equal height */
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+/* used to make all columns in a row equal height */
+.row-eq-height > [class*='col-'] {
+	 display: flex;
+	 flex-direction: column;
+}
+
