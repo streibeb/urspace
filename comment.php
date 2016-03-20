@@ -60,7 +60,7 @@ if (isset($_GET["a"])) {
 			</div>
 		</div>
 
-		<div class="row row-eq-height"> <!-- Content Row !-->
+		<div class="row row-eq-height contentRow"> <!-- Content Row !-->
 			<div class="col-xs-2 sideBarCol"> <!-- sidebar column !-->
 				<div class="sideBar">
 					<br/>
@@ -68,7 +68,7 @@ if (isset($_GET["a"])) {
 					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
 					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
-					<a class="buttons" href="<?php echo WEBSITE_LOGOUT; ?>">Logout</a>
+					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
 

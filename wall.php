@@ -85,7 +85,7 @@ mysqli_close($conn);
 				</div>
 			</div>
 		</div>
-		<div class="row row-eq-height"> <!-- Content row!-->
+		<div class="row row-eq-height contentRow"> <!-- Content row!-->
 			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
 				<div class="sideBar">
 					<br/>
@@ -105,7 +105,7 @@ mysqli_close($conn);
 					<div id="wallArea">
 					<?php while($row = mysqli_fetch_assoc($result)) {
 						$userReportedPost = $post["userReported"];
-						$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
+						$reportButtonClass = $userReportedPost ? "contentButtons" : "contentButtons";
 						$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
 
 						$postContent = htmlspecialchars($row['text']);
