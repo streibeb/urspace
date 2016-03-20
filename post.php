@@ -22,12 +22,13 @@ if (isset($_POST["submit"])) {
 	$uniqueId = uniqid();
 	$uploaded = false;
 
-	$tempFile = USER_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
+	$tempFile = USER_IMAGE_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
 	$ext = pathinfo($tempFile, PATHINFO_EXTENSION);
-	$target_file = USER_UPLOAD_DIRECTORY . $uniqueId . "." . $ext;
+	$target_file = USER_IMAGE_UPLOAD_DIRECTORY . $uniqueId . "." . $ext;
+	$filename = $uniqueId . "." . $ext;
 
 	//error check image upload
-	if ($tempFile == USER_UPLOAD_DIRECTORY)// if user did not upload file
+	if ($tempFile == USER_IMAGE_UPLOAD_DIRECTORY)// if user did not upload file
 	{
 		// do nothing
 	} else if (!preg_match("/(\.jpg|gif|png|jpeg)/",$target_file)) { // if file extension is bad
@@ -49,8 +50,8 @@ if (isset($_POST["submit"])) {
 	if ($uploaded) {
 		//user uploaded image
 		$sql = "INSERT INTO Posts (creatorId, text, uploadedFile, timestamp)
-		VALUES ('$uid','$content','$target_file','$date');";
-	} else {// user has not uploaded image
+		VALUES ('$uid','$content','$filename','$date');";
+	} else { // user has not uploaded image
 		$sql = "INSERT INTO Posts (creatorId, text, timestamp)
 		VALUES ('$uid','$content','$date');";
 	}
@@ -63,9 +64,7 @@ if (isset($_POST["submit"])) {
 	// close database connection
 	mysqli_close($conn);
 
-	if (isset($err)) {
-		header('Location: wall.php');
-	}
+	header('Location: ' . SIDEBAR_VIEW_POSTS);
 }
 ?>
 
@@ -88,7 +87,7 @@ if (isset($_POST["submit"])) {
 				<div class="header">
 					<h1>
 						<a href="index.html" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+							<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
 				</div>
@@ -98,18 +97,12 @@ if (isset($_POST["submit"])) {
 		<div class="row"> <!-- Content row!-->
 			<div class="col-xs-2"> <!--Sidebar column !-->
 				<div class="sideBar">
-					<br></br>
-					<a class="buttons" href="wall.php">View Posts</a>
+					<br/>
+					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
 					<p class="blankButton">New Post</p>
-					<a class="buttons" href="search.php">Search</a>
-					<a class="buttons" href="logout.php">Logout</a>
-					<br></br>
-					<img src="advertisment1.jpg" class="ad" alt="ad1"></img>
-					<img src="advertisment2.jpg" class="ad" alt="ad2"></img>
-					<img src="advertisment3.jpg" class="ad" alt="ad3"></img>
-					<img src="advertisment4.jpg" class="ad" alt="ad4"></img>
-					<img src="advertisment5.jpg" class="ad" alt="ad5"></img>
-
+					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+					<a class="buttons" href="<?php echo WEBSITE_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
 

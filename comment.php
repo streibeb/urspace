@@ -7,8 +7,6 @@ if(!isset($_SESSION['login_user']))
 {
 	header('Location: index.html');
 }
-// include function to add hashtags
-include 'bonus.php';
 
 if (isset($_GET["a"])) {
 	$uid = $_SESSION['login_user'];
@@ -20,17 +18,17 @@ if (isset($_GET["a"])) {
 	}
 
 // Get post
-	$query = "SELECT Post.*,
+	$query = "SELECT p.*,
 	(SELECT 1 FROM ReportedPosts
-		WHERE ReportedPosts.userId = '$uid' AND Post.postId = ReportedPosts.postId) AS 'userReported'
-	FROM Posts
-	WHERE Post.postId = '$pid';";
+		WHERE ReportedPosts.userId = '$uid' AND p.postId = ReportedPosts.postId) AS 'userReported'
+	FROM Posts p
+	WHERE p.postId = '$pid' AND p.isHidden = false;";
 	$posts = mysqli_query($conn, $query);
 
 // Get comments
-	$query = "SELECT Comment.*
-	FROM Comments
-	WHERE Comment.parentPostId = '$pid';";
+	$query = "SELECT c.*
+	FROM Comments c
+ 	WHERE c.parentPostId = '$pid';";
 	$comments = mysqli_query($conn, $query);
 
 	// close database connection
@@ -44,44 +42,45 @@ if (isset($_GET["a"])) {
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<script type = "text/javascript"  src = "java1.js" ></script>
 	<script type = "text/javascript"  src = "report.js" ></script>
+	<script type = "text/javascript"  src = "delete.js" ></script>
 	<title>Comment</title>
 </head>
 <body class="allPages">
 	<div class="header">
 		<h1>
-			<a href="index.html" class="homeLink">
-				<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+			<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
+				<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 			</a>
 		</h1>
 	</div>
 	<div class="sideBar">
 		<br/>
-		<a class="buttons" href="wall.php">View Wall</a>
-		<a class="buttons" href="post.php">New Post</a>
-		<p class="blankButton">Search</p>
-		<a class="buttons" href="logout.php">Logout</a>
-		<br/>
-		<img src="advertisment1.jpg" class="ad" alt="ad1"></img>
-		<img src="advertisment2.jpg" class="ad" alt="ad2"></img>
-		<img src="advertisment3.jpg" class="ad" alt="ad3"></img>
-		<img src="advertisment4.jpg" class="ad" alt="ad4"></img>
-		<img src="advertisment5.jpg" class="ad" alt="ad5"></img>
+		<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+		<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+		<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+		<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+		<a class="buttons" href="<?php echo WEBSITE_LOGOUT; ?>">Logout</a>
 	</div>
 	<div class="largeSec">
 		<button onclick="history.go(-1);">Go Back </button>
 		<br/>
 		<?php if (isset($posts) && $post = mysqli_fetch_assoc($posts)) {
-			$userReportedPost = is_null($post["userReported"]);
+			$userReportedPost = $post["userReported"];
 			$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
 			$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
 		?>
 		<div class="wallPost">
-			<?php if(isset($post['uploadedFile'])){ ?>
-				<div><img src="<?php echo $post['uploadedFile'];?>" class="wallImg" alt="img"></img></div>
+			<?php if(!is_null($post['uploadedFile'])){
+					$postFile = USER_IMAGE_UPLOAD_DIRECTORY . $post["uploadedFile"];
+			?>
+					<img src="<?php echo $postFile; ?>" class="wallImg" alt="img">
 			<?php } ?>
-			<p class="wallText">"<?php echo $post["text"];?>"</p>
-			<p class="p3"> Posted Anonymously at <?php echo $post['timestamp'];?></p>
+			<p class="wallText"><?php echo $post["text"];?></p>
+			<p class="p3">Posted Anonymously at <?php echo $post['timestamp'];?></p>
 			<button id="report_<?php echo $post["postId"];?>" class="<?php echo $reportButtonClass;?>"><?php echo $reportButtonText;?></button>
+			<?php if ($_SESSION['isAdmin'] || $uid == $post["creatorId"]) { ?>
+			<button id="delete_<?php echo $post["postId"];?>" class="deleteButton">Delete</button>
+			<?php } ?>
 		</div>
 		<?php } ?>
 		<?php while ($comment = mysqli_fetch_assoc($comments)) { ?>
