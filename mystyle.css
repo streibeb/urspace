@@ -17,17 +17,19 @@ color:#3b5998;
 }
 
 .header{
-background-color: 	#3b5998;
+background-color: 	#333333;
 margin-top: -20px;
+color: #f8b031;
 
 }
 .header2{
-background-color: 	#3b5998;
+background-color: 	#333333;
+color: #f8b031;
 }
 
 .footer{
  clear: both;
- background-color: 	#3b5998;
+ background-color: 	#333333;
 text-align:center;
 }
 
@@ -58,11 +60,11 @@ text-decoration:none;
 
 
 .standardSec{
-	background-color:#dfe3ee;
+	background-color: #d8e5d9;
 }
 
 .largeColorsec{
-	background-color:#dfe3ee;
+	background-color: #d8e5d9;
 }
 
 .searchResults{
@@ -70,19 +72,19 @@ text-align:center;
 }
 
 .largeSec2{
-background-color:#dfe3ee;
+background-color: #d8e5d9;
 	margin-left: 15%;
 	margin-top: 1%;
 	margin-right:2%;
 }
 .wallPost{
-background-color:#dfe3ee;
+background-color: #d8e5d9;
 padding:15px;
 margin-bottom:10px;
 }
 
 .postComment{
-background-color:#dfe3ee;
+background-color: #d8e5d9;
 padding:15px;
 margin-bottom:10px;
 margin-left:150px;
@@ -91,7 +93,7 @@ margin-left:150px;
 .placeHolder{
 vertical-align:
 middle;
-width:100px;
+width:115px;
 height:100px;
 	margin:10px;
 	margin-left:25px;
@@ -101,17 +103,23 @@ height:100px;
 
 .homeLink{
 text-decoration:none;
-color:white;
+color: #ffda30;
+}
+
+.homeLink:hover {
+	text-decoration: none;
+	color: #ffda30;
+}
 
 }
 .homeLink:visited{
 text-decoration:none;
-color:white;
+color: #ffda30;
 
 }
 
 .sideBarCol{
-	background-color:#8b9dc3;
+	background-color: #595959;
 	margin-left: 15px;
 	margin-right: 15px;
 	/*used important so it overides bootstrap in this instance*/
@@ -131,11 +139,11 @@ padding-top: 14px;
 
 .buttons{
 text-decoration:none;
-color:#3b5998;
-background-color:#dfe3ee;
+color: black;
+background-color: #ffc82e;
 border-style:solid;
 border-width:2px;
-border-color: #3b5998;
+border-color: #a5811d;
 text-align:center;
 margin:10px;
 display: block;
@@ -144,11 +152,11 @@ display: block;
 
 .buttons:visited{
 text-decoration:none;
-color:#3b5998;
-background-color:#dfe3ee;
+color: black;
+background-color: #ffc82e;
 border-style:solid;
 border-width:2px;
-border-color: #3b5998;
+border-color: #a5811d;
 text-align:center;
 margin:10px;
 display: block;
@@ -157,11 +165,11 @@ display: block;
 
 .buttons:hover{
 text-decoration:none;
-color:white;
-background-color:#3b5998;
+color: black;
+background-color: #ffdf85;
 border-style:solid;
 border-width:2px;
-border-color: white;
+border-color: #a5811d;
 text-align:center;
 margin:10px;
 display: block;
@@ -171,8 +179,8 @@ display: block;
 
 .blankButton{
 text-decoration:none;
-color:white;
-background-color:#3b5998;
+color: black;
+background-color: #a5811d;
 
 text-align:center;
 margin:10px;
@@ -181,7 +189,7 @@ display: block;
 }
 
 .frontSection{
-	background-color:#dfe3ee;
+	background-color: #d8e5d9;
 }
 
 .errorMsg{
@@ -232,9 +240,9 @@ method of cleaning this up so that things don't extend out of the box.
 
 NOTE: keep these colors the same as the color of the box*/
 .loginSection {
-	padding-left: 25px;
-	background-color: #dfe3ee;
-	border: 1px solid #dfe3ee;
+	padding-left: 25px; 
+	background-color: ##d8e5d9;
+	border: 1px solid #d8e5d9;
 }
 
 /*removing the default margins with the h1 element. */
@@ -248,8 +256,8 @@ method of cleaning this up so that things don't extend out of the box.
 
 NOTE: keep these colors the same as the color of the box*/
 .signupSection {
-	background-color: #dfe3ee;
-	border: 1px solid #dfe3ee;
+	background-color: #d8e5d9;
+	border: 1px solid #d8e5d9;
 	margin-top: 25px;
 	margin-bottom: 15px;
 	padding-left: 10px;
@@ -289,11 +297,22 @@ NOTE: keep these colors the same as the color of the box*/
 
 .contentButtons {
 	text-decoration:none;
-	color:#3b5998;
-	background-color:#dfe3ee;
+	color: black;
+	background-color: #ffc82e;
 	border-style:solid;
 	border-width:2px;
-	border-color: #3b5998;
+	border-color: #a5811d;
+	text-align:center;
+	margin-right: 10px;
+}
+
+.contentButtons:hover {
+	text-decoration:none;
+	color: black;
+	background-color: #ffdf85;
+	border-style:solid;
+	border-width:2px;
+	border-color: #a5811d;
 	text-align:center;
 	margin-right: 10px;
 }

@@ -79,7 +79,7 @@ mysqli_close($conn);
 				<div class="header">
 					<h1>
 						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
+							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
 				</div>

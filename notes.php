@@ -5,7 +5,7 @@
 	// if user not logged in, redirect to homepage
 	if(!isset($_SESSION['login_user']))
 	{
-		header('Location: index.html');
+		header('Location: index.php');
 
 	}
 	// include function to add hashtags
@@ -32,8 +32,8 @@
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.html" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+						<a href="index.php" class="homeLink">
+							<img src="logo.png" class="placeHolder" alt="img"></img> FakeBook
 						</a>
 					</h1>
 				</div>
