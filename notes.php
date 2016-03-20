@@ -113,7 +113,7 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 						echo "<div class=wallPost>";
 							echo "<h2>$instructor $courseName $courseNumber</h2>";
 							echo "<p class=wallText> ".$row['text']." ";
-									echo '<br/><a href="'.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
+								echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
 									echo '<p class="p3">' . $row['timestamp'];
 							echo "</p>";
 						echo "</div>";
