@@ -5,7 +5,7 @@
 	// if user not logged in, redirect to homepage
 	if(!isset($_SESSION['login_user']))
 	{
-		header('Location: index.html');
+		header('Location: index.php');
 
 	}
 	// include function to add hashtags
