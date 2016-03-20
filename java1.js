@@ -526,3 +526,100 @@ function chkSubmit(event){
 		event.preventDefault();
 	}
 }
+
+//Event handler for noteseventlistners
+function update(event) {
+		
+	var selector = event.currentTarget.id;
+	
+	var toOptionSelected;
+	var fromSelector;
+	var toSelector;
+	var previousSelector;
+	var previousSelectorValue;
+	var parent;
+
+	if (selector == "instructor"){
+		//we are going to populate course name
+		toOptionSelected = this.options[this.selectedIndex].value;
+		fromSelector = "instructor";
+		toSelector = "courseName";
+
+		//no previous selector
+		previousSelector = "";
+		previousSelectorValue = "";
+		
+		//clear all childern of every field if the instrutor option is changed
+		parent = document.getElementById("courseName");
+		while (parent.firstChild) {
+			parent.removeChild(parent.firstChild);
+		}
+		parent = document.getElementById("courseNumber");
+		while (parent.firstChild) {
+			parent.removeChild(parent.firstChild);
+		}
+	}else if (selector == "courseName"){
+		//we are going to populate course number
+		toOptionSelected = this.options[this.selectedIndex].value;
+		fromSelector = "courseName";
+		toSelector = "courseNumber";
+		
+		//previous selector was intructor
+		previousSelector = "instructor";
+		var tempGetPrevious = document.getElementById("instructor");
+		previousSelectorValue = tempGetPrevious.options[tempGetPrevious.selectedIndex].value;
+
+		parent = document.getElementById("courseNumber");
+
+		//clear all childern of the course number if the course name is changed
+		while (parent.firstChild) {
+			parent.removeChild(parent.firstChild);
+		}
+	}
+		
+		parent = document.getElementById(toSelector);
+		
+		if (toOptionSelected == ""){
+			return;
+		}else{
+			
+			if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+
+
+    xmlhttp.onreadystatechange = function() {
+    	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+               	
+               //handle response here
+               var response = xmlhttp.responseText;
+
+               var valueMappedArray = JSON.parse(response);
+               
+               var i;
+               var option = document.createElement("option");
+
+               option.value ="";
+               option.text="";
+               parent.add(option);
+               
+               //for every new option create a new node
+               for (i = 0; i < valueMappedArray.length; i++){
+	               	option = document.createElement("option");
+	               	option.value = valueMappedArray[i].result;
+	               	option.text = valueMappedArray[i].result;
+	               	parent.add(option);
+               }
+
+           }
+       }
+       xmlhttp.open("GET","populatenoteslist.php?optionSelected="+ toOptionSelected + "&from=" + 
+       				fromSelector + "&to=" + toSelector + "&prevselect=" + previousSelector + 
+       				"&prevselectvalue=" + previousSelectorValue ,true);
+	   xmlhttp.send();
+}
