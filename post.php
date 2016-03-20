@@ -51,7 +51,7 @@ if (isset($_POST["submit"])) {
 		//user uploaded image
 		$sql = "INSERT INTO Posts (creatorId, text, uploadedFile, timestamp)
 		VALUES ('$uid','$content','$filename','$date');";
-	} else {// user has not uploaded image
+	} else { // user has not uploaded image
 		$sql = "INSERT INTO Posts (creatorId, text, timestamp)
 		VALUES ('$uid','$content','$date');";
 	}
@@ -89,7 +89,7 @@ if (isset($_POST["submit"])) {
 				<div class="header">
 					<h1>
 						<a href="index.html" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+							<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
 				</div>
@@ -99,12 +99,12 @@ if (isset($_POST["submit"])) {
 		<div class="row"> <!-- Content row!-->
 			<div class="col-xs-2"> <!--Sidebar column !-->
 				<div class="sideBar">
-					<br></br>
-					<a class="buttons" href="wall.php">View Posts</a>
+					<br/>
+					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
 					<p class="blankButton">New Post</p>
-					<a class="buttons" href="search.php">Search</a>
-					<a class="buttons" href="admin.php">Admin</a>
-					<a class="buttons" href="logout.php">Logout</a>
+					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+					<a class="buttons" href="<?php echo WEBSITE_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
 

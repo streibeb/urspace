@@ -48,17 +48,17 @@ if (isset($_GET["a"])) {
 	<div class="header">
 		<h1>
 			<a href="index.html" class="homeLink">
-				<img src="blank.jpg" class="placeHolder" alt="img"></img> FakeBook
+				<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 			</a>
 		</h1>
 	</div>
 	<div class="sideBar">
 		<br/>
-		<a class="buttons" href="wall.php">View Wall</a>
-		<a class="buttons" href="post.php">New Post</a>
-		<p class="blankButton">Search</p>
-		<a class="buttons" href="admin.php">Admin</a>
-		<a class="buttons" href="logout.php">Logout</a>
+		<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+		<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+		<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+		<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+		<a class="buttons" href="<?php echo WEBSITE_LOGOUT; ?>">Logout</a>
 	</div>
 	<div class="largeSec">
 		<button onclick="history.go(-1);">Go Back </button>
