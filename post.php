@@ -112,12 +112,13 @@ if (isset($_POST["submit"])) {
 					<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
 						<fieldset class="largeColorsec">
 							<legend>New Anonymous Post</legend>
-
+							Post: <br/>
+							<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+							<br/>
+							<span class="errorMsg" id="errorComments"></span>
 							Picture (optional): <input type="file" name="postPic"></input>
-							<span class="errorMsg" id="errorUrl"></span><br></br>
-							Post: <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br></br><span class="errorMsg" id="errorComments"></span>
-
+							<span class="errorMsg" id="errorUrl"></span>
+							<br/>
 							<p>
 								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
 								<input type="reset" class="contentButtons" value="Reset"/>
