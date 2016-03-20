@@ -1,15 +1,22 @@
 <?php
-	include_once("config.php");
-	//start session
-	session_start();
-	// if user not logged in, redirect to homepage
-	if(!isset($_SESSION['login_user']))
-	{
-		header('Location: index.php');
+include_once("config.php");
+//start session
+session_start();
+// if user not logged in, redirect to homepage
+if(!isset($_SESSION['login_user']))
+{
+	header('Location: index.php');
 
-	}
-	// include function to add hashtags
+}
 
+//Open database connection
+$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
+
+//search for instructor name
+$result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -51,34 +58,18 @@
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
-
-			<?php
-			include_once("config.php");
-
-			//Open database connection
-			$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
-			if (!$conn) {
-				die("Connection failed: " . mysqli_connect_error());
-			}
-
-			//search for instructor name
-			$result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
-			
-			?>
-
 			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- content column !-->
 				<div class="signupSection">
 					<form action="notes.php" method="GET" id="userSearchForm">
 						<fieldset class="largeColorsec">
 							<legend>Course Notes Search</legend>
 							<class id="courseSelector">
-
 								<div id="selectorOptions" class="SelectOptions">
 									Please select an instructor name:
 									<select id="instructor" class="selectBox" name="instructor">
-										<!--> populate with instructor name -->
 										<option value=""></option>
 										<?php
+										//cylce through and populate all of the instructor values
 										while($row = mysqli_fetch_assoc($result)){
 											echo '<option value='.$row['instructor'].'>'.$row['instructor'].'</option>';
 										}
@@ -88,13 +79,13 @@
 
 								<div id="selectorOptions" class="SelectOptions">
 									Please select a course name:
-									<select id="courseName" class="selectBox" name="courseName"></select>
+									<select id="courseName" class="selectBox" name="courseName"></select><!-- Will recieve course name from AJAX!-->
 								</div>
 							</class>
 
 							<div id="selectorOptions" class="SelectOptions">
 								Please select a course number:
-								<select id="courseNumber" class="selectBox" name="courseNumber")></select>
+								<select id="courseNumber" class="selectBox" name="courseNumber")></select><!-- Will recieve course number from AJAX!-->
 							</div>
 							<span class="errorMsg" id="search1error"></span>
 							<p>
@@ -107,20 +98,18 @@
 
 				<div class="largeSec">
 				<?php
-					//check if course name, instructor, course number are selected
+				//check if course name, instructor, course number are selected
 					$instructor = $_GET['instructor'];
 					$courseName = $_GET['courseName'];
 					$courseNumber = $_GET['courseNumber'];
 
 					if (isset($instructor) && isset($courseName) && isset($courseNumber)){
-						$result = mysqli_query($conn, "SELECT DISTINCT n.* FROM Notes n JOIN Course c ON n.parentCourseId = c.courseId WHERE 
-							c.courseName='$courseName' AND c.courseNumber = '$courseNumber' AND c.instructor='$instructor';");
-						}
-				?>
 
-				<?php
-				//print out each note avaible
-					/*while($row = mysqli_fetch_assoc($result)){
+						$result = mysqli_query($conn, "SELECT n.* FROM Notes n JOIN Courses c ON n.parentCourseId = c.courseId WHERE 
+							c.courseName='$courseName' AND c.courseNumber = '$courseNumber' AND c.instructor='$instructor';");
+					}
+					//print out each note avaiable based on the options slected
+					while($row = mysqli_fetch_assoc($result)){
 						echo "<div class=wallPost>";
 							echo "<h2>$instructor $courseName $courseNumber</h2>";
 							echo "<p class=wallText> ".$row['text']." ";
@@ -128,18 +117,11 @@
 									echo '<p class="p3">' . $row['timestamp'];
 							echo "</p>";
 						echo "</div>";
-					}*/
-				?>
-
-				<?php
-					mysqli_free_result($result);
-					mysqli_close($conn);
-				?>
+					}
+					?>
+				</div>
 			</div>
 		</div>
-	</div>
-
-
 		<div class="row"> <!-- Footer Row !-->
 			<div class="col-xs-12"> 
 				<div class="footer">
@@ -148,8 +130,13 @@
 			</div>
 		</div>
 	</div>
-
 	<script type = "text/javascript"  src = "noteseventlisteners.js" >
 	</script>
 </body>
 </html>
+
+<?php
+	//close SQL connection and free result
+	mysqli_free_result($result);
+	mysqli_close($conn);
+?>
