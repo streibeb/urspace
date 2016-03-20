@@ -22,7 +22,7 @@ if (isset($_GET["a"])) {
 	(SELECT 1 FROM ReportedPosts
 		WHERE ReportedPosts.userId = '$uid' AND p.postId = ReportedPosts.postId) AS 'userReported'
 	FROM Posts p
-	WHERE p.postId = '$pid';";
+	WHERE p.postId = '$pid' AND p.isHidden = false;";
 	$posts = mysqli_query($conn, $query);
 
 // Get comments
@@ -42,12 +42,13 @@ if (isset($_GET["a"])) {
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<script type = "text/javascript"  src = "java1.js" ></script>
 	<script type = "text/javascript"  src = "report.js" ></script>
+	<script type = "text/javascript"  src = "delete.js" ></script>
 	<title>Comment</title>
 </head>
 <body class="allPages">
 	<div class="header">
 		<h1>
-			<a href="index.html" class="homeLink">
+			<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
 				<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 			</a>
 		</h1>
@@ -77,6 +78,9 @@ if (isset($_GET["a"])) {
 			<p class="wallText"><?php echo $post["text"];?></p>
 			<p class="p3">Posted Anonymously at <?php echo $post['timestamp'];?></p>
 			<button id="report_<?php echo $post["postId"];?>" class="<?php echo $reportButtonClass;?>"><?php echo $reportButtonText;?></button>
+			<?php if ($_SESSION['isAdmin'] || $uid == $post["creatorId"]) { ?>
+			<button id="delete_<?php echo $post["postId"];?>" class="deleteButton">Delete</button>
+			<?php } ?>
 		</div>
 		<?php } ?>
 		<?php while ($comment = mysqli_fetch_assoc($comments)) { ?>

@@ -11,8 +11,9 @@ $email = $_POST["uName"];
 $password = $_POST["pWord"];
 
 // perform database query
-$sql = "SELECT *
-FROM Users
+$sql = "SELECT u.*,
+(SELECT COUNT(1) FROM Administrators a WHERE a.userId = u.userId) as 'isAdmin'
+FROM Users u
 WHERE email = '$email' AND password = '$password';";
 $result = mysqli_query($conn, $sql);
 
@@ -22,7 +23,8 @@ $redirect = 'index.html';
 if (mysqli_num_rows($result) > 0) {
 	// Store Session Data
 	$row = mysqli_fetch_assoc($result);
-	$_SESSION['login_user']= $row['userId'];
+	$_SESSION['login_user'] = $row['userId'];
+	$_SESSION['isAdmin'] = $row['isAdmin'];
 	$redirect = 'wall.php';
 	$success = true;
 }

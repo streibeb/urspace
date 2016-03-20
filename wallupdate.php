@@ -25,12 +25,16 @@ $result = mysqli_query($conn, "SELECT p.*,
 
 	if($result !=  FALSE){
 		// loop through converting data into json object
-		while($row = mysqli_fetch_assoc($result)){
-			$sRow["text"]=htmlspecialchars($row['text']);
-			$sRow["uploadedFile"]=$row["uploadedFile"];
-			$sRow["postId"]=$row["postId"];
-			$sRow["timestamp"]=$row["timestamp"];
-			$sRow["numOfComments"]=$row["numOfComments"];
+		while($row = mysqli_fetch_assoc($result)) {
+			$sRow["text"] = htmlspecialchars($row['text']);
+			if (!is_null($row["uploadedFile"])) {
+				$sRow["uploadedFile"] = USER_IMAGE_UPLOAD_DIRECTORY . $row["uploadedFile"];
+			} else {
+				$sRow["uploadedFile"] = NULL;
+			}
+			$sRow["postId"] = $row["postId"];
+			$sRow["timestamp"] = $row["timestamp"];
+			$sRow["numOfComments"] = $row["numOfComments"];
 			$sResp[] = $sRow;
 
 		}

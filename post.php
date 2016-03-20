@@ -64,9 +64,7 @@ if (isset($_POST["submit"])) {
 	// close database connection
 	mysqli_close($conn);
 
-	if (isset($err)) {
-		header('Location: wall.php');
-	}
+	header('Location: ' . SIDEBAR_VIEW_POSTS);
 }
 ?>
 
