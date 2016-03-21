@@ -1,18 +1,18 @@
 <?php
-	include_once("config.php");
+include_once("config.php");
 
-	//start session
-	session_start();
+//start session
+session_start();
 
-	//If the user is already logged in, take them to the wall page.
-	if(isset($_SESSION['login_user']))
+//If the user is already logged in, take them to the wall page.
+if(isset($_SESSION['login_user']))
 {
 	header('Location: wall.php');
 }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
 
 <head>
@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
 </head>
 
-<script type = "text/javascript"  src = "java1.js" ></script>
+<script type = "text/javascript"  src = "scripts/java1.js" ></script>
 <title>Home Page</title>
 
 
@@ -51,7 +51,7 @@
 					<form action="login.php" method="post" enctype="multipart/form-data" id="indexForm">
 						<fieldset class="frontSection">
 							<legend>Login</legend>
-							Username <input type="text" name="uName" id ="uName"></input>  
+							Username <input type="text" name="uName" id ="uName"></input>
 							<span class="errorMsg" id="uNameerror" ></span> <br></br>
 							Password <input type="password" name="pWord" id="pWord"></input>
 							<span class="errorMsg" id="pWorderror"></span><br></br>
@@ -64,7 +64,7 @@
 			<!-- Row for signing up !-->
 			<div class="col-xs-12 col-md-8 col-md-offset-2">
 				<div class="loginSection">
-					<form action="signup.html" method="get">
+					<form action="signup.php" method="get">
 						<fieldset class="frontSection">
 							<legend>Signup</legend>
 							<p>Register now. Its free!</p>
@@ -85,9 +85,7 @@
 	</div>
 </div>
 
-<script type = "text/javascript"  src = "index1.js" >
+<script type = "text/javascript"  src = "scripts/index1.js" >
     </script>
 </body>
 </html>
-
-

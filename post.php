@@ -76,7 +76,7 @@ if (isset($_POST["submit"])) {
 
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "java1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/java1.js" ></script>
 	<title>Wall Post</title>
 </head>
 
@@ -112,12 +112,13 @@ if (isset($_POST["submit"])) {
 					<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
 						<fieldset class="largeColorsec">
 							<legend>New Anonymous Post</legend>
-
+							Post: <br/>
+							<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+							<br/>
+							<span class="errorMsg" id="errorComments"></span>
 							Picture (optional): <input type="file" name="postPic"></input>
-							<span class="errorMsg" id="errorUrl"></span><br></br>
-							Post: <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br></br><span class="errorMsg" id="errorComments"></span>
-
+							<span class="errorMsg" id="errorUrl"></span>
+							<br/>
 							<p>
 								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
 								<input type="reset" class="contentButtons" value="Reset"/>
@@ -137,6 +138,6 @@ if (isset($_POST["submit"])) {
 		</div>
 	</div>
 
-	<script type = "text/javascript"  src = "post1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/post1.js" ></script>
 </body>
 </html>
