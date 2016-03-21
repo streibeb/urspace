@@ -13,6 +13,8 @@ if(!isset($_SESSION['login_user']))
 	exit();
 }
 
+$uid = $_SESSION['login_user'];
+
 if (isset($_POST["submit"])) {
 	// Open database connection
 	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
@@ -43,7 +45,6 @@ if (isset($_POST["submit"])) {
 		}
 	}
 
-	$uid = $_SESSION['login_user'];
 	$content = htmlspecialchars(addslashes(trim($_POST['post1'])));
 	$date = date('Y/m/d H:i:s', time());
 

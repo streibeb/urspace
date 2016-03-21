@@ -195,6 +195,7 @@ if(!isAdmin($_SESSION['login_user'])) {
 					<div class="largeSec">
 						<!-- List of non-admins to be promoted !-->
 						<div class="nonAdminList">
+							<?php if(isSuperAdmin($_SESSION['login_user'])) { ?>
 							<form action="administrator.php" method="POST">
 								<fieldset class="largeColorsec">
 									<legend>Promote User to Admin</legend>
@@ -203,14 +204,12 @@ if(!isAdmin($_SESSION['login_user'])) {
 										<select id="newAdmin" class="selectBox" name="newAdmin">
 											<option value=""></option>
 											<?php	//cylce through and populate all of the non-admins
-											if(isSuperAdmin($_SESSION['login_user'])) {
 												$result = getNonAdmin();
 												while($row = mysqli_fetch_assoc($result))
 												{
 													echo '<option value='. $row['userId'] . '>'
 													. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
 												}
-											}
 											?>
 										</select>
 									</div>
@@ -220,6 +219,7 @@ if(!isAdmin($_SESSION['login_user'])) {
 									</p>
 								</fieldset>
 							</form>
+							<?php } ?>
 						</div>
 						<br/>
 						<!-- reported posts to be reviewed and deleted !-->
