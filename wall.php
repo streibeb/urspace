@@ -2,6 +2,7 @@
 //start session
 session_start();
 include_once("config.php");
+include_once("include.php");
 
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user'])) {
@@ -45,8 +46,10 @@ if (isset($_GET["page"])) {
 
 $query = "SELECT p.*,
 	(SELECT COUNT(commentID)
-	FROM Comments c
-	WHERE parentPostId = postId) as 'numOfComments'
+		FROM Comments c
+		WHERE parentPostId = postId) AS 'numOfComments',
+	(SELECT 1 FROM ReportedPosts
+		WHERE ReportedPosts.userId = '$uid' AND p.postId = ReportedPosts.postId) AS 'userReported'
 	FROM Posts p
 	WHERE isHidden = false
 	ORDER BY timestamp DESC
@@ -92,7 +95,7 @@ mysqli_close($conn);
 					<p class="blankButton">View Posts</p>
 					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 					<br></br>
 				</div>
@@ -104,8 +107,8 @@ mysqli_close($conn);
 					</div>
 					<div id="wallArea">
 					<?php while($row = mysqli_fetch_assoc($result)) {
-						$userReportedPost = $post["userReported"];
-						$reportButtonClass = $userReportedPost ? "contentButtons" : "contentButtons";
+						$userReportedPost = $row["userReported"];
+						$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
 						$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
 
 						$postContent = htmlspecialchars($row['text']);

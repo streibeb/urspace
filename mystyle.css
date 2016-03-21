@@ -299,7 +299,7 @@ NOTE: keep these colors the same as the color of the box*/
 	margin-bottom: 5px;
 }
 
-.contentButtons {
+.contentButtons, .reportButton, .reportButtonPressed {
 	text-decoration:none;
 	color: black;
 	background-color: #ffc82e;
@@ -310,10 +310,32 @@ NOTE: keep these colors the same as the color of the box*/
 	margin-right: 10px;
 }
 
-.contentButtons:hover {
+.contentButtons:hover, .reportButton:hover, .reportButtonPressed:hover {
 	text-decoration:none;
 	color: black;
 	background-color: #ffdf85;
+	border-style:solid;
+	border-width:2px;
+	border-color: #a5811d;
+	text-align:center;
+	margin-right: 10px;
+}
+
+.deleteButton, .deleteButtonPressed {
+	text-decoration:none;
+	color: black;
+	background-color: #cccccc;
+	border-style:solid;
+	border-width:2px;
+	border-color: #a5811d;
+	text-align:center;
+	margin-right: 10px;
+}
+
+.deleteButton:hover, .deleteButtonPressed:hover {
+	text-decoration:none;
+	color: black;
+	background-color: #bbbbbb;
 	border-style:solid;
 	border-width:2px;
 	border-color: #a5811d;

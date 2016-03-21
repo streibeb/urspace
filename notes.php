@@ -1,13 +1,14 @@
 <?php
 include_once("config.php");
+include_once("include.php");
 //start session
 session_start();
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
 	header('Location: index.php');
-
 }
+$uid = $_SESSION['login_user'];
 
 //Open database connection
 $conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
@@ -53,8 +54,8 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 					<br/>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
 					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+					<p class="blankButton">View Notes</p>
+					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
