@@ -7,9 +7,16 @@ if (isset($_POST['newAdmin']))
 	addAdmin($_POST['newAdmin']);
 }
 
-if (isset($_POST['delete']))
+if (isset($_POST['action']))
 {
-	deletePost($_POST['delete']);
+	$action = $_POST['action'];
+	$id = $_POST['id'];
+
+	if ($action == "delete") {
+		deletePost($id);
+	} else if ($action == "resolve") {
+		resolveReports($id);
+	}
 }
 
 function isAdmin($id)
@@ -105,7 +112,8 @@ function getReportedPosts()
 	$query = "SELECT p.*
 	FROM Posts p
 	INNER JOIN ReportedPosts rp
-	ON rp.postId = p.postId;";
+	ON rp.postId = p.postId
+	ORDER BY p.timestamp DESC;";
 
 	// perform database query
 	$result = mysqli_query($conn, $query);
@@ -124,6 +132,22 @@ function deletePost($id)
 	}
 
 	$query = "DELETE FROM Posts WHERE postId = '$id';";
+
+	// perform database query
+	$result = mysqli_query($conn, $query);
+	mysqli_close($conn);
+}
+
+function resolveReports($id)
+{
+	// Open database connection
+	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+	if (!$conn)
+	{
+		die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$query = "DELETE FROM ReportedPosts WHERE postId = '$id';";
 
 	// perform database query
 	$result = mysqli_query($conn, $query);
@@ -232,8 +256,12 @@ if(!isAdmin($_SESSION['login_user'])) {
 									<?php echo $postContent; ?>
 									</p>
 									<form action="administrator.php" method="POST">
-										<input type="hidden" name="delete" value="<?=$postId?>">
-										<input type="submit" class="deleteButton" value="Delete" />
+										<select id="action" class="selectBox" name="action">
+											<option value='resolve'>Resolve</option>
+											<option value='delete'>Delete</option>
+										</select>
+										<input type="hidden" name="id" value="<?=$postId?>">
+										<input type="submit" class="contentButton" value="Submit" />
 									</form>
 								</div>
 							<?php } ?>
