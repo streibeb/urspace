@@ -5,7 +5,7 @@ session_start();
 // if user not logged in, redirect to homepage
 if(!isset($_SESSION['login_user']))
 {
-	header('Location: index.html');
+	header('Location: index.php');
 }
 
 if (isset($_GET["a"])) {

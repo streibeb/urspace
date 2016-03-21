@@ -16,10 +16,10 @@ $sql = "INSERT INTO Users (email, firstName, lastName, dateOfBirth, password)
 VALUES ('$email','$firstName','$lastName','$dateOfBirth','$password');";
 
 $success = false;
-$redirect = 'signup.html';
+$redirect = 'signup.php';
 //attempt to create new record
 if (mysqli_query($conn, $sql)) {
-  $redirect = 'index.html';
+  $redirect = 'index.php';
 }
 mysqli_close($conn);
 ?>

@@ -18,7 +18,7 @@ WHERE email = '$email' AND password = '$password';";
 $result = mysqli_query($conn, $sql);
 
 $success = false;
-$redirect = 'index.html';
+$redirect = 'index.php';
 
 if (mysqli_num_rows($result) > 0) {
 	// Store Session Data
