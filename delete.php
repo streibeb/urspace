@@ -2,9 +2,55 @@
 session_start();
 include_once("config.php");
 
+// Function declarations
+function softDeletePost($db, $pid, $uid) {
+  $sResp = array();
+
+  $query = "UPDATE Posts SET isHidden = true WHERE postId = $pid AND creatorId = $uid";
+  $result = mysqli_query($db, $query);
+  if ($result) {
+    $sRow["postId"] = $pid;
+    $sRow["postHidden"] = true;
+    $rResp[] = $sRow;
+    echo json_encode($rResp);
+  }
+}
+
+function hardDeletePost($db, $pid, $uid) {
+  $sResp = array();
+
+  // TODO: Need to delete file here
+
+  $query = "DELETE FROM Posts WHERE postId = '$pid';";
+  $result = mysqli_query($db, $query);
+  if ($result) {
+    $sRow["postId"] = $pid;
+    $sRow["postDeleted"] = true;
+    $rResp[] = $sRow;
+    echo json_encode($rResp);
+  }
+}
+
+function hardDeleteNotes($db, $pid, $uid) {
+  $sResp = array();
+
+  // TODO: Need to delete file here
+
+  $query = "DELETE FROM Notes WHERE notesId = '$nid';";
+  $result = mysqli_query($db, $query);
+  if ($result) {
+    $sRow["notesId"] = $pid;
+    $sRow["notesDeleted"] = true;
+    $rResp[] = $sRow;
+    echo json_encode($rResp);
+  }
+}
+
+// Business code
 if (isset($_SESSION["login_user"])) {
     $uid = $_SESSION["login_user"];
     $pid = $_POST["pid"];
+    $nid = $_POST["nid"];
 
     $db = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
     if (!$db) {
@@ -19,29 +65,13 @@ if (isset($_SESSION["login_user"])) {
       $isAdmin = true;
     }
 
-    if (!$isAdmin) { //isset($_POST["soft"])) {
-        $sResp = array();
-
-        $query = "UPDATE Posts SET isHidden = true WHERE postId = $pid AND creatorId = $uid";
-        $result = mysqli_query($db, $query);
-        if ($result) {
-          $sRow["postId"] = $pid;
-          $sRow["postHidden"] = true;
-          $rResp[] = $sRow;
-          echo json_encode($rResp);
-        }
-        mysqli_close($db);
-    } else { //if (isset($_POST["hard"])) {
-        $sResp = array();
-
-        $query = "DELETE FROM Posts WHERE postId = '$pid';";
-        $result = mysqli_query($db, $query);
-        if ($result) {
-          $sRow["postId"] = $pid;
-          $sRow["postDeleted"] = true;
-          $rResp[] = $sRow;
-          echo json_encode($rResp);
-        }
-        mysqli_close($db);
+    if (!$isAdmin) {
+      if (!is_null($pid)) softDeletePost($db, $pid, $uid);
+      else if (!is_null($nid)) hardDeleteNotes($db, $nid, $uid);
+      mysqli_close($db);
+    } else {
+      if (!is_null($pid)) hardDeletePost($db, $pid, $uid);
+      else if (!is_null($nid)) hardDeleteNotes($db, $nid, $uid);
+      mysqli_close($db);
     }
 }
