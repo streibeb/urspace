@@ -45,8 +45,10 @@ if (isset($_GET["page"])) {
 
 $query = "SELECT p.*,
 	(SELECT COUNT(commentID)
-	FROM Comments c
-	WHERE parentPostId = postId) as 'numOfComments'
+		FROM Comments c
+		WHERE parentPostId = postId) AS 'numOfComments',
+	(SELECT 1 FROM ReportedPosts
+		WHERE ReportedPosts.userId = '$uid' AND p.postId = ReportedPosts.postId) AS 'userReported'
 	FROM Posts p
 	WHERE isHidden = false
 	ORDER BY timestamp DESC
@@ -104,7 +106,7 @@ mysqli_close($conn);
 					</div>
 					<div id="wallArea">
 					<?php while($row = mysqli_fetch_assoc($result)) {
-						$userReportedPost = $post["userReported"];
+						$userReportedPost = $row["userReported"];
 						$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
 						$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
 
