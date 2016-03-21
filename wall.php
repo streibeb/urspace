@@ -105,7 +105,7 @@ mysqli_close($conn);
 					<div id="wallArea">
 					<?php while($row = mysqli_fetch_assoc($result)) {
 						$userReportedPost = $post["userReported"];
-						$reportButtonClass = $userReportedPost ? "contentButtons" : "contentButtons";
+						$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
 						$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
 
 						$postContent = htmlspecialchars($row['text']);
