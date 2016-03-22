@@ -2,16 +2,16 @@
 ///////event registration//////////
 ///////////////////////////////////
 
-var indexForm = document.getElementById("indexForm");
-var nameNode = indexForm.uName;
-var passNode = indexForm.pWord;
-nameNode.addEventListener("change", chkName, false);
-passNode.addEventListener("change", chkPass, false);
-indexForm.addEventListener("submit", chkSubmit, false);
+var check = document.getElementById("dynamicUpdate");
 
+//check.addEventListener('click', checkBox, false);
+//window.addEventListener('load', theTimer , false);
 
-
-
-
-
-
+var buttons = document.getElementsByTagName("button");
+for(var i = 0; i < buttons.length; i++) {
+    if (buttons[i].id.substr(0, 7) == "report_") {
+        buttons[i].addEventListener("mouseup", ReportPost, false);
+    } else if (buttons[i].id.substr(0, 7) == "delete_") {
+        buttons[i].addEventListener("mouseup", DeletePost, false);
+    }
+}

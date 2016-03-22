@@ -30,7 +30,7 @@ function DeletePost(Event) {
         var element = document.getElementById("post" + pid);
         element.parentNode.removeChild(element);
       } else if (responseObj[0].postDeleted) {
-        window.location.href = "/cs372/wall.php";
+        window.location.href = "/cs372/index.php";
       }
     }
   }
@@ -50,7 +50,7 @@ function DeleteNote(Event) {
       console.log(responseObj);
 
       if (responseObj[0].notesDeleted) {
-        window.location.href = "/cs372/wall.php";
+        window.location.href = "/cs372/index.php";
       }
     }
   }

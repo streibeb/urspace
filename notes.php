@@ -4,9 +4,8 @@ include_once("include.php");
 //start session
 session_start();
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
+if(!isset($_SESSION['login_user'])) {
+	header('Location: '.SIDEBAR_LOGIN);
 }
 $uid = $_SESSION['login_user'];
 
@@ -40,8 +39,8 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.php" class="homeLink">
-							<img src="logo.png" class="placeHolder" alt="img"></img> FakeBook
+						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
+							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
 				</div>
@@ -126,7 +125,7 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 		<div class="row"> <!-- Footer Row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>

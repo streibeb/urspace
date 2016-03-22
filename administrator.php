@@ -155,7 +155,7 @@ function resolveReports($id)
 }
 
 if(!isAdmin($_SESSION['login_user'])) {
-	header("Location: wall.php");
+	header('Location: '.SIDEBAR_VIEW_POSTS);
 }
 ?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -173,8 +173,8 @@ if(!isAdmin($_SESSION['login_user'])) {
 				<div class="col-xs-12">
 					<div class="header">
 						<h1>
-							<a href="index.php" class="homeLink">
-								<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
+							<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
+							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 							</a>
 						</h1>
 					</div>
@@ -223,9 +223,6 @@ if(!isAdmin($_SESSION['login_user'])) {
 						</div>
 						<br/>
 						<!-- reported posts to be reviewed and deleted !-->
-						<div class="wallOptions">
-							Disable automatic updating: 	<input type="checkbox" id="dynamicUpdate"></input>
-						</div>
 						<div id="wallArea">
 							<?php
 							$result = getReportedPosts();
@@ -272,7 +269,7 @@ if(!isAdmin($_SESSION['login_user'])) {
 			<div class="row"> <!-- footer row !-->
 				<div class="col-xs-12">
 					<div class="footer">
-						<p class="p2">2015 Department of Computer Science CS 215</p>
+						<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 					</div>
 				</div>
 			</div>

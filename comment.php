@@ -4,9 +4,8 @@ include_once("include.php");
 //start session
 session_start();
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
+if(!isset($_SESSION['login_user'])) {
+	header('Location: '.SIDEBAR_LOGIN);
 }
 
 if (isset($_GET["a"])) {
@@ -125,7 +124,7 @@ if (isset($_GET["a"])) {
 		<div class="row"> <!-- Footer Row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>

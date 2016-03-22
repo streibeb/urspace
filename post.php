@@ -7,10 +7,8 @@ include_once("config.php");
 include_once("include.php");
 
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
-	exit();
+if(!isset($_SESSION['login_user'])) {
+	header('Location: '.SIDEBAR_LOGIN);
 }
 
 $uid = $_SESSION['login_user'];
@@ -88,7 +86,7 @@ if (isset($_POST["submit"])) {
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.php" class="homeLink">
+						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
 							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
@@ -134,7 +132,7 @@ if (isset($_POST["submit"])) {
 		<div class="row"> <!-- footer row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>

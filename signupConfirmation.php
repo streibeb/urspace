@@ -12,6 +12,11 @@ $lastName = trim($_POST['lName']);
 $dateOfBirth = $_POST['bDay'] . "00:00:00";
 $password = trim($_POST['pWord1']);
 
+// server side input validations
+if(!isset($email) || !isset($firstName) || !isset($lastName) || !isset($dateOfBirth) || !isset($password)){
+	header('Location: signup.php');
+}
+
 $sql = "INSERT INTO Users (email, firstName, lastName, dateOfBirth, password)
 VALUES ('$email','$firstName','$lastName','$dateOfBirth','$password');";
 
@@ -19,7 +24,8 @@ $success = false;
 $redirect = 'signup.php';
 //attempt to create new record
 if (mysqli_query($conn, $sql)) {
-  $redirect = 'index.php';
+  $redirect = 'login.php';
+  $success = true;
 }
 mysqli_close($conn);
 ?>
@@ -33,14 +39,16 @@ mysqli_close($conn);
     <title>Sign Up</title>
   </head>
   <body class="infoPage">
-    <?php if (success) { ?>
-      Sign-up successful. Welcome to URspace!
-      <br/>
-      Redirecting...
-    <?php } else { ?>
-      User email already exists.
-      <br/>
-      Redirecting...
-    <?php } ?>
+    <?php 
+	if ($success) { 
+      echo "Sign-up successful. Welcome to URspace!";
+      echo "<br/>";
+      echo "Redirecting...";
+     } else {
+      echo "User email already exists.";
+      echo "<br/>";
+      echo "Redirecting...";
+    } 
+ ?>
   </body>
 </html>

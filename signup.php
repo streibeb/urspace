@@ -4,7 +4,7 @@ session_start();
 //If the user is already logged in, take them to the wall page.
 if(isset($_SESSION['login_user']))
 {
-	header('Location: wall.php');
+	header('Location: '.SIDEBAR_VIEW_POSTS);
 }
 ?>
 
@@ -26,7 +26,7 @@ if(isset($_SESSION['login_user']))
 				<div class="header">
 					<h1>
 						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
+						<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
 				</div>
@@ -61,7 +61,7 @@ if(isset($_SESSION['login_user']))
 	<div class="row"><!-- Row for footer !-->
 		<div class="col-xs-12">
 			<div class="footer">
-				<p class="p2">2015 Department of Computer Science CS 215</p>
+				<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 			</div>
 		</div>
 	</div>
