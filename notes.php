@@ -4,9 +4,7 @@ include_once("include.php");
 //start session
 session_start();
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user'])) {
-	header('Location: '.SIDEBAR_LOGIN);
-}
+checkUserSession();
 $uid = $_SESSION['login_user'];
 
 //Open database connection

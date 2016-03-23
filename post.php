@@ -7,9 +7,7 @@ include_once("config.php");
 include_once("include.php");
 
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user'])) {
-	header('Location: '.SIDEBAR_LOGIN);
-}
+checkUserSession();
 
 $uid = $_SESSION['login_user'];
 
