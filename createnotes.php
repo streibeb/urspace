@@ -8,6 +8,7 @@ include_once("include.php");
 
 // if user not logged in, redirect to homepage
 checkUserSession();
+$uid = $_SESSION['login_user'];
 
 //before submission code to populate the dropdown lists
 
@@ -53,7 +54,7 @@ if (isset($_POST["submit"])) {
 		}
 	}
 
-	$uid = $_SESSION['login_user'];
+	//$uid = $_SESSION['login_user'];
 	$content = htmlspecialchars(addslashes(trim($_POST['post1'])));
 
 	$instructor = htmlspecialchars(addslashes(trim($_POST['instructor'])));
