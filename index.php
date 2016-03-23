@@ -91,8 +91,9 @@ mysqli_close($conn);
 				<div class="sideBar">
 					<br/>
 					<p class="blankButton">View Posts</p>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
 					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 					<br></br>

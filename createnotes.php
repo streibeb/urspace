@@ -126,6 +126,7 @@ if (isset($_POST["submit"])) {
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
 					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+					<p class="blankButton">Create Notes</p>
 					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>

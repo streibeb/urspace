@@ -50,8 +50,9 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 				<div class="sideBar">
 					<br/>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
 					<p class="blankButton">View Notes</p>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
 					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>

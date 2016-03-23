@@ -248,8 +248,9 @@ if(!isAdmin($_SESSION['login_user'])) {
 					<div class="sideBar">
 						<br/>
 						<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-						<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
 						<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
 						<p class="blankButton">Admin</p>
 						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 					</div>
