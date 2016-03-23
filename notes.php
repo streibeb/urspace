@@ -25,8 +25,8 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 <head>
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "scripts/java1.js" >
-	</script>
+	<script type = "text/javascript"  src = "scripts/java1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/delete.js" ></script>
 	<title>Search</title>
 </head>
 
@@ -102,18 +102,27 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 					$courseNumber = $_GET['courseNumber'];
 
 					if (isset($instructor) && isset($courseName) && isset($courseNumber)){
-
-						$result = mysqli_query($conn, "SELECT n.* FROM Notes n JOIN Courses c ON n.parentCourseId = c.courseId WHERE
-							c.courseName='$courseName' AND c.courseNumber = '$courseNumber' AND c.instructor='$instructor';");
+						$query = "SELECT n.*
+						FROM Notes n
+						JOIN Courses c ON n.parentCourseId = c.courseId
+						WHERE c.courseName='$courseName'
+							AND c.courseNumber = '$courseNumber'
+							AND c.instructor='$instructor'
+							AND n.isHidden = false;";
+						$result = mysqli_query($conn, $query);
 					}
 					//print out each note avaiable based on the options slected
 					while($row = mysqli_fetch_assoc($result)){
 						echo "<div class=wallPost>";
-							echo "<h2>$instructor $courseName $courseNumber</h2>";
-							echo "<p class=wallText> ".$row['text']." ";
-								echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
-									echo '<p class="p3">' . $row['timestamp'];
-							echo "</p>";
+						echo "<h2>$instructor $courseName $courseNumber</h2>";
+						echo "<p class=wallText> ".$row['text']." ";
+						echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'"><button>Download Attached File</button> </a>';
+						//echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
+						echo '<p class="p3">' . $row['timestamp'];
+						echo "</p>";
+						if ($_SESSION['isAdmin'] || $uid == $row["creatorId"]) {
+							echo '<button id="delete_' . $row["notesId"] . '" class="deleteButton">Delete</button>';
+						}
 						echo "</div>";
 					}
 					?>
