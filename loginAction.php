@@ -25,8 +25,11 @@ if (mysqli_num_rows($result) > 0) {
 	$row = mysqli_fetch_assoc($result);
 	$_SESSION['login_user'] = $row['userId'];
 	$_SESSION['isAdmin'] = $row['isAdmin'];
-	$redirect = 'index.php';
 	$success = true;
+	$isBanned = $row['isBanned'];
+	if ($success && !$isBanned) {
+		$redirect = SIDEBAR_VIEW_POSTS;
+	}
 }
 
 mysqli_close($conn);
@@ -41,18 +44,25 @@ mysqli_close($conn);
 		<title>Login</title>
 	</head>
 	<body class="infoPage">
-		<?php 
-		
-		if ($success) { 
-			echo "Login Successful.";
-			echo "<br/>";
-			echo "Redirecting...";
-		 } else { 
+		<?php
+
+		if ($success) {
+			if ($isBanned) {
+				session_destroy();
+				echo "You have been banned!";
+				echo "<br/>";
+				echo "Redirecting...";
+			} else {
+				echo "Login Successful.";
+				echo "<br/>";
+				echo "Redirecting...";
+			}
+		 } else {
 			echo "Invalid username and/or password.";
 			echo "<br/>";
 			echo "Redirecting...";
-		} 
-	
+		}
+
 		?>
 	</body>
 </html>
