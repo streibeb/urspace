@@ -2,16 +2,25 @@
 include_once("config.php");
 session_start();
 
-if (isset($_POST['newAdmin']))
+if (isset($_POST['promoteAdmin']))
 {
-	addAdmin($_POST['newAdmin']);
+	addAdmin($_POST['promoteAdmin']);
+}
+
+if (isset($_POST['demoteAdmin']))
+{
+	removeAdmin($_POST['demoteAdmin']);
+}
+
+if (isset($_POST['banUser']))
+{
+	banUser($_POST['banUser']);
 }
 
 if (isset($_POST['action']))
 {
 	$action = $_POST['action'];
 	$id = $_POST['id'];
-
 	if ($action == "delete") {
 		deletePost($id);
 	} else if ($action == "resolve") {
@@ -27,15 +36,12 @@ function isAdmin($id)
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	$query = "SELECT a.*
 	FROM Administrators a
 	WHERE a.userId = '$id';";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
-
 	return (mysqli_num_rows($result) > 0);
 }
 
@@ -47,16 +53,13 @@ function isSuperAdmin($id)
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	$query = "SELECT a.*
 	FROM Administrators a
 	WHERE a.userId = '$id'
 	AND a.isSuperAdmin = true;";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
-
 	return (mysqli_num_rows($result) > 0);
 }
 
@@ -68,13 +71,81 @@ function addAdmin($id)
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	$query = "INSERT INTO Administrators (userId)
 	VALUES ('$id');";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
+}
+
+function removeAdmin($id)
+{
+	// Open database connection
+	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+	if (!$conn)
+	{
+		die("Connection failed: " . mysqli_connect_error());
+	}
+	$query = "DELETE FROM Administrators
+		WHERE userId = '$id' AND isSuperAdmin = false;";
+	// perform database query
+	$result = mysqli_query($conn, $query);
+	mysqli_close($conn);
+}
+
+function banUser($id)
+{
+	if(isAdmin($id))
+	{
+		removeAdmin($id);
+	}
+
+	// Open database connection
+	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+	if (!$conn)
+	{
+		die("Connection failed: " . mysqli_connect_error());
+	}
+	$query = "UPDATE Users
+			  SET isBanned = true
+			  WHERE userId = '$id';";
+	// perform database query
+	$result = mysqli_query($conn, $query);
+	mysqli_close($conn);
+}
+
+function getAllUsers()
+{
+	// Open database connection
+	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+	if (!$conn)
+	{
+		die("Connection failed: " . mysqli_connect_error());
+	}
+	$query = "SELECT u.*
+			  FROM Users u;";
+	// perform database query
+	$result = mysqli_query($conn, $query);
+	mysqli_close($conn);
+	return $result;
+}
+
+function getAdmin()
+{
+	// Open database connection
+	$conn = mysqli_connect(DB_HOST_NAME, DB_USER, DB_PASS, DB_NAME);
+	if (!$conn)
+	{
+		die("Connection failed: " . mysqli_connect_error());
+	}
+	$query = "SELECT u.*
+			  FROM Users u
+			  INNER JOIN Administrators a ON a.userId = u.userId
+				WHERE a.isSuperAdmin = false;";
+	// perform database query
+	$result = mysqli_query($conn, $query);
+	mysqli_close($conn);
+	return $result;
 }
 
 function getNonAdmin()
@@ -85,18 +156,14 @@ function getNonAdmin()
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
-
 	$query = "SELECT u.*
 	FROM Users u
 	WHERE NOT EXISTS (SELECT a.*
 	FROM Administrators a
 	WHERE u.userId = a.userId);";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
-
 	return $result;
 }
 
@@ -108,17 +175,14 @@ function getReportedPosts()
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	$query = "SELECT p.*
 	FROM Posts p
 	INNER JOIN ReportedPosts rp
 	ON rp.postId = p.postId
 	ORDER BY p.timestamp DESC;";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
-
 	return $result;
 }
 
@@ -130,9 +194,7 @@ function deletePost($id)
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	$query = "DELETE FROM Posts WHERE postId = '$id';";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
@@ -146,9 +208,7 @@ function resolveReports($id)
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	$query = "DELETE FROM ReportedPosts WHERE postId = '$id';";
-
 	// perform database query
 	$result = mysqli_query($conn, $query);
 	mysqli_close($conn);
@@ -157,6 +217,7 @@ function resolveReports($id)
 if(!isAdmin($_SESSION['login_user'])) {
 	header('Location: '.SIDEBAR_VIEW_POSTS);
 }
+
 ?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -164,6 +225,8 @@ if(!isAdmin($_SESSION['login_user'])) {
 	<head>
 		<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<!--<script type = "text/javascript"  src = "java1.js" ></script>-->
 		<title>Admin Page</title>
 	</head>
@@ -196,29 +259,103 @@ if(!isAdmin($_SESSION['login_user'])) {
 						<!-- List of non-admins to be promoted !-->
 						<div class="nonAdminList">
 							<?php if(isSuperAdmin($_SESSION['login_user'])) { ?>
-							<form action="administrator.php" method="POST">
-								<fieldset class="largeColorsec">
-									<legend>Promote User to Admin</legend>
-									<div id="selectorOptions" class="SelectOptions">
-										Choose a user to promote to an administrator:
-										<select id="newAdmin" class="selectBox" name="newAdmin">
-											<option value=""></option>
-											<?php	//cylce through and populate all of the non-admins
-												$result = getNonAdmin();
-												while($row = mysqli_fetch_assoc($result))
-												{
-													echo '<option value='. $row['userId'] . '>'
-													. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
-												}
-											?>
-										</select>
-									</div>
-									<p>
-										<input class="contentButtons" type="submit" value="Submit" />
-										<input class="contentButtons" type="reset"  value="Reset"  />
-									</p>
-								</fieldset>
-							</form>
+
+								<ul class="nav nav-tabs">
+								  <li class="active"><a data-toggle="tab" href="#promote">Promote User</a></li>
+								  <li><a data-toggle="tab" href="#demote">Demote User</a></li>
+								  <li><a data-toggle="tab" href="#ban">Ban User</a></li>
+								</ul>
+
+								<div class="tab-content">
+								  <div id="promote" class="tab-pane fade in active">
+									<form action="administrator.php" method="POST">
+										<fieldset class="largeColorsec">
+											<legend>Promote User to Admin</legend>
+											<div id="selectorOptions" class="SelectOptions">
+												Choose a user to promote to an administrator:
+												<select id="promoteAdmin" class="selectBox" name="promoteAdmin">
+													<option value=""></option>
+													<?php	//cylce through and populate all of the non-admins
+														$result = getNonAdmin();
+														while($row = mysqli_fetch_assoc($result))
+														{
+															echo '<option value='. $row['userId'] . '>'
+															. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
+														}
+													?>
+												</select>
+											</div>
+											<p>
+												<input class="contentButtons" type="submit" value="Submit" />
+												<input class="contentButtons" type="reset"  value="Reset"  />
+											</p>
+										</fieldset>
+									</form>
+								  </div>
+
+								  <div id="demote" class="tab-pane fade">
+									<form action="administrator.php" method="POST">
+										<fieldset class="largeColorsec">
+											<legend>Demote User from Admin</legend>
+											<div id="selectorOptions" class="SelectOptions">
+												Choose a user to demote from an administrator:
+												<select id="demoteAdmin" class="selectBox" name="demoteAdmin">
+													<option value=""></option>
+													<?php	//cylce through and populate all of the non-admins
+														$result = getAdmin();
+														while($row = mysqli_fetch_assoc($result))
+														{
+															echo '<option value='. $row['userId'] . '>'
+															. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
+														}
+													?>
+												</select>
+											</div>
+											<p>
+												<input class="contentButtons" type="submit" value="Submit" />
+												<input class="contentButtons" type="reset"  value="Reset"  />
+											</p>
+										</fieldset>
+									</form>
+								  </div>
+
+								  <div id="ban" class="tab-pane fade">
+									<form action="administrator.php" method="POST">
+										<fieldset class="largeColorsec">
+											<legend>Ban User from URSpace</legend>
+											<div id="selectorOptions" class="SelectOptions">
+												Choose a user to ban from URSpace:
+												<select id="banUser" class="selectBox" name="banUser">
+													<option value=""></option>
+													<?php	//cylce through and populate all of the non-admins
+														$result = getNonAdmin();
+														while($row = mysqli_fetch_assoc($result))
+														{
+															echo '<option value='. $row['userId'] . '>'
+															. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
+														}
+													?>
+												</select>
+											</div>
+											<p>
+												<input class="contentButtons" type="submit" value="Submit" />
+												<input class="contentButtons" type="reset"  value="Reset"  />
+											</p>
+										</fieldset>
+									</form>
+								  </div>
+								</div>
+
+
+
+
+
+
+
+
+
+
+
 							<?php } ?>
 						</div>
 						<br/>
@@ -226,7 +363,6 @@ if(!isAdmin($_SESSION['login_user'])) {
 						<div id="wallArea">
 							<?php
 							$result = getReportedPosts();
-
 							while($row = mysqli_fetch_assoc($result))
 							{
 								$userReportedPost = $post["userReported"];
