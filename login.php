@@ -35,7 +35,7 @@ if(isset($_SESSION['login_user']))
 			<div class="header2">
 				<h1>
 					<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
-						<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
+						<img src="logo.png" class="loginLogo" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 					</a>
 				</h1>
 			</div>
@@ -47,13 +47,13 @@ if(isset($_SESSION['login_user']))
 
 			<!-- Row for login !-->
 			<div class="col-xs-12 col-md-8 col-md-offset-2">
-				<div class="signup">
+				<div class="signup loginSection">
 					<form action="loginAction.php" method="post" enctype="multipart/form-data" id="indexForm">
 						<fieldset class="frontSection">
 							<legend>Login</legend>
-							User Email <input type="text" name="uName" id ="uName"></input>
-							<span class="errorMsg" id="uNameerror" ></span> <br></br>
-							Password <input type="password" name="pWord" id="pWord"></input>
+							<div class="inputIdent">User Email</div> <input type="text" name="uName" id ="uName"></input>
+							<div class="errorMsg" id="uNameerror" ></div> <br></br>
+							<div class="inputIdent">Password</div> <input type="password" name="pWord" id="pWord"></input>
 							<span class="errorMsg" id="pWorderror"></span><br></br>
 							<input type="submit" value="Submit"/>
 						</fieldset>

@@ -37,17 +37,17 @@ if(isset($_SESSION['login_user']))
 				<form action="signupConfirmation.php" method="post" enctype="multipart/form-data" id="signupForm">
 					<fieldset class="standardSec">
 						<legend>Sign Up</legend>
-						First Name: <input type="text" name="fName" id ="fName"></input>
+						<div class="signupText"> First Name: </div> <input type="text" name="fName" id ="fName"></input>
 						<span class="errorMsg" id="fNameerror"></span><br></br>
-						Last Name: <input type="text" name="lName" id ="lName"></input>
+						<div class="signupText">Last Name: </div> <input type="text" name="lName" id ="lName"></input>
 						<span class="errorMsg" id="lNameerror"></span><br></br>
-						Birthdate (YYYY-MM-DD): <input type="text" name="bDay" id="bDay"></input>
+						<div class="signupText">Birthdate (YYYY-MM-DD): </div><input type="text" name="bDay" id="bDay"></input>
 						<span class="errorMsg" id="bDayerror"></span><br></br>
-						Email: <input type="text" name="eMail" id="eMail"></input>
+						<div class="signupText">Email: </div><input type="text" name="eMail" id="eMail"></input>
 						<span class="errorMsg" id="eMailerror"></span><br></br>
-						Password: <input type="password" name="pWord1" id="pWord1"></input>
+						<div class="signupText">Password:</div> <input type="password" name="pWord1" id="pWord1"></input>
 						<span class="errorMsg" id="pWord1error"></span><br></br>
-						Re-enter Password: <input type="password" name="pWord2" id="pWord2"></input>
+						<div class="signupText">Re-enter Password:</div> <input type="password" name="pWord2" id="pWord2"></input>
 						<span class="errorMsg" id="pWord2error"></span>
 						<p>
 							<input type="submit" value="Submit"/>
