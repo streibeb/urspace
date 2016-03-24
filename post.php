@@ -4,13 +4,12 @@
 //start session
 session_start();
 include_once("config.php");
+include_once("include.php");
 
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
-	exit();
-}
+checkUserSession();
+
+$uid = $_SESSION['login_user'];
 
 if (isset($_POST["submit"])) {
 	// Open database connection
@@ -23,7 +22,7 @@ if (isset($_POST["submit"])) {
 	$uploaded = false;
 
 	$tempFile = USER_IMAGE_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
-	$ext = pathinfo($tempFile, PATHINFO_EXTENSION);
+	$ext = strtolower(pathinfo($tempFile, PATHINFO_EXTENSION));
 	$target_file = USER_IMAGE_UPLOAD_DIRECTORY . $uniqueId . "." . $ext;
 	$filename = $uniqueId . "." . $ext;
 
@@ -42,7 +41,6 @@ if (isset($_POST["submit"])) {
 		}
 	}
 
-	$uid = $_SESSION['login_user'];
 	$content = htmlspecialchars(addslashes(trim($_POST['post1'])));
 	$date = date('Y/m/d H:i:s', time());
 
@@ -76,7 +74,7 @@ if (isset($_POST["submit"])) {
 
 	<link rel="stylesheet" type="text/css" href="mystyle.css"></link>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> <!-- This is the link for bootstrap !-->
-	<script type = "text/javascript"  src = "java1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/java1.js" ></script>
 	<title>Wall Post</title>
 </head>
 
@@ -86,7 +84,7 @@ if (isset($_POST["submit"])) {
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.php" class="homeLink">
+						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
 							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
@@ -99,9 +97,10 @@ if (isset($_POST["submit"])) {
 				<div class="sideBar">
 					<br/>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<p class="blankButton">New Post</p>
+					<p class="blankButton">Create Post</p>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
+					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>
 			</div>
@@ -112,12 +111,13 @@ if (isset($_POST["submit"])) {
 					<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
 						<fieldset class="largeColorsec">
 							<legend>New Anonymous Post</legend>
-
+							Post: <br/>
+							<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+							<br/>
+							<span class="errorMsg" id="errorComments"></span>
 							Picture (optional): <input type="file" name="postPic"></input>
-							<span class="errorMsg" id="errorUrl"></span><br></br>
-							Post: <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br></br><span class="errorMsg" id="errorComments"></span>
-
+							<span class="errorMsg" id="errorUrl"></span>
+							<br/>
 							<p>
 								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
 								<input type="reset" class="contentButtons" value="Reset"/>
@@ -131,12 +131,12 @@ if (isset($_POST["submit"])) {
 		<div class="row"> <!-- footer row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script type = "text/javascript"  src = "post1.js" ></script>
+	<script type = "text/javascript"  src = "scripts/post1.js" ></script>
 </body>
 </html>
