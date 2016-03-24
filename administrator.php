@@ -243,166 +243,166 @@ if(!isAdmin($_SESSION['login_user'])) {
 					</div>
 				</div>
 			</div>
-			<div class="row row-eq-height contentRow"> <!-- Content row!-->
-				<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
-					<div class="sideBar">
-						<br/>
-						<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-						<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
-						<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-						<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
-						<p class="blankButton">Admin</p>
-						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
-					</div>
-				</div>
-				<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
-					<div class="largeSec">
-						<!-- List of non-admins to be promoted !-->
-						<div class="nonAdminList">
-							<?php if(isSuperAdmin($_SESSION['login_user'])) { ?>
 
-								<ul class="nav nav-tabs">
-								  <li class="active"><a data-toggle="tab" href="#promote">Promote User</a></li>
-								  <li><a data-toggle="tab" href="#demote">Demote User</a></li>
-								  <li><a data-toggle="tab" href="#ban">Ban User</a></li>
-								</ul>
-
-								<div class="tab-content">
-								  <div id="promote" class="tab-pane fade in active">
-									<form action="administrator.php" method="POST">
-										<fieldset class="largeColorsec">
-											<legend>Promote User to Admin</legend>
-											<div id="selectorOptions" class="SelectOptions">
-												Choose a user to promote to an administrator:
-												<select id="promoteAdmin" class="selectBox" name="promoteAdmin">
-													<option value=""></option>
-													<?php	//cylce through and populate all of the non-admins
-														$result = getNonAdmin();
-														while($row = mysqli_fetch_assoc($result))
-														{
-															echo '<option value='. $row['userId'] . '>'
-															. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
-														}
-													?>
-												</select>
-											</div>
-											<p>
-												<input class="contentButtons" type="submit" value="Submit" />
-												<input class="contentButtons" type="reset"  value="Reset"  />
-											</p>
-										</fieldset>
-									</form>
-								  </div>
-
-								  <div id="demote" class="tab-pane fade">
-									<form action="administrator.php" method="POST">
-										<fieldset class="largeColorsec">
-											<legend>Demote User from Admin</legend>
-											<div id="selectorOptions" class="SelectOptions">
-												Choose a user to demote from an administrator:
-												<select id="demoteAdmin" class="selectBox" name="demoteAdmin">
-													<option value=""></option>
-													<?php	//cylce through and populate all of the non-admins
-														$result = getAdmin();
-														while($row = mysqli_fetch_assoc($result))
-														{
-															echo '<option value='. $row['userId'] . '>'
-															. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
-														}
-													?>
-												</select>
-											</div>
-											<p>
-												<input class="contentButtons" type="submit" value="Submit" />
-												<input class="contentButtons" type="reset"  value="Reset"  />
-											</p>
-										</fieldset>
-									</form>
-								  </div>
-
-								  <div id="ban" class="tab-pane fade">
-									<form action="administrator.php" method="POST">
-										<fieldset class="largeColorsec">
-											<legend>Ban User from URSpace</legend>
-											<div id="selectorOptions" class="SelectOptions">
-												Choose a user to ban from URSpace:
-												<select id="banUser" class="selectBox" name="banUser">
-													<option value=""></option>
-													<?php	//cylce through and populate all of the non-admins
-														$result = getNonAdmin();
-														while($row = mysqli_fetch_assoc($result))
-														{
-															echo '<option value='. $row['userId'] . '>'
-															. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
-														}
-													?>
-												</select>
-											</div>
-											<p>
-												<input class="contentButtons" type="submit" value="Submit" />
-												<input class="contentButtons" type="reset"  value="Reset"  />
-											</p>
-										</fieldset>
-									</form>
-								  </div>
-								</div>
-
-
-
-
-
-
-
-
-
-
-
-							<?php } ?>
+			<div class="row">
+				<div class="row row-eq-height contentRow"> <!-- Content row!-->
+					<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
+						<div class="sideBar">
+							<br/>
+							<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+							<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
+							<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+							<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
+							<p class="blankButton">Admin</p>
+							<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 						</div>
-						<br/>
-						<!-- reported posts to be reviewed and deleted !-->
-						<div id="wallArea">
-							<?php
-							$result = getReportedPosts();
-							while($row = mysqli_fetch_assoc($result))
-							{
-								$userReportedPost = $post["userReported"];
-								$postContent = htmlspecialchars($row['text']);
-								$image = false;
-								if (!is_null($row["uploadedFile"]))
-								{
-									$image = true;
-									$postFile = USER_IMAGE_UPLOAD_DIRECTORY . $row["uploadedFile"];
-								}
-								$postId = $row["postId"];
-								$postTimestamp = $row["timestamp"];
-								?>
-								<div class="wallPost" id="post<?=$postId?>">
-									<?php
-									if ($image)
-									{
-										?>
-										<img src="<?php echo $postFile; ?>" class="wallImg" alt="img">
-										<?php
-									}
-									?>
-									<p class="wallText">
-									<?php echo $postContent; ?>
-									</p>
-									<form action="administrator.php" method="POST">
-										<select id="action" class="selectBox" name="action">
-											<option value='resolve'>Resolve</option>
-											<option value='delete'>Delete</option>
-										</select>
-										<input type="hidden" name="id" value="<?=$postId?>">
-										<input type="submit" class="contentButton" value="Submit" />
-									</form>
-								</div>
+					</div>
+					<div class="col-xs-10"> <!-- Content column !-->
+						<div class="largeSec">
+							<!-- List of non-admins to be promoted !-->
+							<div class="nonAdminList">
+								<?php if(isSuperAdmin($_SESSION['login_user'])) { ?>
+
+									<ul class="nav nav-tabs">
+									  <li class="active"><a data-toggle="tab" href="#promote">Promote User</a></li>
+									  <li><a data-toggle="tab" href="#demote">Demote User</a></li>
+									  <li><a data-toggle="tab" href="#ban">Ban User</a></li>
+									</ul>
+
+									<div class="tab-content">
+								 		<div id="promote" class="tab-pane fade in active">
+									  		<div class="loginSection">
+												<form action="administrator.php" method="POST">
+													<fieldset class="largeColorsec">
+														<legend>Promote User to Admin</legend>
+														<div id="selectorOptions" class="SelectOptions">
+															<div class="adminText">Choose a user to promote to an administrator: </div>
+															<select id="promoteAdmin" class="selectBox" name="promoteAdmin">
+																<option value=""></option>
+																<?php	//cylce through and populate all of the non-admins
+																	$result = getNonAdmin();
+																	while($row = mysqli_fetch_assoc($result))
+																	{
+																		echo '<option value='. $row['userId'] . '>'
+																		. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
+																	}
+																?>
+															</select>
+														</div>
+														<p>
+															<input class="contentButtons" type="submit" value="Submit" />
+															<input class="contentButtons" type="reset"  value="Reset"  />
+														</p>
+													</fieldset>
+												</form>
+											</div>
+									  	</div>
+
+									  	<div id="demote" class="tab-pane fade">
+								  			<div class="loginSection">
+												<form action="administrator.php" method="POST">
+													<fieldset class="largeColorsec">
+														<legend>Demote User from Admin</legend>
+														<div id="selectorOptions" class="SelectOptions">
+															<div class="adminText">Choose a user to demote from an administrator: </div>
+															<select id="demoteAdmin" class="selectBox" name="demoteAdmin">
+																<option value=""></option>
+																<?php	//cylce through and populate all of the non-admins
+																	$result = getAdmin();
+																	while($row = mysqli_fetch_assoc($result))
+																	{
+																		echo '<option value='. $row['userId'] . '>'
+																		. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
+																	}
+																?>
+															</select>
+														</div>
+														<p>
+															<input class="contentButtons" type="submit" value="Submit" />
+															<input class="contentButtons" type="reset"  value="Reset"  />
+														</p>
+													</fieldset>
+												</form>
+											</div>
+									 	</div>
+
+									  	<div id="ban" class="tab-pane fade">
+									  		<div class="loginSection">
+												<form action="administrator.php" method="POST">
+													<fieldset class="largeColorsec">
+														<legend>Ban User from URSpace</legend>
+														<div id="selectorOptions" class="SelectOptions">
+														<div class="adminText"> Choose a user to ban from URSpace: </div>
+															<select id="banUser" class="selectBox" name="banUser">
+																<option value=""></option>
+																<?php	//cylce through and populate all of the non-admins
+																	$result = getNonAdmin();
+																	while($row = mysqli_fetch_assoc($result))
+																	{
+																		echo '<option value='. $row['userId'] . '>'
+																		. $row['firstName'] . ' ' . $row['lastName'] . '</option>';
+																	}
+																?>
+															</select>
+														</div>
+														<p>
+															<input class="contentButtons" type="submit" value="Submit" />
+															<input class="contentButtons" type="reset"  value="Reset"  />
+														</p>
+													</fieldset>
+												</form>
+											</div>
+									  	</div>
+									</div>
+
 							<?php } ?>
+							</div>
+							<br/>
+							<!-- reported posts to be reviewed and deleted !-->
+							<div id="wallArea">
+								<?php
+								$result = getReportedPosts();
+								while($row = mysqli_fetch_assoc($result))
+								{
+									$userReportedPost = $post["userReported"];
+									$postContent = htmlspecialchars($row['text']);
+									$image = false;
+									if (!is_null($row["uploadedFile"]))
+									{
+										$image = true;
+										$postFile = USER_IMAGE_UPLOAD_DIRECTORY . $row["uploadedFile"];
+									}
+									$postId = $row["postId"];
+									$postTimestamp = $row["timestamp"];
+									?>
+									<div class="wallPost" id="post<?=$postId?>">
+										<?php
+										if ($image)
+										{
+											?>
+											<img src="<?php echo $postFile; ?>" class="wallImg" alt="img">
+											<?php
+										}
+										?>
+										<p class="wallText">
+										<?php echo $postContent; ?>
+										</p>
+										<form action="administrator.php" method="POST">
+											<select id="action" class="selectBox" name="action">
+												<option value='resolve'>Resolve</option>
+												<option value='delete'>Delete</option>
+											</select>
+											<input type="hidden" name="id" value="<?=$postId?>">
+											<input type="submit" class="contentButton" value="Submit" />
+										</form>
+									</div>
+								<?php } ?>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="row"> <!-- footer row !-->
 				<div class="col-xs-12">
 					<div class="footer">

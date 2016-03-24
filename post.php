@@ -92,38 +92,40 @@ if (isset($_POST["submit"])) {
 			</div>
 		</div>
 
-		<div class="row row-eq-height contentRow"> <!-- Content row!-->
-			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
-				<div class="sideBar">
-					<br/>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<p class="blankButton">Create Post</p>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
-					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
-					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+		<div class="row">
+			<div class="row row-eq-height contentRow"> <!-- Content row!-->
+				<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
+					<div class="sideBar">
+						<br/>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+						<p class="blankButton">Create Post</p>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
+						<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
+						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+					</div>
 				</div>
-			</div>
 
-			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
-				<div class="signupSection">
-					<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
-					<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
-						<fieldset class="largeColorsec">
-							<legend>New Anonymous Post</legend>
-							Post: <br/>
-							<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br/>
-							<span class="errorMsg" id="errorComments"></span>
-							Picture (optional): <input type="file" name="postPic"></input>
-							<span class="errorMsg" id="errorUrl"></span>
-							<br/>
-							<p>
-								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
-								<input type="reset" class="contentButtons" value="Reset"/>
-							</p>
-						</fieldset>
-					</form>
+				<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
+					<div class="signupSection">
+						<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
+						<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
+							<fieldset class="largeColorsec">
+								<legend>New Anonymous Post</legend>
+								Post: <br/>
+								<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+								<br/>
+								<span class="errorMsg" id="errorComments"></span>
+								Picture (optional): <input type="file" name="postPic"></input>
+								<span class="errorMsg" id="errorUrl"></span>
+								<br/>
+								<p>
+									<input type="submit" class="contentButtons" name="submit" value="Submit"/>
+									<input type="reset" class="contentButtons" value="Reset"/>
+								</p>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

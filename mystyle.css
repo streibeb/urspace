@@ -16,6 +16,10 @@ margin-bottom: -15px;
 color:#3b5998;
 }
 
+legend {
+	border: 0px solid black;
+}
+
 .header{
 background-color: 	#333333;
 margin-top: -20px;
@@ -53,8 +57,7 @@ text-decoration:none;
 }
 
 .wallImg{
-	height: 250px;
-	width: 350px;
+	width: 30%;
 }
 
 
@@ -91,14 +94,11 @@ margin-left:150px;
 }
 
 .placeHolder{
-vertical-align:
-middle;
-width:115px;
-height:100px;
-	margin:10px;
-	margin-left:25px;
-
-
+	vertical-align:
+	middle;
+	width: 16.666%;
+	height:100px;
+	margin-top: 20px;
 }
 
 .homeLink{
@@ -120,11 +120,11 @@ color: #ffda30;
 
 .sideBarCol{
 	background-color: #595959;
-	margin-left: 15px;
-	margin-right: 15px;
-	/*used important so it overides bootstrap in this instance*/
+	/*margin-left: 15px;
+	/*margin-right: 15px;
+	/*used important so it overides bootstrap in this instance
 	padding-left: 0px !important;
-	padding-right: 0px !important;
+	padding-right: 0px !important; */
 }
 
 .ad{
@@ -292,7 +292,7 @@ NOTE: keep these colors the same as the color of the box*/
 }
 
 .selectBox {
-	width: 120px;
+	width: 180px;
 }
 
 .SelectOptions {
@@ -345,4 +345,36 @@ NOTE: keep these colors the same as the color of the box*/
 
 .contentRow {
 	min-height: 700px;
+	margin-right: 15px !important;
+	margin-left: 15px !important;
+}
+
+.inputIdent {
+	width: 80px;
+	float: left;
+}
+
+.courseInputIdent {
+	width: 220px;
+	float: left;
+}
+
+.adminText {
+	width: 30%;
+}
+
+.adminPost {
+	width: 280px;
+	float: left;
+}
+
+.loginLogo {
+	vertical-align: middle;
+	width: 25%;
+	height: 100px;
+}
+
+.signupText {
+	width: 170px;
+	float: left;
 }

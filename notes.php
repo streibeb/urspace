@@ -45,91 +45,94 @@ $result = mysqli_query($conn, "SELECT DISTINCT instructor FROM Courses;");
 			</div>
 		</div>
 
-		<div class="row row-eq-height contentRow"> <!-- Content Row !-->
-			<div class="col-xs-2 sideBarCol contentRow"> <!-- sidebar column !-->
-				<div class="sideBar">
-					<br/>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
-					<p class="blankButton">View Notes</p>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
-					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
-					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+		<div class="row">
+			<div class="row row-eq-height contentRow"> <!-- Content Row !-->
+				<div class="col-xs-2 sideBarCol"> <!-- sidebar column !-->
+					<div class="sideBar">
+						<br/>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
+						<p class="blankButton">View Notes</p>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
+						<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
+						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+					</div>
 				</div>
-			</div>
-			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- content column !-->
-				<div class="signupSection">
-					<form action="notes.php" method="GET" id="userSearchForm">
-						<fieldset class="largeColorsec">
-							<legend>Course Notes Search</legend>
-							<class id="courseSelector">
-								<div id="selectorOptions" class="SelectOptions">
-									Please select an instructor name:
-									<select id="instructor" class="selectBox" name="instructor">
-										<option value=""></option>
-										<?php
-										//cylce through and populate all of the instructor values
-										while($row = mysqli_fetch_assoc($result)){
-											echo '<option value='.$row['instructor'].'>'.$row['instructor'].'</option>';
-										}
-										?>
-									</select>
-								</div>
+				<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- content column !-->
+					<div class="signupSection">
+						<form action="notes.php" method="GET" id="userSearchForm">
+							<fieldset class="largeColorsec">
+								<legend>Course Notes Search</legend>
+								<class id="courseSelector">
+									<div id="selectorOptions" class="SelectOptions">
+										<div class="courseInputIdent"> Please select an instructor name: </div>
+										<select id="instructor" class="selectBox" name="instructor">
+											<option value=""></option>
+											<?php
+											//cylce through and populate all of the instructor values
+											while($row = mysqli_fetch_assoc($result)){
+												echo '<option value='.$row['instructor'].'>'.$row['instructor'].'</option>';
+											}
+											?>
+										</select>
+									</div>
+
+									<div id="selectorOptions" class="SelectOptions">
+										<div class="courseInputIdent"> Please select a course name: </div>
+										<select id="courseName" class="selectBox" name="courseName"></select><!-- Will recieve course name from AJAX!-->
+									</div>
+								</class>
 
 								<div id="selectorOptions" class="SelectOptions">
-									Please select a course name:
-									<select id="courseName" class="selectBox" name="courseName"></select><!-- Will recieve course name from AJAX!-->
+									<div class="courseInputIdent"> Please select a course number: </div>
+									<select id="courseNumber" class="selectBox" name="courseNumber")></select><!-- Will recieve course number from AJAX!-->
 								</div>
-							</class>
+								<span class="errorMsg" id="search1error"></span>
+								<p>
+									<input class="contentButtons" type="submit" value="Submit"/>
+									<input class="contentButtons" type="reset" value="Reset"/>
+								</p>
+							</fieldset>
+						</form>
+					</div>
 
-							<div id="selectorOptions" class="SelectOptions">
-								Please select a course number:
-								<select id="courseNumber" class="selectBox" name="courseNumber")></select><!-- Will recieve course number from AJAX!-->
-							</div>
-							<span class="errorMsg" id="search1error"></span>
-							<p>
-								<input class="contentButtons" type="submit" value="Submit"/>
-								<input class="contentButtons" type="reset" value="Reset"/>
-							</p>
-						</fieldset>
-					</form>
-				</div>
+					<div class="largeSec">
+					<?php
+					//check if course name, instructor, course number are selected
+						$instructor = $_GET['instructor'];
+						$courseName = $_GET['courseName'];
+						$courseNumber = $_GET['courseNumber'];
 
-				<div class="largeSec">
-				<?php
-				//check if course name, instructor, course number are selected
-					$instructor = $_GET['instructor'];
-					$courseName = $_GET['courseName'];
-					$courseNumber = $_GET['courseNumber'];
-
-					if (isset($instructor) && isset($courseName) && isset($courseNumber)){
-						$query = "SELECT n.*
-						FROM Notes n
-						JOIN Courses c ON n.parentCourseId = c.courseId
-						WHERE c.courseName='$courseName'
-							AND c.courseNumber = '$courseNumber'
-							AND c.instructor='$instructor'
-							AND n.isHidden = false;";
-						$result = mysqli_query($conn, $query);
-					}
-					//print out each note avaiable based on the options slected
-					while($row = mysqli_fetch_assoc($result)){
-						echo "<div class=wallPost>";
-						echo "<h2>$instructor $courseName $courseNumber</h2>";
-						echo "<p class=wallText> ".$row['text']." ";
-						echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'"><button>Download Attached File</button> </a>';
-						//echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
-						echo '<p class="p3">' . $row['timestamp'];
-						echo "</p>";
-						if ($_SESSION['isAdmin'] || $uid == $row["creatorId"]) {
-							echo '<button id="delete_' . $row["notesId"] . '" class="deleteButton">Delete</button>';
+						if (isset($instructor) && isset($courseName) && isset($courseNumber)){
+							$query = "SELECT n.*
+							FROM Notes n
+							JOIN Courses c ON n.parentCourseId = c.courseId
+							WHERE c.courseName='$courseName'
+								AND c.courseNumber = '$courseNumber'
+								AND c.instructor='$instructor'
+								AND n.isHidden = false;";
+							$result = mysqli_query($conn, $query);
 						}
-						echo "</div>";
-					}
-					?>
+						//print out each note avaiable based on the options slected
+						while($row = mysqli_fetch_assoc($result)){
+							echo "<div class=wallPost>";
+							echo "<h2>$instructor $courseName $courseNumber</h2>";
+							echo "<p class=wallText> ".$row['text']." ";
+							echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'"><button>Download Attached File</button> </a>';
+							//echo '<br/><a href="'.USER_NOTES_UPLOAD_DIRECTORY.$row['uploadedFile'].'">'.$row['uploadedFile'].'</a>';
+							echo '<p class="p3">' . $row['timestamp'];
+							echo "</p>";
+							if ($_SESSION['isAdmin'] || $uid == $row["creatorId"]) {
+								echo '<button id="delete_' . $row["notesId"] . '" class="deleteButton">Delete</button>';
+							}
+							echo "</div>";
+						}
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 		<div class="row"> <!-- Footer Row !-->
 			<div class="col-xs-12">
 				<div class="footer">
