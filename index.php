@@ -86,76 +86,79 @@ mysqli_close($conn);
 				</div>
 			</div>
 		</div>
-		<div class="row row-eq-height contentRow"> <!-- Content row!-->
-			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
-				<div class="sideBar">
-					<br/>
-					<p class="blankButton">View Posts</p>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
-					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
-					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
-					<br></br>
+		<div class="row">
+			<div class="row row-eq-height contentRow"> <!-- Content row!-->
+				<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
+					<div class="sideBar">
+						<br/>
+						<p class="blankButton">View Posts</p>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
+						<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
+						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+						<br></br>
+					</div>
 				</div>
-			</div>
-			<div class="col-xs-10"> <!-- content column !-->
-				<div class="largeSec">
-					<div id="wallArea">
-					<?php while($row = mysqli_fetch_assoc($result)) {
-						$userReportedPost = $row["userReported"];
-						$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
-						$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
+				<div class="col-xs-10"> <!-- content column !-->
+					<div class="largeSec">
+						<div id="wallArea">
+						<?php while($row = mysqli_fetch_assoc($result)) {
+							$userReportedPost = $row["userReported"];
+							$reportButtonClass = $userReportedPost ? "reportButtonPressed" : "reportButton";
+							$reportButtonText = $userReportedPost ? "Post Reported" : "Report Post";
 
-						$postContent = htmlspecialchars($row['text']);
-						$image = false;
-						if (!is_null($row["uploadedFile"])) {
-							$image = true;
-							$postFile = USER_IMAGE_UPLOAD_DIRECTORY . $row["uploadedFile"];
-						}
-						$postId = $row["postId"];
-						$postTimestamp = $row["timestamp"];
-						$postNumComments = $row["numOfComments"];
-					?>
-						<div class="wallPost" id="post<?=$pid?>">
-						<div>
-							<?php if ($image) { ?>
-							<img src="<?php echo $postFile; ?>" class="wallImg" alt="img">
+							$postContent = htmlspecialchars($row['text']);
+							$image = false;
+							if (!is_null($row["uploadedFile"])) {
+								$image = true;
+								$postFile = USER_IMAGE_UPLOAD_DIRECTORY . $row["uploadedFile"];
+							}
+							$postId = $row["postId"];
+							$postTimestamp = $row["timestamp"];
+							$postNumComments = $row["numOfComments"];
+						?>
+							<div class="wallPost" id="post<?=$pid?>">
+							<div>
+								<?php if ($image) { ?>
+								<img src="<?php echo $postFile; ?>" class="wallImg" alt="img">
+								<?php } ?>
+							</div>
+							<p class="wallText"><?php echo $postContent; ?></p>
+							<p class="p3">
+								Posted Anonymously at <?php echo $postTimestamp; ?> -
+								<a href="comment.php?a=<?php echo $postId;?>">
+									<span id="commentCounter<?php echo $postId;?>">
+										<?php echo $postNumComments;
+	                  if ($postNumComments != 1) { ?>
+	                      Comments
+	                  <?php } else { ?>
+	                      Comment
+	                	<?php } ?>
+									</span>
+								</a>
+							</p>
+							<button id="report_<?php echo $postId;?>" class="<?php echo $reportButtonClass;?>"><?php echo $reportButtonText;?></button>
+							<?php if ($_SESSION['isAdmin'] || $uid == $row["creatorId"]) { ?>
+							<button id="delete_<?php echo $postId;?>" class="deleteButton">Delete</button>
 							<?php } ?>
-						</div>
-						<p class="wallText"><?php echo $postContent; ?></p>
-						<p class="p3">
-							Posted Anonymously at <?php echo $postTimestamp; ?> -
-							<a href="comment.php?a=<?php echo $postId;?>">
-								<span id="commentCounter<?php echo $postId;?>">
-									<?php echo $postNumComments;
-                  if ($postNumComments != 1) { ?>
-                      Comments
-                  <?php } else { ?>
-                      Comment
-                	<?php } ?>
-								</span>
-							</a>
-						</p>
-						<button id="report_<?php echo $postId;?>" class="<?php echo $reportButtonClass;?>"><?php echo $reportButtonText;?></button>
-						<?php if ($_SESSION['isAdmin'] || $uid == $row["creatorId"]) { ?>
-						<button id="delete_<?php echo $postId;?>" class="deleteButton">Delete</button>
+							</div>
 						<?php } ?>
 						</div>
-					<?php } ?>
-					</div>
-					<div id="linksArea" class="pageSelect">
-					<?php if ($pageNum > 1) { ?>
-               <a href="<?=SIDEBAR_VIEW_POSTS?>?page=<?=$pageNum-1?>"><button id="lastPage">&lt;&lt;</button></a>
-           <?php } ?>
-           <span id="pageIndicator"><?=$pageNum?></span>
-           <?php if ($pageNum < $totalPages) { ?>
-               <a href="<?=SIDEBAR_VIEW_POSTS?>?page=<?=$pageNum+1?>"><button id="nextPage">&gt;&gt;</button></a>
-           <?php } ?>
+						<div id="linksArea" class="pageSelect">
+						<?php if ($pageNum > 1) { ?>
+	               <a href="<?=SIDEBAR_VIEW_POSTS?>?page=<?=$pageNum-1?>"><button id="lastPage">&lt;&lt;</button></a>
+	           <?php } ?>
+	           <span id="pageIndicator"><?=$pageNum?></span>
+	           <?php if ($pageNum < $totalPages) { ?>
+	               <a href="<?=SIDEBAR_VIEW_POSTS?>?page=<?=$pageNum+1?>"><button id="nextPage">&gt;&gt;</button></a>
+	           <?php } ?>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="footer">
