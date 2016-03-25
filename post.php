@@ -7,11 +7,7 @@ include_once("config.php");
 include_once("include.php");
 
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
-	exit();
-}
+checkUserSession();
 
 $uid = $_SESSION['login_user'];
 
@@ -88,7 +84,7 @@ if (isset($_POST["submit"])) {
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.php" class="homeLink">
+						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
 							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
@@ -96,37 +92,40 @@ if (isset($_POST["submit"])) {
 			</div>
 		</div>
 
-		<div class="row row-eq-height contentRow"> <!-- Content row!-->
-			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
-				<div class="sideBar">
-					<br/>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<p class="blankButton">New Post</p>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
-					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+		<div class="row">
+			<div class="row row-eq-height contentRow"> <!-- Content row!-->
+				<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
+					<div class="sideBar">
+						<br/>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+						<p class="blankButton">Create Post</p>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
+						<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
+						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+					</div>
 				</div>
-			</div>
 
-			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
-				<div class="signupSection">
-					<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
-					<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
-						<fieldset class="largeColorsec">
-							<legend>New Anonymous Post</legend>
-							Post: <br/>
-							<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br/>
-							<span class="errorMsg" id="errorComments"></span>
-							Picture (optional): <input type="file" name="postPic"></input>
-							<span class="errorMsg" id="errorUrl"></span>
-							<br/>
-							<p>
-								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
-								<input type="reset" class="contentButtons" value="Reset"/>
-							</p>
-						</fieldset>
-					</form>
+				<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
+					<div class="signupSection">
+						<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
+						<form action="post.php" method="POST" enctype="multipart/form-data" id="postForm">
+							<fieldset class="largeColorsec">
+								<legend>New Anonymous Post</legend>
+								Post: <br/>
+								<textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+								<br/>
+								<span class="errorMsg" id="errorComments"></span>
+								Picture (optional): <input type="file" name="postPic"></input>
+								<span class="errorMsg" id="errorUrl"></span>
+								<br/>
+								<p>
+									<input type="submit" class="contentButtons" name="submit" value="Submit"/>
+									<input type="reset" class="contentButtons" value="Reset"/>
+								</p>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -134,7 +133,7 @@ if (isset($_POST["submit"])) {
 		<div class="row"> <!-- footer row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>

@@ -4,10 +4,7 @@ include_once("include.php");
 //start session
 session_start();
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
-}
+checkUserSession();
 
 if (isset($_GET["a"])) {
 	$uid = $_SESSION['login_user'];
@@ -66,8 +63,9 @@ if (isset($_GET["a"])) {
 				<div class="sideBar">
 					<br/>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">Create Post</a>
 					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+					<a class="buttons" href="<?php echo SIDEBAR_CREATE_NOTES; ?>">Create Notes</a>
 					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
 					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
 				</div>
@@ -125,7 +123,7 @@ if (isset($_GET["a"])) {
 		<div class="row"> <!-- Footer Row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>

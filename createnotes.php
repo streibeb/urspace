@@ -7,11 +7,8 @@ include_once("config.php");
 include_once("include.php");
 
 // if user not logged in, redirect to homepage
-if(!isset($_SESSION['login_user']))
-{
-	header('Location: index.php');
-	exit();
-}
+checkUserSession();
+$uid = $_SESSION['login_user'];
 
 //before submission code to populate the dropdown lists
 
@@ -57,7 +54,7 @@ if (isset($_POST["submit"])) {
 		}
 	}
 
-	$uid = $_SESSION['login_user'];
+	//$uid = $_SESSION['login_user'];
 	$content = htmlspecialchars(addslashes(trim($_POST['post1'])));
 
 	$instructor = htmlspecialchars(addslashes(trim($_POST['instructor'])));
@@ -115,7 +112,7 @@ if (isset($_POST["submit"])) {
 			<div class="col-xs-12">
 				<div class="header">
 					<h1>
-						<a href="index.php" class="homeLink">
+						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
 							<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
@@ -123,66 +120,69 @@ if (isset($_POST["submit"])) {
 			</div>
 		</div>
 
-		<div class="row row-eq-height contentRow"> <!-- Content row!-->
-			<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
-				<div class="sideBar">
-					<br/>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
-					<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
-					<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
-					<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
-					<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+		<div class="row">
+			<div class="row row-eq-height contentRow"> <!-- Content row!-->
+				<div class="col-xs-2 sideBarCol"> <!--Sidebar column !-->
+					<div class="sideBar">
+						<br/>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_POSTS; ?>">View Wall</a>
+						<a class="buttons" href="<?php echo SIDEBAR_CREATE_POSTS; ?>">New Post</a>
+						<a class="buttons" href="<?php echo SIDEBAR_VIEW_NOTES; ?>">View Notes</a>
+						<p class="blankButton">Create Notes</p>
+						<?php if (isAdmin($uid)) { ?><a class="buttons" href="<?php echo SIDEBAR_ADMIN; ?>">Admin</a><?php } ?>
+						<a class="buttons" href="<?php echo SIDEBAR_LOGOUT; ?>">Logout</a>
+					</div>
 				</div>
-			</div>
 
-			<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
-				<div class="signupSection">
-					<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
-					<form action="createnotes.php" method="POST" enctype="multipart/form-data" id="postForm">
-						<fieldset class="largeColorsec">
-							<legend>Add New Notes</legend>
+				<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
+					<div class="signupSection">
+						<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
+						<form action="createnotes.php" method="POST" enctype="multipart/form-data" id="postForm">
+							<fieldset class="largeColorsec">
+								<legend>Add New Notes</legend>
 
-							<class id="courseSelector">
+								<class id="courseSelector">
+									<div id="selectorOptions" class="SelectOptions">
+										<div class="courseInputIdent"> Please select an instructor name: </div>
+										<select id="instructor" class="selectBox" name="instructor" required>
+											<option value=""></option>
+											<?php
+
+											//cylce through and populate all of the instructor values
+											while($row = mysqli_fetch_assoc($result)){
+												echo '<option value='.$row['instructor'].'>'.$row['instructor'].'</option>';
+											}
+
+											//after its done populating instructor, close the connection
+											mysqli_free_result($result);
+											mysqli_close($conn);
+											?>
+										</select>
+									</div>
+
+									<div id="selectorOptions" class="SelectOptions">
+										<div class="courseInputIdent"> Please select a course name: </div>
+										<select id="courseName" class="selectBox" name="courseName" required></select><!-- Will recieve course name from AJAX!-->
+									</div>
+								</class>
+
 								<div id="selectorOptions" class="SelectOptions">
-									Please select an instructor name:
-									<select id="instructor" class="selectBox" name="instructor" required>
-										<option value=""></option>
-										<?php
-
-										//cylce through and populate all of the instructor values
-										while($row = mysqli_fetch_assoc($result)){
-											echo '<option value='.$row['instructor'].'>'.$row['instructor'].'</option>';
-										}
-
-										//after its done populating instructor, close the connection
-										mysqli_free_result($result);
-										mysqli_close($conn);
-										?>
-									</select>
+									<div class="courseInputIdent"> Please select a course number: </div>
+									<select id="courseNumber" class="selectBox" name="courseNumber" required></select><!-- Will recieve course number from AJAX!-->
 								</div>
 
-								<div id="selectorOptions" class="SelectOptions">
-									Please select a course name:
-									<select id="courseName" class="selectBox" name="courseName" required></select><!-- Will recieve course name from AJAX!-->
-								</div>
-							</class>
+								Note Upload: <input type="file" name="postPic" required></input>
+								<span class="errorMsg" id="errorUrl"></span><br></br>
+								Additional Information (Optional): <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
+								<br></br><span class="errorMsg" id="errorComments"></span>
 
-							<div id="selectorOptions" class="SelectOptions">
-								Please select a course number:
-								<select id="courseNumber" class="selectBox" name="courseNumber" required></select><!-- Will recieve course number from AJAX!-->
-							</div>
-
-							Note Upload: <input type="file" name="postPic" required></input>
-							<span class="errorMsg" id="errorUrl"></span><br></br>
-							Additional Information (Optional): <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
-							<br></br><span class="errorMsg" id="errorComments"></span>
-
-							<p>
-								<input type="submit" class="contentButtons" name="submit" value="Submit"/>
-								<input type="reset" class="contentButtons" value="Reset"/>
-							</p>
-						</fieldset>
-					</form>
+								<p>
+									<input type="submit" class="contentButtons" name="submit" value="Submit"/>
+									<input type="reset" class="contentButtons" value="Reset"/>
+								</p>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -190,7 +190,7 @@ if (isset($_POST["submit"])) {
 		<div class="row"> <!-- footer row !-->
 			<div class="col-xs-12">
 				<div class="footer">
-					<p class="p2">2015 Department of Computer Science CS 215</p>
+					<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 				</div>
 			</div>
 		</div>

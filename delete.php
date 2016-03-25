@@ -31,7 +31,20 @@ function hardDeletePost($db, $pid, $uid) {
   }
 }
 
-function hardDeleteNotes($db, $pid, $uid) {
+function softDeleteNotes($db, $nid, $uid) {
+  $sResp = array();
+
+  $query = "UPDATE Notes SET isHidden = true WHERE notesId = $nid AND creatorId = $uid";
+  $result = mysqli_query($db, $query);
+  if ($result) {
+    $sRow["notesId"] = $nid;
+    $sRow["notesHidden"] = true;
+    $rResp[] = $sRow;
+    echo json_encode($rResp);
+  }
+}
+
+function hardDeleteNotes($db, $nid, $uid) {
   $sResp = array();
 
   // TODO: Need to delete file here
@@ -39,7 +52,7 @@ function hardDeleteNotes($db, $pid, $uid) {
   $query = "DELETE FROM Notes WHERE notesId = '$nid';";
   $result = mysqli_query($db, $query);
   if ($result) {
-    $sRow["notesId"] = $pid;
+    $sRow["notesId"] = $nid;
     $sRow["notesDeleted"] = true;
     $rResp[] = $sRow;
     echo json_encode($rResp);
@@ -68,7 +81,7 @@ if (isset($_SESSION["login_user"])) {
     if (!$isAdmin) {
       if (!is_null($pid) && !is_null($nid)) break;
       else if (!is_null($pid)) softDeletePost($db, $pid, $uid);
-      else if (!is_null($nid)) hardDeleteNotes($db, $nid, $uid);
+      else if (!is_null($nid)) softDeleteNotes($db, $nid, $uid);
     } else {
       if (!is_null($pid) && !is_null($nid)) break;
       else if (!is_null($pid)) hardDeletePost($db, $pid, $uid);

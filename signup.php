@@ -4,7 +4,7 @@ session_start();
 //If the user is already logged in, take them to the wall page.
 if(isset($_SESSION['login_user']))
 {
-	header('Location: wall.php');
+	header('Location: '.SIDEBAR_VIEW_POSTS);
 }
 ?>
 
@@ -26,7 +26,7 @@ if(isset($_SESSION['login_user']))
 				<div class="header">
 					<h1>
 						<a href="<?=SIDEBAR_VIEW_POSTS?>" class="homeLink">
-							<img src="blank.jpg" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
+						<img src="logo.png" class="placeHolder" alt="img"></img> <?php echo WEBSITE_NAME; ?>
 						</a>
 					</h1>
 				</div>
@@ -37,17 +37,17 @@ if(isset($_SESSION['login_user']))
 				<form action="signupConfirmation.php" method="post" enctype="multipart/form-data" id="signupForm">
 					<fieldset class="standardSec">
 						<legend>Sign Up</legend>
-						First Name: <input type="text" name="fName" id ="fName"></input>
+						<div class="signupText"> First Name: </div> <input type="text" name="fName" id ="fName"></input>
 						<span class="errorMsg" id="fNameerror"></span><br></br>
-						Last Name: <input type="text" name="lName" id ="lName"></input>
+						<div class="signupText">Last Name: </div> <input type="text" name="lName" id ="lName"></input>
 						<span class="errorMsg" id="lNameerror"></span><br></br>
-						Birthdate (YYYY-MM-DD): <input type="text" name="bDay" id="bDay"></input>
+						<div class="signupText">Birthdate (YYYY-MM-DD): </div><input type="text" name="bDay" id="bDay"></input>
 						<span class="errorMsg" id="bDayerror"></span><br></br>
-						Email: <input type="text" name="eMail" id="eMail"></input>
+						<div class="signupText">Email: </div><input type="text" name="eMail" id="eMail"></input>
 						<span class="errorMsg" id="eMailerror"></span><br></br>
-						Password: <input type="password" name="pWord1" id="pWord1"></input>
+						<div class="signupText">Password:</div> <input type="password" name="pWord1" id="pWord1"></input>
 						<span class="errorMsg" id="pWord1error"></span><br></br>
-						Re-enter Password: <input type="password" name="pWord2" id="pWord2"></input>
+						<div class="signupText">Re-enter Password:</div> <input type="password" name="pWord2" id="pWord2"></input>
 						<span class="errorMsg" id="pWord2error"></span>
 						<p>
 							<input type="submit" value="Submit"/>
@@ -61,7 +61,7 @@ if(isset($_SESSION['login_user']))
 	<div class="row"><!-- Row for footer !-->
 		<div class="col-xs-12">
 			<div class="footer">
-				<p class="p2">2015 Department of Computer Science CS 215</p>
+				<p class="p2">UR Space Copyright © 2016 All Rights Reserved</p>
 			</div>
 		</div>
 	</div>

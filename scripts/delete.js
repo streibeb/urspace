@@ -27,10 +27,9 @@ function DeletePost(Event) {
       var responseObj = JSON.parse(xhr.responseText);
       console.log(responseObj);
       if (responseObj[0].postHidden) {
-        var element = document.getElementById("post" + pid);
-        element.parentNode.removeChild(element);
+        location.reload(true);
       } else if (responseObj[0].postDeleted) {
-        window.location.href = "/cs372/wall.php";
+        window.location.href = "/cs372/index.php";
       }
     }
   }
@@ -48,12 +47,14 @@ function DeleteNote(Event) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var responseObj = JSON.parse(xhr.responseText);
       console.log(responseObj);
-
-      if (responseObj[0].notesDeleted) {
-        window.location.href = "/cs372/wall.php";
+      if (responseObj[0].notesHidden) {
+        location.reload(true);
+      } else if (responseObj[0].notesDeleted) {
+        window.location.href = "/cs372/index.php";
       }
     }
   }
+  console.log(nid);
   xhr.open("POST","delete.php",true);
   xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xhr.send("nid=" + nid);
