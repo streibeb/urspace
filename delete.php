@@ -66,12 +66,13 @@ if (isset($_SESSION["login_user"])) {
     }
 
     if (!$isAdmin) {
-      if (!is_null($pid)) softDeletePost($db, $pid, $uid);
+      if (!is_null($pid) && !is_null($nid)) break;
+      else if (!is_null($pid)) softDeletePost($db, $pid, $uid);
       else if (!is_null($nid)) hardDeleteNotes($db, $nid, $uid);
-      mysqli_close($db);
     } else {
-      if (!is_null($pid)) hardDeletePost($db, $pid, $uid);
+      if (!is_null($pid) && !is_null($nid)) break;
+      else if (!is_null($pid)) hardDeletePost($db, $pid, $uid);
       else if (!is_null($nid)) hardDeleteNotes($db, $nid, $uid);
-      mysqli_close($db);
     }
+    mysqli_close($db);
 }
