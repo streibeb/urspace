@@ -137,7 +137,7 @@ if (isset($_POST["submit"])) {
 				<div class="col-xs-10 col-md-6 col-md-offset-2"> <!-- Content column !-->
 					<div class="signupSection">
 						<?php if (isset($err)) echo "<p>An error has occurred.<br/>'$err'</p>" ?>
-						<form action="createnotes.php" method="POST" enctype="multipart/form-data" id="postForm">
+						<form action="createNotes.php" method="POST" enctype="multipart/form-data" id="postForm">
 							<fieldset class="largeColorsec">
 								<legend>Add New Notes</legend>
 
