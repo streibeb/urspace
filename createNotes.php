@@ -34,6 +34,7 @@ if (isset($_POST["submit"])) {
 	$row = '';
 	$parentCourseId = '';
 	$result = '';
+	$uploaded = false;
 
 	$tempFile = USER_NOTES_UPLOAD_DIRECTORY . basename($_FILES["postPic"]["name"]);
 	$ext = strtolower(pathinfo($tempFile, PATHINFO_EXTENSION));
@@ -49,6 +50,7 @@ if (isset($_POST["submit"])) {
 	} else {
 		if (move_uploaded_file($_FILES["postPic"]["tmp_name"], $target_file)) {
 			//echo basename( $_FILES["postPic"]["name"]). " has been uploaded.";
+			$uploaded = true;
 		} else {
 			$err = "Error uploading image to database.";
 		}
@@ -78,9 +80,12 @@ if (isset($_POST["submit"])) {
 
 	}
 
-	//uploading a file is now required to continue
-	$sql = "INSERT INTO Notes (parentCourseId, timestamp,creatorId, text, uploadedFile, isHidden)
-	VALUES ('$parentCourseId', '$date','$uid','$content','$filename', '0');";
+	//uploading a file is now required to continue, check if file has been uploaded
+	if ($uploaded){
+		$sql = "INSERT INTO Notes (parentCourseId, timestamp,creatorId, text, uploadedFile, isHidden)
+		VALUES ('$parentCourseId', '$date','$uid','$content','$filename', '0');";
+	}
+
 
 	//upload post to database
 	if (!mysqli_query($conn, $sql)) {
@@ -170,8 +175,8 @@ if (isset($_POST["submit"])) {
 									<div class="courseInputIdent"> Please select a course number: </div>
 									<select id="courseNumber" class="selectBox" name="courseNumber" required></select><!-- Will recieve course number from AJAX!-->
 								</div>
-
-								Note Upload: <input type="file" name="postPic" required></input>
+								<br>
+								Note Upload (jpg, pdf, docx, png, jpeg): <input type="file" name="postPic" required></input>
 								<span class="errorMsg" id="errorUrl"></span><br></br>
 								Additional Information (Optional): <br></br><textarea class="textBox" name="post1" rows="7" cols="100"></textarea>
 								<br></br><span class="errorMsg" id="errorComments"></span>
